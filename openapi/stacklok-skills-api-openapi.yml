@@ -1,0 +1,1120 @@
+openapi: 3.1.0
+info:
+  contact:
+    url: https://github.com/stacklok/toolhive
+  description: 'API for accessing MCP server registry data and deployed server information
+
+    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
+
+    get information about available servers, and check the status of deployed servers.
+
+
+    Authentication is required by default. Use Bearer token authentication with a valid
+
+    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
+
+    OAuth discovery metadata (RFC 9728).'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ToolHive Registry clients skills API
+  version: '0.1'
+tags:
+- name: skills
+paths:
+  /registry/{registryName}/v0.1/x/dev.toolhive/skills:
+    get:
+      description: List skills in a registry (paginated, latest versions).
+      parameters:
+      - description: Registry name
+        in: path
+        name: registryName
+        required: true
+        schema:
+          type: string
+      - description: Filter by name/description substring
+        in: query
+        name: search
+        schema:
+          type: string
+      - description: Filter by status (comma-separated, e.g. active,deprecated)
+        in: query
+        name: status
+        schema:
+          type: string
+      - description: Max results (default 50, max 100)
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - description: Pagination cursor
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internal_api_x_skills.SkillListResponse'
+          description: List of skills
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      security:
+      - BearerAuth: []
+      summary: List skills in registry
+      tags:
+      - skills
+  /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name}:
+    get:
+      description: Get the latest version of a skill by namespace and name.
+      parameters:
+      - description: Registry name
+        in: path
+        name: registryName
+        required: true
+        schema:
+          type: string
+      - description: Skill namespace (reverse-DNS)
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+      - description: Skill name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registry.Skill'
+          description: Skill details
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Skill not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      security:
+      - BearerAuth: []
+      summary: Get latest skill version
+      tags:
+      - skills
+  /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name}/versions:
+    get:
+      description: List all versions of a skill.
+      parameters:
+      - description: Registry name
+        in: path
+        name: registryName
+        required: true
+        schema:
+          type: string
+      - description: Skill namespace (reverse-DNS)
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+      - description: Skill name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internal_api_x_skills.SkillListResponse'
+          description: List of skill versions
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Skill not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      security:
+      - BearerAuth: []
+      summary: List skill versions
+      tags:
+      - skills
+  /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name}/versions/{version}:
+    get:
+      description: Get a specific version of a skill.
+      parameters:
+      - description: Registry name
+        in: path
+        name: registryName
+        required: true
+        schema:
+          type: string
+      - description: Skill namespace (reverse-DNS)
+        in: path
+        name: namespace
+        required: true
+        schema:
+          type: string
+      - description: Skill name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Skill version
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registry.Skill'
+          description: Skill details
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Skill or version not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      security:
+      - BearerAuth: []
+      summary: Get specific skill version
+      tags:
+      - skills
+  /api/v1beta/skills:
+    get:
+      description: Get a list of all installed skills
+      parameters:
+      - description: Filter by scope (user or project)
+        in: query
+        name: scope
+        schema:
+          enum:
+          - user
+          - project
+          type: string
+      - description: Filter by client app
+        in: query
+        name: client
+        schema:
+          type: string
+      - description: Filter by project root path
+        in: query
+        name: project_root
+        schema:
+          type: string
+      - description: Filter by group name
+        in: query
+        name: group
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.skillListResponse'
+          description: OK
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: List all installed skills
+      tags:
+      - skills
+    post:
+      description: Install a skill from a remote source
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.installSkillRequest'
+                description: Install request
+                summary: request
+        description: Install request
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.installSkillResponse'
+          description: Created
+          headers:
+            Location:
+              description: URI of the installed skill resource
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Unauthorized (registry refused credentials)
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found (artifact not present in registry)
+        '409':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Conflict
+        '429':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Too Many Requests (registry rate limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+        '502':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Gateway (upstream registry failure)
+        '504':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Gateway Timeout (upstream pull timed out)
+      summary: Install a skill
+      tags:
+      - skills
+  /api/v1beta/skills/{name}:
+    delete:
+      description: Remove an installed skill
+      parameters:
+      - description: Skill name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Scope to uninstall from (user or project)
+        in: query
+        name: scope
+        schema:
+          enum:
+          - user
+          - project
+          type: string
+      - description: Project root path for project-scoped skills
+        in: query
+        name: project_root
+        schema:
+          type: string
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No Content
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: Uninstall a skill
+      tags:
+      - skills
+    get:
+      description: Get detailed information about a specific skill
+      parameters:
+      - description: Skill name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Filter by scope (user or project)
+        in: query
+        name: scope
+        schema:
+          enum:
+          - user
+          - project
+          type: string
+      - description: Project root path for project-scoped skills
+        in: query
+        name: project_root
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.SkillInfo'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: Get skill details
+      tags:
+      - skills
+  /api/v1beta/skills/build:
+    post:
+      description: Build a skill from a local directory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.buildSkillRequest'
+                description: Build request
+                summary: request
+        description: Build request
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.BuildResult'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: Build a skill
+      tags:
+      - skills
+  /api/v1beta/skills/builds:
+    get:
+      description: Get a list of all locally-built OCI skill artifacts in the local store
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.buildListResponse'
+          description: OK
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: List locally-built skill artifacts
+      tags:
+      - skills
+  /api/v1beta/skills/builds/{tag}:
+    delete:
+      description: Remove a locally-built OCI skill artifact and its blobs from the local store
+      parameters:
+      - description: Artifact tag
+        in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No Content
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: Delete a locally-built skill artifact
+      tags:
+      - skills
+  /api/v1beta/skills/content:
+    get:
+      description: 'Retrieve the SKILL.md body and file listing from an artifact
+
+        without installing it. Accepts OCI refs, git refs, or local tags.'
+      parameters:
+      - description: OCI reference or local build tag
+        in: query
+        name: ref
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.SkillContent'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Unauthorized (registry refused credentials)
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found (artifact not present in registry)
+        '429':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Too Many Requests (registry rate limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+        '502':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Gateway (upstream registry or git resolver failure)
+        '504':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Gateway Timeout (upstream pull timed out)
+      summary: Get skill content
+      tags:
+      - skills
+  /api/v1beta/skills/push:
+    post:
+      description: Push a built skill artifact to a remote registry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.pushSkillRequest'
+                description: Push request
+                summary: request
+        description: Push request
+        required: true
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No Content
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: Push a skill
+      tags:
+      - skills
+  /api/v1beta/skills/validate:
+    post:
+      description: Validate a skill definition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.validateSkillRequest'
+                description: Validate request
+                summary: request
+        description: Validate request
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.ValidationResult'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: Validate a skill
+      tags:
+      - skills
+components:
+  schemas:
+    internal_api_x_skills.SkillListResponse:
+      properties:
+        metadata:
+          $ref: '#/components/schemas/internal_api_x_skills.SkillListMetadata'
+        skills:
+          items:
+            $ref: '#/components/schemas/registry.Skill'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.LocalBuild:
+      properties:
+        description:
+          description: Description is the skill description extracted from the artifact metadata, if available.
+          type: string
+        digest:
+          description: Digest is the OCI digest of the artifact (sha256:...).
+          type: string
+        name:
+          description: Name is the skill name extracted from the artifact metadata, if available.
+          type: string
+        tag:
+          description: Tag is the OCI tag or name used to reference the artifact.
+          type: string
+        version:
+          description: Version is the skill version extracted from the artifact metadata, if available.
+          type: string
+      type: object
+    pkg_api_v1.installSkillResponse:
+      description: Response after successfully installing a skill
+      properties:
+        skill:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstalledSkill'
+      type: object
+    pkg_api_v1.pushSkillRequest:
+      description: Request to push a built skill artifact
+      properties:
+        reference:
+          description: OCI reference to push
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.Scope:
+      description: Scope for the installation
+      enum:
+      - user
+      - project
+      type: string
+      x-enum-varnames:
+      - ScopeUser
+      - ScopeProject
+    github_com_stacklok_toolhive_pkg_skills.InstallStatus:
+      description: Status is the current installation status.
+      enum:
+      - installed
+      - pending
+      - failed
+      type: string
+      x-enum-varnames:
+      - InstallStatusInstalled
+      - InstallStatusPending
+      - InstallStatusFailed
+    registry.SkillIcon:
+      properties:
+        label:
+          description: Label is the label of the icon.
+          type: string
+        size:
+          description: Size is the size of the icon.
+          type: string
+        src:
+          description: Src is the source of the icon.
+          type: string
+        type:
+          description: Type is the type of the icon.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.Dependency:
+      properties:
+        digest:
+          description: Digest is the OCI digest for upgrade detection.
+          type: string
+        name:
+          description: Name is the dependency name.
+          type: string
+        reference:
+          description: Reference is the OCI reference for the dependency.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.SkillContent:
+      properties:
+        body:
+          description: Body is the raw SKILL.md markdown content.
+          type: string
+        description:
+          description: Description is the skill description from the OCI config labels.
+          type: string
+        files:
+          description: Files is the list of all files in the artifact with their sizes.
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.SkillFileEntry'
+          type: array
+          uniqueItems: false
+        license:
+          description: License is the SPDX license identifier from the OCI config labels.
+          type: string
+        name:
+          description: Name is the skill name from the OCI config labels.
+          type: string
+        version:
+          description: Version is the skill version from the OCI config labels.
+          type: string
+      type: object
+    internal_api_x_skills.SkillListMetadata:
+      properties:
+        count:
+          type: integer
+        nextCursor:
+          type: string
+      type: object
+    pkg_api_v1.buildListResponse:
+      description: Response containing a list of locally-built OCI skill artifacts
+      properties:
+        builds:
+          description: List of locally-built OCI skill artifacts
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.LocalBuild'
+          type: array
+          uniqueItems: false
+      type: object
+    registry.Skill:
+      properties:
+        _meta:
+          additionalProperties: {}
+          description: Meta is an opaque payload with extended meta data details of the skill.
+          type: object
+        allowedTools:
+          description: 'AllowedTools is the list of tools that the skill is compatible with.
+
+            This is experimental.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        compatibility:
+          description: Compatibility is the environment requirements of the skill.
+          type: string
+        description:
+          description: Description is the description of the skill.
+          type: string
+        icons:
+          description: Icons is the list of icons for the skill.
+          items:
+            $ref: '#/components/schemas/registry.SkillIcon'
+          type: array
+          uniqueItems: false
+        license:
+          description: License is the SPDX license identifier of the skill.
+          type: string
+        metadata:
+          additionalProperties: {}
+          description: 'Metadata is the official metadata of the skill as reported in the
+
+            SKILL.md file.'
+          type: object
+        name:
+          description: 'Name is the name of the skill.
+
+            The format is that of identifiers, e.g. "my-skill".'
+          type: string
+        namespace:
+          description: 'Namespace is the namespace of the skill.
+
+            The format is reverse-DNS, e.g. "io.github.user".'
+          type: string
+        packages:
+          description: Packages is the list of packages for the skill.
+          items:
+            $ref: '#/components/schemas/registry.SkillPackage'
+          type: array
+          uniqueItems: false
+        repository:
+          $ref: '#/components/schemas/registry.SkillRepository'
+        status:
+          description: 'Status is the status of the skill.
+
+            Can be one of "active", "deprecated", or "archived".'
+          type: string
+        title:
+          description: 'Title is the title of the skill.
+
+            This is for human consumption, not an identifier.'
+          type: string
+        version:
+          description: 'Version is the version of the skill.
+
+            Any non-empty string is valid, but ideally it should be either a
+
+            semantic version or a commit hash.'
+          type: string
+      type: object
+    pkg_api_v1.buildSkillRequest:
+      description: Request to build a skill from a local directory
+      properties:
+        path:
+          description: Path to the skill definition directory
+          type: string
+        tag:
+          description: OCI tag for the built artifact
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.SkillMetadata:
+      description: Metadata contains the skill's metadata.
+      properties:
+        author:
+          description: Author is the skill author or maintainer.
+          type: string
+        description:
+          description: Description is a human-readable description of the skill.
+          type: string
+        name:
+          description: Name is the unique name of the skill.
+          type: string
+        tags:
+          description: Tags is a list of tags for categorization.
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        version:
+          description: Version is the semantic version of the skill.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.InstalledSkill:
+      description: InstalledSkill contains the full installation record.
+      properties:
+        clients:
+          description: 'Clients is the list of client identifiers the skill is installed for.
+
+            TODO: Refactor client.ClientApp to a shared package so it can be used here instead of []string.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        dependencies:
+          description: Dependencies is the list of external skill dependencies.
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.Dependency'
+          type: array
+          uniqueItems: false
+        digest:
+          description: Digest is the OCI digest (sha256:...) for upgrade detection.
+          type: string
+        installed_at:
+          description: InstalledAt is the timestamp when the skill was installed.
+          type: string
+        metadata:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.SkillMetadata'
+        project_root:
+          description: ProjectRoot is the project root path for project-scoped skills. Empty for user-scoped.
+          type: string
+        reference:
+          description: Reference is the full OCI reference (e.g. ghcr.io/org/skill:v1).
+          type: string
+        scope:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.Scope'
+        status:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstallStatus'
+        tag:
+          description: Tag is the OCI tag (e.g. v1.0.0).
+          type: string
+      type: object
+    pkg_api_v1.skillListResponse:
+      description: Response containing a list of installed skills
+      properties:
+        skills:
+          description: List of installed skills
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstalledSkill'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.SkillFileEntry:
+      properties:
+        path:
+          description: Path is the file path within the artifact.
+          type: string
+        size:
+          description: Size is the uncompressed file size in bytes.
+          type: integer
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.SkillInfo:
+      properties:
+        installed_skill:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstalledSkill'
+        metadata:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.SkillMetadata'
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.BuildResult:
+      properties:
+        reference:
+          description: Reference is the OCI reference of the built skill artifact.
+          type: string
+      type: object
+    pkg_api_v1.installSkillRequest:
+      description: Request to install a skill
+      properties:
+        clients:
+          description: 'Clients lists target client identifiers (e.g., "claude-code"),
+
+            or ["all"] to target every skill-supporting client.
+
+            Omitting this field installs to all available clients.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        force:
+          description: Force allows overwriting unmanaged skill directories
+          type: boolean
+        group:
+          description: Group is the group name to add the skill to after installation
+          type: string
+        name:
+          description: Name or OCI reference of the skill to install
+          type: string
+        project_root:
+          description: ProjectRoot is the project root path for project-scoped installs
+          type: string
+        scope:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.Scope'
+        version:
+          description: Version to install (empty means latest)
+          type: string
+      type: object
+    pkg_api_v1.validateSkillRequest:
+      description: Request to validate a skill definition
+      properties:
+        path:
+          description: Path to the skill definition directory
+          type: string
+      type: object
+    registry.SkillRepository:
+      description: Repository is the source repository of the skill.
+      properties:
+        type:
+          description: Type is the type of the repository.
+          type: string
+        url:
+          description: URL is the URL of the repository.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.ValidationResult:
+      properties:
+        errors:
+          description: Errors is a list of validation errors, if any.
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        valid:
+          description: Valid indicates whether the skill definition is valid.
+          type: boolean
+        warnings:
+          description: Warnings is a list of non-blocking validation warnings, if any.
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    registry.SkillPackage:
+      properties:
+        commit:
+          description: Commit is the commit of the package.
+          type: string
+        digest:
+          description: Digest is the digest of the package.
+          type: string
+        identifier:
+          description: Identifier is the OCI identifier of the package.
+          type: string
+        mediaType:
+          description: MediaType is the media type of the package.
+          type: string
+        ref:
+          description: Ref is the reference of the package.
+          type: string
+        registryType:
+          description: 'RegistryType is the type of registry the package is from.
+
+            Can be "oci" or "git".'
+          type: string
+        subfolder:
+          description: Subfolder is the subfolder of the package.
+          type: string
+        url:
+          description: URL is the URL of the package.
+          type: string
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: ''
+  url: ''

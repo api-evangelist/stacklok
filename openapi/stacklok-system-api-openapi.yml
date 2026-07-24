@@ -1,0 +1,81 @@
+openapi: 3.1.0
+info:
+  contact:
+    url: https://github.com/stacklok/toolhive
+  description: 'API for accessing MCP server registry data and deployed server information
+
+    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
+
+    get information about available servers, and check the status of deployed servers.
+
+
+    Authentication is required by default. Use Bearer token authentication with a valid
+
+    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
+
+    OAuth discovery metadata (RFC 9728).'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ToolHive Registry clients system API
+  version: '0.1'
+tags:
+- name: system
+paths:
+  /openapi.json:
+    get:
+      description: Get the OpenAPI 3.1.0 specification for this API
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OpenAPI 3.1.0 specification
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal Server Error
+      summary: OpenAPI specification
+      tags:
+      - system
+  /api/openapi.json:
+    get:
+      description: Returns the OpenAPI specification for the API
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OpenAPI specification
+      summary: Get OpenAPI specification
+      tags:
+      - system
+  /health:
+    get:
+      description: Check if the API is healthy
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No Content
+      summary: Health check
+      tags:
+      - system
+components:
+  securitySchemes:
+    BearerAuth:
+      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: ''
+  url: ''

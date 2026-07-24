@@ -1,0 +1,3049 @@
+openapi: 3.1.0
+info:
+  contact:
+    url: https://github.com/stacklok/toolhive
+  description: 'API for accessing MCP server registry data and deployed server information
+
+    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
+
+    get information about available servers, and check the status of deployed servers.
+
+
+    Authentication is required by default. Use Bearer token authentication with a valid
+
+    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
+
+    OAuth discovery metadata (RFC 9728).'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ToolHive Registry clients workloads API
+  version: '0.1'
+tags:
+- name: workloads
+paths:
+  /api/v1beta/workloads:
+    get:
+      description: Get a list of all running workloads, optionally filtered by group
+      parameters:
+      - description: List all workloads, including stopped ones
+        in: query
+        name: all
+        schema:
+          type: boolean
+      - description: Filter workloads by group name
+        in: query
+        name: group
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.workloadListResponse'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Group not found
+      summary: List all workloads
+      tags:
+      - workloads
+    post:
+      description: Create and start a new workload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.createRequest'
+                description: Create workload request
+                summary: request
+        description: Create workload request
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.createWorkloadResponse'
+          description: Created
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '409':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Conflict
+      summary: Create a new workload
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}:
+    delete:
+      description: 'Delete a workload asynchronously. Returns 202 Accepted immediately.
+
+        The deletion happens in the background. Poll the workload list to confirm deletion.'
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Accepted - deletion started
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Delete a workload
+      tags:
+      - workloads
+    get:
+      description: Get details of a specific workload
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.createRequest'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Get workload details
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}/edit:
+    post:
+      description: Update an existing workload configuration
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.updateRequest'
+                description: Update workload request
+                summary: request
+        description: Update workload request
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.createWorkloadResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Update workload
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}/export:
+    get:
+      description: Export a workload's run configuration as JSON
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_runner.RunConfig'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Export workload configuration
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}/restart:
+    post:
+      description: Restart a running workload
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Accepted
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Restart a workload
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}/status:
+    get:
+      description: Get the current status of a specific workload
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.workloadStatusResponse'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Get workload status
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}/stop:
+    post:
+      description: Stop a running workload
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Accepted
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Stop a workload
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}/upgrade:
+    post:
+      description: 'Apply a registry-sourced upgrade to a single workload. This
+
+        re-resolves and verifies the candidate image, pulls it, and only
+
+        then recreates the workload with the new image, preserving the
+
+        existing configuration. If the workload is already up to date or
+
+        is not registry-sourced, the current check result is returned
+
+        unchanged (no-op). Secret values are never accepted or returned.'
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.upgradeRequest'
+                description: Upgrade options
+                summary: request
+        description: Upgrade options
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.upgradeCheckResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal Server Error
+      summary: Apply an available upgrade to a workload
+      tags:
+      - workloads
+  /api/v1beta/workloads/{name}/upgrade-check:
+    get:
+      description: 'Check whether a single workload has a newer image available in
+
+        its source registry. This is an offline metadata comparison; it
+
+        does not pull images. Secret values are never returned.'
+      parameters:
+      - description: Workload name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.upgradeCheckResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Not Found
+      summary: Check a workload for an available upgrade
+      tags:
+      - workloads
+  /api/v1beta/workloads/delete:
+    post:
+      description: 'Delete multiple workloads by name or by group asynchronously.
+
+        Returns 202 Accepted immediately. Deletion happens in the background.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.bulkOperationRequest'
+                description: Bulk delete request (names or group)
+                summary: request
+        description: Bulk delete request (names or group)
+        required: true
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Accepted - deletion started
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+      summary: Delete workloads in bulk
+      tags:
+      - workloads
+  /api/v1beta/workloads/restart:
+    post:
+      description: Restart multiple workloads by name or by group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.bulkOperationRequest'
+                description: Bulk restart request (names or group)
+                summary: request
+        description: Bulk restart request (names or group)
+        required: true
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Accepted
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+      summary: Restart workloads in bulk
+      tags:
+      - workloads
+  /api/v1beta/workloads/stop:
+    post:
+      description: Stop multiple workloads by name or by group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/pkg_api_v1.bulkOperationRequest'
+                description: Bulk stop request (names or group)
+                summary: request
+        description: Bulk stop request (names or group)
+        required: true
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Accepted
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+      summary: Stop workloads in bulk
+      tags:
+      - workloads
+  /api/v1beta/workloads/upgrade-check:
+    get:
+      description: 'Check all workloads (optionally filtered by group) for newer
+
+        images available in their source registries. This is an offline
+
+        metadata comparison; it does not pull images. Secret values are
+
+        never returned.'
+      parameters:
+      - description: Include stopped workloads
+        in: query
+        name: all
+        schema:
+          type: boolean
+      - description: Filter workloads by group name
+        in: query
+        name: group
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.upgradeCheckBulkResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Group not found
+      summary: Check workloads for available upgrades
+      tags:
+      - workloads
+components:
+  schemas:
+    github_com_stacklok_toolhive_pkg_auth_awssts.RoleMapping:
+      properties:
+        claim:
+          description: 'Claim is the simple claim value to match (e.g., group name).
+
+            Internally compiles to a CEL expression: "<claim_value>" in claims["<role_claim>"]
+
+            Mutually exclusive with Matcher.'
+          type: string
+        matcher:
+          description: "Matcher is a CEL expression for complex matching against JWT claims.\nThe expression has access to a \"claims\" variable containing all JWT claims.\nExamples:\n  - \"admins\" in claims[\"groups\"]\n  - claims[\"sub\"] == \"user123\" && !(\"act\" in claims)\nMutually exclusive with Claim."
+          type: string
+        priority:
+          description: 'Priority determines selection order (lower number = higher priority).
+
+            When multiple mappings match, the one with the lowest priority is selected.
+
+            When nil (omitted), the mapping has the lowest possible priority, and
+
+            configuration order acts as tie-breaker via stable sort.'
+          type: integer
+        role_arn:
+          description: RoleArn is the IAM role ARN to assume when this mapping matches.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_workloads_upgrade.CheckResult:
+      description: 'Result is the upgrade-check outcome for the workload. It carries only
+
+        metadata (status, image references, drift) and never secret values.'
+      properties:
+        candidate_image:
+          description: CandidateImage is the image reference the registry currently reports.
+          type: string
+        config_drift:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.ConfigDrift'
+        current_image:
+          description: CurrentImage is the image reference the workload is currently running.
+          type: string
+        env_var_drift:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.EnvVarDrift'
+        reason:
+          description: Reason provides additional context, primarily for StatusUnknown.
+          type: string
+        registry_server:
+          description: 'RegistryServer is the registry entry name the workload was sourced from.
+
+            Empty when the workload is not registry-sourced.'
+          type: string
+        status:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.UpgradeStatus'
+        workload_name:
+          description: WorkloadName is the name of the workload that was checked.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_workloads_upgrade.StringChange:
+      description: 'PermissionProfile is set when the candidate''s permission profile differs
+
+        from the workload''s current profile.'
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+      type: object
+    permissions.OutboundNetworkPermissions:
+      description: Outbound defines outbound network permissions
+      properties:
+        allow_host:
+          description: AllowHost is a list of allowed hosts
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        allow_port:
+          description: AllowPort is a list of allowed ports
+          items:
+            type: integer
+          type: array
+          uniqueItems: false
+        insecure_allow_all:
+          description: InsecureAllowAll allows all outbound network connections
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_auth_awssts.Config:
+      description: AWSStsConfig contains AWS STS token exchange configuration for accessing AWS services
+      properties:
+        fallback_role_arn:
+          description: FallbackRoleArn is the IAM role ARN to assume when no role mapping matches.
+          type: string
+        region:
+          description: Region is the AWS region for STS and SigV4 signing.
+          type: string
+        role_claim:
+          description: 'RoleClaim is the JWT claim to use for role mapping (default: "groups").'
+          type: string
+        role_mappings:
+          description: RoleMappings maps JWT claim values to IAM roles with priority.
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_auth_awssts.RoleMapping'
+          type: array
+          uniqueItems: false
+        service:
+          description: 'Service is the AWS service name for SigV4 signing (default: "aws-mcp").'
+          type: string
+        session_duration:
+          description: 'SessionDuration is the duration in seconds for assumed role credentials (default: 3600).'
+          type: integer
+        session_name_claim:
+          description: 'SessionNameClaim is the JWT claim to use for role session name (default: "sub").'
+          type: string
+        subject_provider_name:
+          description: 'SubjectProviderName identifies which upstream provider''s access token to use
+
+            for STS AssumeRoleWithWebIdentity. Used by vMCP only. When empty, the bearer
+
+            token from the incoming HTTP request is used.'
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_oauthproto_tokenexchange.Config:
+      description: TokenExchangeConfig contains token exchange configuration for external authentication
+      properties:
+        audience:
+          description: Audience is the target audience for the exchanged token
+          type: string
+        client_id:
+          description: ClientID is the OAuth 2.0 client identifier
+          type: string
+        client_secret:
+          description: ClientSecret is the OAuth 2.0 client secret
+          type: string
+        external_token_header_name:
+          description: ExternalTokenHeaderName is the name of the custom header to use when HeaderStrategy is "custom"
+          type: string
+        header_strategy:
+          description: 'HeaderStrategy determines how to inject the token
+
+            Valid values: HeaderStrategyReplace (default), HeaderStrategyCustom'
+          type: string
+        scopes:
+          description: Scopes is the list of scopes to request for the exchanged token
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        subject_token_type:
+          description: 'SubjectTokenType specifies the type of the subject token being exchanged.
+
+            Common values: oauthproto.TokenTypeAccessToken (default), oauthproto.TokenTypeIDToken, oauthproto.TokenTypeJWT.
+
+            If empty, defaults to oauthproto.TokenTypeAccessToken.'
+          type: string
+        token_url:
+          description: TokenURL is the OAuth 2.0 token endpoint URL
+          type: string
+      type: object
+    permissions.NetworkPermissions:
+      description: Network defines network permissions
+      properties:
+        inbound:
+          $ref: '#/components/schemas/permissions.InboundNetworkPermissions'
+        mode:
+          description: 'Mode specifies the network mode for the container (e.g., "host", "bridge", "none")
+
+            When empty, the default container runtime network mode is used'
+          type: string
+        outbound:
+          $ref: '#/components/schemas/permissions.OutboundNetworkPermissions'
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.UserInfoFieldMappingRunConfig:
+      description: 'FieldMapping contains custom field mapping configuration for non-standard providers.
+
+        If nil, standard OIDC field names are used ("sub", "name", "email").'
+      properties:
+        email_fields:
+          description: 'EmailFields is an ordered list of field names to try for the email address.
+
+            The first non-empty value found will be used.
+
+            Default: ["email"]'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        name_fields:
+          description: 'NameFields is an ordered list of field names to try for the display name.
+
+            The first non-empty value found will be used.
+
+            Default: ["name"]'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        subject_fields:
+          description: 'SubjectFields is an ordered list of field names to try for the user ID.
+
+            The first non-empty value found will be used.
+
+            Default: ["sub"]'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.TokenLifespanRunConfig:
+      description: 'TokenLifespans configures the duration that various tokens are valid.
+
+        If nil, defaults are applied (access: 1h, refresh: 7d, authCode: 10m).'
+      properties:
+        access_token_lifespan:
+          description: 'AccessTokenLifespan is the duration that access tokens are valid.
+
+            If empty, defaults to 1 hour.'
+          type: string
+        auth_code_lifespan:
+          description: 'AuthCodeLifespan is the duration that authorization codes are valid.
+
+            If empty, defaults to 10 minutes.'
+          type: string
+        refresh_token_lifespan:
+          description: 'RefreshTokenLifespan is the duration that refresh tokens are valid.
+
+            If empty, defaults to 7 days (168h).'
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_ratelimit_types.ToolRateLimitConfig:
+      properties:
+        name:
+          description: 'Name is the MCP tool name this limit applies to.
+
+            +kubebuilder:validation:Required
+
+            +kubebuilder:validation:MinLength=1'
+          type: string
+        perUser:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_ratelimit_types.RateLimitBucket'
+        shared:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_ratelimit_types.RateLimitBucket'
+      type: object
+    v1.Duration:
+      description: 'RefillPeriod is the duration to fully refill the bucket from zero to maxTokens.
+
+        The effective refill rate is maxTokens / refillPeriod tokens per second.
+
+        Format: Go duration string (e.g., "1m0s", "30s", "1h0m0s").
+
+        +kubebuilder:validation:Required'
+      type: object
+    github_com_stacklok_toolhive_pkg_workloads_upgrade.UpgradeStatus:
+      description: Status is the upgrade status for the workload.
+      enum:
+      - up-to-date
+      - upgrade-available
+      - not-registry-sourced
+      - server-not-found
+      - unknown
+      type: string
+      x-enum-varnames:
+      - StatusUpToDate
+      - StatusUpgradeAvailable
+      - StatusNotRegistrySourced
+      - StatusServerNotFound
+      - StatusUnknown
+    github_com_stacklok_toolhive_pkg_authserver.UpstreamProviderType:
+      description: 'Type specifies the provider type: "oidc" or "oauth2".'
+      enum:
+      - oidc
+      - oauth2
+      type: string
+      x-enum-varnames:
+      - UpstreamProviderTypeOIDC
+      - UpstreamProviderTypeOAuth2
+    github_com_stacklok_toolhive_pkg_authserver_storage.RedisRunConfig:
+      description: RedisConfig is the Redis-specific configuration when Type is "redis".
+      properties:
+        acl_user_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver_storage.ACLUserRunConfig'
+        addr:
+          description: 'Addr is the Redis server address (host:port). Required for standalone and cluster modes.
+
+            Mutually exclusive with SentinelConfig.'
+          type: string
+        auth_type:
+          description: AuthType must be "aclUser" - only ACL user authentication is supported.
+          type: string
+        cluster_mode:
+          description: ClusterMode enables the Redis Cluster protocol. Requires Addr to be set.
+          type: boolean
+        dial_timeout:
+          description: DialTimeout is the timeout for establishing connections (e.g., "5s").
+          type: string
+        key_prefix:
+          description: KeyPrefix for multi-tenancy, typically "thv:auth:{ns}:{name}:".
+          type: string
+        read_timeout:
+          description: ReadTimeout is the timeout for read operations (e.g., "3s").
+          type: string
+        sentinel_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver_storage.SentinelRunConfig'
+        sentinel_tls:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver_storage.RedisTLSRunConfig'
+        tls:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver_storage.RedisTLSRunConfig'
+        write_timeout:
+          description: WriteTimeout is the timeout for write operations (e.g., "3s").
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_webhook.FailurePolicy:
+      description: FailurePolicy determines behavior when the webhook call fails.
+      enum:
+      - fail
+      - ignore
+      type: string
+      x-enum-varnames:
+      - FailurePolicyFail
+      - FailurePolicyIgnore
+    github_com_stacklok_toolhive_pkg_auth_remote.Config:
+      description: RemoteAuthConfig contains OAuth configuration for remote MCP servers
+      properties:
+        authorize_url:
+          type: string
+        bearer_token:
+          description: Bearer token configuration (alternative to OAuth)
+          type: string
+        bearer_token_file:
+          type: string
+        cached_cimd_client_id:
+          description: 'CachedCIMDClientID stores the CIMD metadata URL used as client_id when CIMD
+
+            authentication was used. Kept separate from CachedClientID (which holds
+
+            DCR-issued IDs) so the two can have independent lifecycles — DCR credential
+
+            rotation clears CachedClientID without touching the stable CIMD URL.
+
+            Read by resolveClientCredentials to send the correct client_id on token refresh.'
+          type: string
+        cached_client_id:
+          description: 'Cached DCR client credentials for persistence across restarts.
+
+            These are obtained during Dynamic Client Registration and needed to refresh tokens.
+
+            ClientID is stored as plain text since it''s public information.'
+          type: string
+        cached_client_secret_ref:
+          type: string
+        cached_dcr_callback_port:
+          description: 'CachedDCRCallbackPort is the callback port that was actually registered
+
+            during DCR. It may differ from CallbackPort when the requested port was
+
+            unavailable and a fallback port was selected.'
+          type: integer
+        cached_refresh_token_ref:
+          description: 'Cached OAuth token reference for persistence across restarts.
+
+            The refresh token is stored securely in the secret manager, and this field
+
+            contains the reference to retrieve it (e.g., "OAUTH_REFRESH_TOKEN_workload").
+
+            This enables session restoration without requiring a new browser-based login.'
+          type: string
+        cached_reg_client_uri:
+          description: 'CachedRegClientURI is the registration_client_uri from the DCR response.
+
+            This is the endpoint used for RFC 7592 client read/update/delete operations.
+
+            Stored as plain text since it is not sensitive.'
+          type: string
+        cached_reg_token_ref:
+          description: 'CachedRegTokenRef is a secret manager reference to the registration_access_token
+
+            returned in the DCR response. Used for RFC 7592 client update operations.
+
+            Stored as a secret reference since it''s sensitive.'
+          type: string
+        cached_secret_expiry:
+          description: 'ClientSecretExpiresAt indicates when the client secret expires (if provided by the DCR server).
+
+            A zero value means the secret does not expire.'
+          type: string
+        cached_token_auth_method:
+          description: 'CachedTokenEndpointAuthMethod is the auth method used for the token endpoint
+
+            (e.g., "client_secret_basic", "none"). Persisted for RFC 7592 updates.'
+          type: string
+        cached_token_expiry:
+          type: string
+        callback_port:
+          type: integer
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        client_secret_file:
+          type: string
+        issuer:
+          description: OAuth endpoint configuration (from registry)
+          type: string
+        oauth_params:
+          additionalProperties:
+            type: string
+          description: OAuth parameters for server-specific customization
+          type: object
+        resource:
+          description: Resource is the OAuth 2.0 resource indicator (RFC 8707).
+          type: string
+        scope_param_name:
+          description: 'ScopeParamName overrides the query parameter name used to send scopes in the
+
+            authorization URL. When empty, the standard "scope" parameter is used.
+
+            Some providers require a non-standard name (e.g., Slack uses "user_scope").'
+          type: string
+        scopes:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        skip_browser:
+          type: boolean
+        timeout:
+          example: 5m
+          type: string
+        token_url:
+          type: string
+        use_pkce:
+          type: boolean
+      type: object
+    pkg_api_v1.updateRequest:
+      description: Request to update an existing workload (name cannot be changed)
+      properties:
+        allow_docker_gateway:
+          description: 'Whether to permit outbound connections to Docker gateway addresses
+
+            (host.docker.internal, gateway.docker.internal, 172.17.0.1). These are
+
+            blocked by default in the egress proxy even when network isolation is on.
+
+            Only applicable to Docker deployments with network isolation enabled.'
+          type: boolean
+        authz_config:
+          description: Authorization configuration
+          type: string
+        cmd_arguments:
+          description: Command arguments to pass to the container
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        env_vars:
+          additionalProperties:
+            type: string
+          description: Environment variables to set in the container
+          type: object
+        group:
+          description: Group name this workload belongs to
+          type: string
+        header_forward:
+          $ref: '#/components/schemas/pkg_api_v1.headerForwardConfig'
+        headers:
+          items:
+            $ref: '#/components/schemas/registry.Header'
+          type: array
+          uniqueItems: false
+        host:
+          description: Host to bind to
+          type: string
+        image:
+          description: Docker image to use
+          type: string
+        network_isolation:
+          description: 'Whether network isolation is turned on. This applies the rules in the permission profile.
+
+            Pointer so that omitting the field defaults to network isolation ENABLED (matching the
+
+            `thv run` CLI default); set it explicitly to false to disable network isolation.
+
+            This also applies on update: a request that omits this field enables isolation, so
+
+            clients that build update requests from scratch should send it explicitly to avoid
+
+            unintentionally turning isolation on for a workload that had it off.'
+          type: boolean
+        oauth_config:
+          $ref: '#/components/schemas/pkg_api_v1.remoteOAuthConfig'
+        oidc:
+          $ref: '#/components/schemas/pkg_api_v1.oidcOptions'
+        permission_profile:
+          $ref: '#/components/schemas/permissions.Profile'
+        proxy_mode:
+          description: Proxy mode to use
+          type: string
+        proxy_port:
+          description: Port for the HTTP proxy to listen on
+          type: integer
+        runtime_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_container_templates.RuntimeConfig'
+        secrets:
+          description: Secret parameters to inject
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_secrets.SecretParameter'
+          type: array
+          uniqueItems: false
+        target_port:
+          description: Port to expose from the container
+          type: integer
+        tools:
+          description: Tools filter
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        tools_override:
+          additionalProperties:
+            $ref: '#/components/schemas/pkg_api_v1.toolOverride'
+          description: Tools override
+          type: object
+        transport:
+          description: Transport configuration
+          type: string
+        trust_proxy_headers:
+          description: Whether to trust X-Forwarded-* headers from reverse proxies
+          type: boolean
+        url:
+          description: Remote server specific fields
+          type: string
+        volumes:
+          description: Volume mounts
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_webhook.Config:
+      properties:
+        failure_policy:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_webhook.FailurePolicy'
+        hmac_secret_ref:
+          description: HMACSecretRef is an optional reference to an HMAC secret for payload signing.
+          type: string
+        name:
+          description: Name is a unique identifier for this webhook.
+          type: string
+        timeout:
+          description: Timeout is the maximum time to wait for a webhook response.
+          type: integer
+        tls_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_webhook.TLSConfig'
+        url:
+          description: URL is the HTTPS endpoint to call.
+          type: string
+      type: object
+    pkg_api_v1.workloadListResponse:
+      description: Response containing a list of workloads
+      properties:
+        workloads:
+          description: List of container information for each workload
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_core.Workload'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver_storage.RunConfig:
+      description: 'Storage configures the storage backend for the auth server.
+
+        If nil, defaults to in-memory storage.'
+      properties:
+        redis_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver_storage.RedisRunConfig'
+        type:
+          description: Type specifies the storage backend type. Defaults to "memory".
+          type: string
+      type: object
+    pkg_api_v1.remoteOAuthConfig:
+      description: OAuth configuration for remote server authentication
+      properties:
+        authorize_url:
+          description: OAuth authorization endpoint URL (alternative to issuer for non-OIDC OAuth)
+          type: string
+        bearer_token:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_secrets.SecretParameter'
+        callback_port:
+          description: Specific port for OAuth callback server
+          type: integer
+        client_id:
+          description: OAuth client ID for authentication
+          type: string
+        client_secret:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_secrets.SecretParameter'
+        issuer:
+          description: OAuth/OIDC issuer URL (e.g., https://accounts.google.com)
+          type: string
+        oauth_params:
+          additionalProperties:
+            type: string
+          description: Additional OAuth parameters for server-specific customization
+          type: object
+        resource:
+          description: OAuth 2.0 resource indicator (RFC 8707)
+          type: string
+        scopes:
+          description: OAuth scopes to request
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        skip_browser:
+          description: Whether to skip opening browser for OAuth flow (defaults to false)
+          type: boolean
+        token_url:
+          description: OAuth token endpoint URL (alternative to issuer for non-OIDC OAuth)
+          type: string
+        use_pkce:
+          description: Whether to use PKCE for the OAuth flow
+          type: boolean
+      type: object
+    pkg_api_v1.oidcOptions:
+      description: OIDC configuration options
+      properties:
+        audience:
+          description: Expected audience
+          type: string
+        client_id:
+          description: OAuth2 client ID
+          type: string
+        client_secret:
+          description: OAuth2 client secret
+          type: string
+        introspection_url:
+          description: Token introspection URL for OIDC
+          type: string
+        issuer:
+          description: OIDC issuer URL
+          type: string
+        jwks_url:
+          description: JWKS URL for key verification
+          type: string
+        scopes:
+          description: OAuth scopes to advertise in well-known endpoint (RFC 9728)
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_transport_types.MiddlewareConfig:
+      properties:
+        parameters:
+          description: 'Parameters is a JSON object containing the middleware parameters.
+
+            It is stored as a raw message to allow flexible parameter types.'
+          type: object
+        type:
+          description: Type is a string representing the middleware type.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_runner.SessionRedisConfig:
+      description: 'SessionRedis holds non-sensitive Redis connection parameters for distributed session storage.
+
+        Populated only when MCPServer.spec.sessionStorage.provider == "redis".
+
+        The Redis password is not included — it is injected as env var THV_SESSION_REDIS_PASSWORD.
+
+        +optional'
+      properties:
+        address:
+          description: Address is the Redis server address (host:port).
+          type: string
+        db:
+          description: DB is the Redis database number.
+          type: integer
+        key_prefix:
+          description: KeyPrefix is an optional prefix applied to all Redis keys used by ToolHive.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.CIMDRunConfig:
+      description: 'CIMD controls client_id metadata document support. When enabled, the
+
+        embedded authorization server accepts HTTPS URLs as client_id values
+
+        and resolves them via the CIMD protocol instead of requiring DCR.'
+      properties:
+        cache_fallback_ttl:
+          description: 'CacheFallbackTTL is the fixed TTL applied to every cached CIMD document.
+
+            Cache-Control header parsing is not yet implemented; all entries use this value.
+
+            Format: Go duration string (e.g. "5m", "10m", "1h").
+
+            Defaults to 5 minutes when Enabled is true and this field is omitted.'
+          example: 5m
+          type: string
+        cache_max_size:
+          description: 'CacheMaxSize is the maximum number of CIMD documents held in the LRU cache.
+
+            Defaults to 256 when Enabled is true and this field is zero.'
+          type: integer
+        enabled:
+          description: Enabled activates CIMD client lookup when true.
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.IdentityFromTokenRunConfig:
+      description: 'IdentityFromToken extracts user identity (subject, name, email) directly from the
+
+        OAuth2 token-endpoint response body using gjson dot-notation paths. When set, the
+
+        embedded auth server skips the userinfo HTTP call entirely. Mirrors the CRD type
+
+        (cmd/thv-operator/api/v1beta1.IdentityFromTokenConfig) — the authoritative
+
+        trust-model and uniqueness documentation lives there.'
+      properties:
+        email_path:
+          description: EmailPath is the dot-notation path to the email address field.
+          type: string
+        name_path:
+          description: NamePath is the dot-notation path to the display name field.
+          type: string
+        subject_path:
+          description: 'SubjectPath is the dot-notation path to the subject (user ID) field.
+
+            Required when IdentityFromToken is set.'
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_webhook.TLSConfig:
+      description: TLSConfig holds optional TLS configuration (CA bundles, client certs).
+      properties:
+        ca_bundle_path:
+          description: CABundlePath is the path to a CA certificate bundle for server verification.
+          type: string
+        client_cert_path:
+          description: ClientCertPath is the path to a client certificate for mTLS.
+          type: string
+        client_key_path:
+          description: ClientKeyPath is the path to a client key for mTLS.
+          type: string
+        insecure_skip_verify:
+          description: 'InsecureSkipVerify disables server certificate verification.
+
+            WARNING: This should only be used for development/testing.'
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_telemetry.Config:
+      description: 'DEPRECATED: Middleware configuration.
+
+        TelemetryConfig contains the OpenTelemetry configuration'
+      properties:
+        caCertPath:
+          description: 'CACertPath is the file path to a CA certificate bundle for the OTLP endpoint.
+
+            When set, the OTLP exporters use this CA to verify the collector''s TLS certificate
+
+            instead of relying solely on the system CA pool.
+
+            +optional'
+          type: string
+        customAttributes:
+          additionalProperties:
+            type: string
+          description: 'CustomAttributes contains custom resource attributes to be added to all telemetry signals.
+
+            These are parsed from CLI flags (--otel-custom-attributes) or environment variables
+
+            (OTEL_RESOURCE_ATTRIBUTES) as key=value pairs.
+
+            +optional'
+          type: object
+        enablePrometheusMetricsPath:
+          description: 'EnablePrometheusMetricsPath controls whether to expose Prometheus-style /metrics endpoint.
+
+            The metrics are served on the main transport port at /metrics.
+
+            This is separate from OTLP metrics which are sent to the Endpoint.
+
+            +kubebuilder:default=false
+
+            +optional'
+          type: boolean
+        endpoint:
+          description: 'Endpoint is the OTLP endpoint URL
+
+            +optional'
+          type: string
+        environmentVariables:
+          description: 'EnvironmentVariables is a list of environment variable names that should be
+
+            included in telemetry spans as attributes. Only variables in this list will
+
+            be read from the host machine and included in spans for observability.
+
+            Example: ["NODE_ENV", "DEPLOYMENT_ENV", "SERVICE_VERSION"]
+
+            +optional'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        headers:
+          additionalProperties:
+            type: string
+          description: 'Headers contains authentication headers for the OTLP endpoint.
+
+            +optional'
+          type: object
+        insecure:
+          description: 'Insecure indicates whether to use HTTP instead of HTTPS for the OTLP endpoint.
+
+            +kubebuilder:default=false
+
+            +optional'
+          type: boolean
+        metricsEnabled:
+          description: 'MetricsEnabled controls whether OTLP metrics are enabled.
+
+            When false, OTLP metrics are not sent even if an endpoint is configured.
+
+            This is independent of EnablePrometheusMetricsPath.
+
+            +kubebuilder:default=false
+
+            +optional'
+          type: boolean
+        samplingRate:
+          description: 'SamplingRate is the trace sampling rate (0.0-1.0) as a string.
+
+            Only used when TracingEnabled is true.
+
+            Example: "0.05" for 5% sampling.
+
+            +kubebuilder:default="0.05"
+
+            +optional'
+          type: string
+        serviceName:
+          description: 'ServiceName is the service name for telemetry.
+
+            When omitted, defaults to the server name (e.g., VirtualMCPServer name).
+
+            +optional'
+          type: string
+        serviceVersion:
+          description: 'ServiceVersion is the service version for telemetry.
+
+            When omitted, defaults to the ToolHive version.
+
+            +optional'
+          type: string
+        tracingEnabled:
+          description: 'TracingEnabled controls whether distributed tracing is enabled.
+
+            When false, no tracer provider is created even if an endpoint is configured.
+
+            +kubebuilder:default=false
+
+            +optional'
+          type: boolean
+        useLegacyAttributes:
+          description: 'UseLegacyAttributes controls whether legacy (pre-MCP OTEL semconv) attribute names
+
+            are emitted alongside the new standard attribute names. When true, spans include both
+
+            old and new attribute names for backward compatibility with existing dashboards.
+
+            Currently defaults to true; this will change to false in a future release.
+
+            +kubebuilder:default=true
+
+            +optional'
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_audit.Config:
+      description: 'DEPRECATED: Middleware configuration.
+
+        AuditConfig contains the audit logging configuration'
+      properties:
+        component:
+          description: 'Component is the component name to use in audit events.
+
+            +optional'
+          type: string
+        detectApplicationErrors:
+          description: 'DetectApplicationErrors controls whether the audit middleware inspects
+
+            JSON-RPC response bodies for application-level errors when the HTTP
+
+            status code indicates success (2xx). When enabled, a small prefix of
+
+            the response body is buffered to detect JSON-RPC error fields,
+
+            independent of the IncludeResponseData setting.
+
+            +kubebuilder:default=true
+
+            +optional'
+          type: boolean
+        enabled:
+          description: 'Enabled controls whether audit logging is enabled.
+
+            When true, enables audit logging with the configured options.
+
+            +kubebuilder:default=false
+
+            +optional'
+          type: boolean
+        eventTypes:
+          description: 'EventTypes specifies which event types to audit. If empty, all events are audited.
+
+            +optional'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        excludeEventTypes:
+          description: 'ExcludeEventTypes specifies which event types to exclude from auditing.
+
+            This takes precedence over EventTypes.
+
+            +optional'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        includeRequestData:
+          description: 'IncludeRequestData determines whether to include request data in audit logs.
+
+            +kubebuilder:default=false
+
+            +optional'
+          type: boolean
+        includeResponseData:
+          description: 'IncludeResponseData determines whether to include response data in audit logs.
+
+            +kubebuilder:default=false
+
+            +optional'
+          type: boolean
+        logFile:
+          description: 'LogFile specifies the file path for audit logs. If empty, logs to stdout.
+
+            +optional'
+          type: string
+        maxDataSize:
+          description: 'MaxDataSize limits the size of request/response data included in audit logs (in bytes).
+
+            +kubebuilder:default=1024
+
+            +optional'
+          type: integer
+      type: object
+    github_com_stacklok_toolhive_cmd_thv-operator_api_v1beta1.RateLimitConfig:
+      description: 'RateLimitConfig contains the CRD rate limiting configuration.
+
+        When set, rate limiting middleware is added to the proxy middleware chain.'
+      properties:
+        perUser:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_ratelimit_types.RateLimitBucket'
+        shared:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_ratelimit_types.RateLimitBucket'
+        tools:
+          description: 'Tools defines per-tool rate limit overrides.
+
+            Each entry applies additional rate limits to calls targeting a specific tool name.
+
+            A request must pass both the server-level limit and the per-tool limit.
+
+            +listType=map
+
+            +listMapKey=name
+
+            +optional'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_ratelimit_types.ToolRateLimitConfig'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_core.Workload:
+      properties:
+        created_at:
+          description: CreatedAt is the timestamp when the workload was created.
+          type: string
+        group:
+          description: Group is the name of the group this workload belongs to, if any.
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          description: Labels are the container labels (excluding standard ToolHive labels)
+          type: object
+        name:
+          description: 'Name is the name of the workload.
+
+            It is used as a unique identifier.'
+          type: string
+        package:
+          description: Package specifies the Workload Package used to create this Workload.
+          type: string
+        port:
+          description: 'Port is the port on which the workload is exposed.
+
+            This is embedded in the URL.'
+          type: integer
+        proxy_mode:
+          description: 'ProxyMode is the proxy mode that clients should use to connect.
+
+            For stdio transports, this will be the proxy mode (sse or streamable-http).
+
+            For direct transports (sse/streamable-http), this will be the same as TransportType.'
+          type: string
+        remote:
+          description: Remote indicates whether this is a remote workload (true) or a container workload (false).
+          type: boolean
+        started_at:
+          description: StartedAt is when the container was last started (changes on restart)
+          type: string
+        status:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_container_runtime.WorkloadStatus'
+        status_context:
+          description: 'StatusContext provides additional context about the workload''s status.
+
+            The exact meaning is determined by the status and the underlying runtime.'
+          type: string
+        tools:
+          description: ToolsFilter is the filter on tools applied to the workload.
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        transport_type:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_transport_types.TransportType'
+        url:
+          description: URL is the URL of the workload exposed by the ToolHive proxy.
+          type: string
+      type: object
+    pkg_api_v1.upgradeRequest:
+      description: Request to apply an available upgrade to a workload. All fields are optional; an empty body applies the upgrade preserving the workload's existing configuration.
+      properties:
+        env:
+          additionalProperties:
+            type: string
+          description: 'Env holds additional or overriding environment variables to merge into the
+
+            upgraded workload''s configuration.'
+          type: object
+        secrets:
+          description: 'Secrets holds additional secret parameters (`<name>,target=<env>`) to merge
+
+            into the upgraded workload''s configuration. Only references are accepted;
+
+            no secret values are transmitted in the request.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    pkg_api_v1.createRequest:
+      description: Request to create a new workload
+      properties:
+        allow_docker_gateway:
+          description: 'Whether to permit outbound connections to Docker gateway addresses
+
+            (host.docker.internal, gateway.docker.internal, 172.17.0.1). These are
+
+            blocked by default in the egress proxy even when network isolation is on.
+
+            Only applicable to Docker deployments with network isolation enabled.'
+          type: boolean
+        authz_config:
+          description: Authorization configuration
+          type: string
+        cmd_arguments:
+          description: Command arguments to pass to the container
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        env_vars:
+          additionalProperties:
+            type: string
+          description: Environment variables to set in the container
+          type: object
+        group:
+          description: Group name this workload belongs to
+          type: string
+        header_forward:
+          $ref: '#/components/schemas/pkg_api_v1.headerForwardConfig'
+        headers:
+          items:
+            $ref: '#/components/schemas/registry.Header'
+          type: array
+          uniqueItems: false
+        host:
+          description: Host to bind to
+          type: string
+        image:
+          description: Docker image to use
+          type: string
+        name:
+          description: Name of the workload
+          type: string
+        network_isolation:
+          description: 'Whether network isolation is turned on. This applies the rules in the permission profile.
+
+            Pointer so that omitting the field defaults to network isolation ENABLED (matching the
+
+            `thv run` CLI default); set it explicitly to false to disable network isolation.
+
+            This also applies on update: a request that omits this field enables isolation, so
+
+            clients that build update requests from scratch should send it explicitly to avoid
+
+            unintentionally turning isolation on for a workload that had it off.'
+          type: boolean
+        oauth_config:
+          $ref: '#/components/schemas/pkg_api_v1.remoteOAuthConfig'
+        oidc:
+          $ref: '#/components/schemas/pkg_api_v1.oidcOptions'
+        permission_profile:
+          $ref: '#/components/schemas/permissions.Profile'
+        proxy_mode:
+          description: Proxy mode to use
+          type: string
+        proxy_port:
+          description: Port for the HTTP proxy to listen on
+          type: integer
+        registry:
+          description: Registry is the optional registry name to resolve the server from (e.g. "default").
+          type: string
+        runtime_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_container_templates.RuntimeConfig'
+        secrets:
+          description: Secret parameters to inject
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_secrets.SecretParameter'
+          type: array
+          uniqueItems: false
+        server:
+          description: 'Server is the optional server name in the registry (e.g. "io.github.stacklok/fetch").
+
+            When both Registry and Server are set, thv resolves the server metadata
+
+            server-side, filling in image, transport, env vars, permissions, etc.
+
+            User-provided fields always override registry defaults.'
+          type: string
+        target_port:
+          description: Port to expose from the container
+          type: integer
+        tools:
+          description: Tools filter
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        tools_override:
+          additionalProperties:
+            $ref: '#/components/schemas/pkg_api_v1.toolOverride'
+          description: Tools override
+          type: object
+        transport:
+          description: Transport configuration
+          type: string
+        trust_proxy_headers:
+          description: Whether to trust X-Forwarded-* headers from reverse proxies
+          type: boolean
+        url:
+          description: Remote server specific fields
+          type: string
+        volumes:
+          description: Volume mounts
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver_storage.ACLUserRunConfig:
+      description: ACLUserConfig contains ACL user authentication configuration.
+      properties:
+        password_env_var:
+          description: PasswordEnvVar is the environment variable containing the Redis password.
+          type: string
+        username_env_var:
+          description: UsernameEnvVar is the environment variable containing the Redis username.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_workloads_upgrade.ConfigDrift:
+      description: 'ConfigDrift describes posture differences (transport, permission profile)
+
+        between the workload and the candidate registry entry.'
+      properties:
+        permission_profile:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.StringChange'
+        transport:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.StringChange'
+      type: object
+    github_com_stacklok_toolhive_pkg_authz.Config:
+      description: 'DEPRECATED: Middleware configuration.
+
+        AuthzConfig contains the authorization configuration'
+      properties:
+        type:
+          description: Type is the type of authorization configuration (e.g., "cedarv1").
+          type: string
+        version:
+          description: Version is the version of the configuration format.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_runner.RunConfig:
+      properties:
+        additional_middleware_configs:
+          description: 'AdditionalMiddlewareConfigs carries pre-built middleware configs injected by
+
+            external-auth handlers (reached via *[]RunConfigBuilderOption) rather than
+
+            derived from typed RunConfig fields. PopulateMiddlewareConfigs splices these
+
+            into the chain in the backend-egress group — after auth and before recovery —
+
+            instead of discarding them. Upstream carries these configs verbatim and never
+
+            inspects their parameters; the middleware type identity (e.g. an enterprise
+
+            auth type) is supplied by the caller via types.MiddlewareConfig.Type.
+
+
+            Each entry''s Type is expected to be a NEW egress middleware type (e.g. OBO),
+
+            not one already produced from a typed RunConfig field (auth, authz, audit,
+
+            tokenExchange, awssts, …). Dispatch in the proxyrunner is purely by Type
+
+            string, so an injected Type that shadows a typed-field type would add a
+
+            second instance of that middleware to the chain; the seam does not validate
+
+            against this.'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_transport_types.MiddlewareConfig'
+          type: array
+          uniqueItems: false
+        allow_docker_gateway:
+          description: 'AllowDockerGateway permits outbound connections to Docker gateway addresses
+
+            (host.docker.internal, gateway.docker.internal, 172.17.0.1). These are
+
+            blocked by default in the egress proxy even when InsecureAllowAll is set.
+
+            Only applicable to Docker deployments with network isolation enabled.
+
+            Gateway access is port-independent: it ignores the permission profile''s
+
+            allowed ports, so once enabled the gateway is reachable on any port.'
+          type: boolean
+        allowed_origins:
+          description: 'AllowedOrigins is the allowlist of values accepted on the HTTP Origin header,
+
+            used for DNS-rebinding protection per MCP 2025-11-25 §"Security Warning".
+
+            When empty and Host is loopback (127.0.0.1 / localhost / [::1]), a default
+
+            loopback-only allowlist is derived at middleware-wiring time.
+
+            When empty and Host is non-loopback, the middleware is disabled — operators
+
+            exposing the proxy publicly must configure an explicit allowlist.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        audit_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_audit.Config'
+        audit_config_path:
+          description: 'DEPRECATED: Middleware configuration.
+
+            AuditConfigPath is the path to the audit configuration file'
+          type: string
+        authz_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authz.Config'
+        authz_config_path:
+          description: 'DEPRECATED: Middleware configuration.
+
+            AuthzConfigPath is the path to the authorization configuration file'
+          type: string
+        aws_sts_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_auth_awssts.Config'
+        base_name:
+          description: BaseName is the base name used for the container (without prefixes)
+          type: string
+        cmd_args:
+          description: CmdArgs are the arguments to pass to the container
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        container_labels:
+          additionalProperties:
+            type: string
+          description: ContainerLabels are the labels to apply to the container
+          type: object
+        container_name:
+          description: ContainerName is the name of the container
+          type: string
+        debug:
+          description: Debug indicates whether debug mode is enabled
+          type: boolean
+        embedded_auth_server_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.RunConfig'
+        endpoint_prefix:
+          description: 'EndpointPrefix is an explicit prefix to prepend to SSE endpoint URLs.
+
+            This is used to handle path-based ingress routing scenarios.'
+          type: string
+        env_file_dir:
+          description: 'DEPRECATED: No longer appears to be used.
+
+            EnvFileDir is the directory path to load environment files from'
+          type: string
+        env_vars:
+          additionalProperties:
+            type: string
+          description: EnvVars are the parsed environment variables as key-value pairs
+          type: object
+        group:
+          description: Group is the name of the group this workload belongs to, if any
+          type: string
+        header_forward:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_runner.HeaderForwardConfig'
+        host:
+          description: Host is the host for the HTTP proxy
+          type: string
+        ignore_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_ignore.Config'
+        image:
+          description: Image is the Docker image to run
+          type: string
+        isolate_network:
+          description: IsolateNetwork indicates whether to isolate the network for the container
+          type: boolean
+        jwks_auth_token_file:
+          description: 'DEPRECATED: No longer appears to be used.
+
+            JWKSAuthTokenFile is the path to file containing auth token for JWKS/OIDC requests'
+          type: string
+        k8s_pod_template_patch:
+          description: 'K8sPodTemplatePatch is a JSON string to patch the Kubernetes pod template
+
+            Only applicable when using Kubernetes runtime'
+          type: string
+        mcpserver_generation:
+          description: 'MCPServerGeneration is the K8s .metadata.generation of the MCPServer CR that rendered
+
+            this RunConfig. The Kubernetes runtime uses it as a monotonic version to prevent stale
+
+            rolling-update pods from overwriting a newer RunConfig''s StatefulSet apply. Zero value
+
+            means unversioned (backward-compat with older operators, or non-operator callers).'
+          type: integer
+        middleware_configs:
+          description: 'MiddlewareConfigs contains the list of middleware to apply to the transport
+
+            and the configuration for each middleware.'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_transport_types.MiddlewareConfig'
+          type: array
+          uniqueItems: false
+        mutating_webhooks:
+          description: 'MutatingWebhooks contains the configuration for mutating webhook middleware.
+
+            Mutating webhooks run before validating webhooks, per RFC THV-0017 ordering.'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_webhook.Config'
+          type: array
+          uniqueItems: false
+        name:
+          description: Name is the name of the MCP server
+          type: string
+        oidc_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_auth.TokenValidatorConfig'
+        permission_profile_name_or_path:
+          description: PermissionProfileNameOrPath is the name or path of the permission profile
+          type: string
+        port:
+          description: Port is the port for the HTTP proxy to listen on (host port)
+          type: integer
+        proxy_mode:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_transport_types.ProxyMode'
+        publish:
+          description: Publish lists ports to publish to the host in format "hostPort:containerPort"
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        rate_limit_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_cmd_thv-operator_api_v1beta1.RateLimitConfig'
+        rate_limit_namespace:
+          description: RateLimitNamespace is the Kubernetes namespace for Redis key derivation.
+          type: string
+        registry_api_url:
+          description: 'RegistryAPIURL is the registry API URL that served this server''s metadata.
+
+            Empty when the server was not discovered via registry lookup.'
+          type: string
+        registry_server_name:
+          description: 'RegistryServerName is the registry entry name used to look up this server''s metadata.
+
+            Empty when the server was not discovered via registry lookup.'
+          type: string
+        registry_url:
+          description: 'RegistryURL is the registry URL that served this server''s metadata.
+
+            Empty when the server was not discovered via registry lookup.'
+          type: string
+        remote_auth_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_auth_remote.Config'
+        remote_url:
+          description: RemoteURL is the URL of the remote MCP server (if running remotely)
+          type: string
+        runtime_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_container_templates.RuntimeConfig'
+        scaling_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_runner.ScalingConfig'
+        schema_version:
+          description: SchemaVersion is the version of the RunConfig schema
+          type: string
+        secrets:
+          description: 'Secrets are the secret parameters to pass to the container
+
+            Format: "<secret name>,target=<target environment variable>"'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        session_ttl:
+          description: 'SessionTTL is the inactivity timeout for proxy sessions, expressed as a Go
+
+            duration string (e.g. "30m", "2h", "168h"). Empty uses the transport
+
+            default (2h). Negative durations and values that fail time.ParseDuration
+
+            are rejected at runtime.
+
+            String (not time.Duration) keeps the wire format unit-explicit: a
+
+            time.Duration field serializes as nanoseconds in JSON.'
+          example: 2h
+          type: string
+        stateless:
+          description: 'Stateless indicates the server only supports POST (no SSE/GET).
+
+            When true, the proxy returns 405 for incoming GET requests and uses a
+
+            POST-based health check instead of the default GET probe.
+
+            Applies to both remote URLs and local container workloads.'
+          type: boolean
+        target_host:
+          description: TargetHost is the host to forward traffic to (only applicable to SSE transport)
+          type: string
+        target_port:
+          description: TargetPort is the port for the container to expose (only applicable to SSE transport)
+          type: integer
+        telemetry_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_telemetry.Config'
+        thv_ca_bundle:
+          description: 'DEPRECATED: No longer appears to be used.
+
+            ThvCABundle is the path to the CA certificate bundle for ToolHive HTTP operations'
+          type: string
+        token_exchange_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_oauthproto_tokenexchange.Config'
+        tools_filter:
+          description: 'DEPRECATED: Middleware configuration.
+
+            ToolsFilter is the list of tools to filter'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        tools_override:
+          additionalProperties:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_runner.ToolOverride'
+          description: 'DEPRECATED: Middleware configuration.
+
+            ToolsOverride is a map from an actual tool to its overridden name and/or description'
+          type: object
+        transport:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_transport_types.TransportType'
+        trust_proxy_headers:
+          description: TrustProxyHeaders indicates whether to trust X-Forwarded-* headers from reverse proxies
+          type: boolean
+        upstream_swap_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_auth_upstreamswap.Config'
+        validating_webhooks:
+          description: ValidatingWebhooks contains the configuration for validating webhook middleware.
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_webhook.Config'
+          type: array
+          uniqueItems: false
+        volumes:
+          description: 'Volumes are the directory mounts to pass to the container
+
+            Format: "host-path:container-path[:ro]"'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.OAuth2UpstreamRunConfig:
+      description: 'OAuth2Config contains OAuth 2.0-specific configuration.
+
+        Required when Type is "oauth2", must be nil when Type is "oidc".'
+      properties:
+        additional_authorization_params:
+          additionalProperties:
+            type: string
+          description: 'AdditionalAuthorizationParams are extra query parameters to include in
+
+            authorization requests. Useful for provider-specific parameters like
+
+            Google''s access_type=offline.'
+          type: object
+        allow_private_ips:
+          description: 'AllowPrivateIPs permits the upstream provider''s HTTP client to connect to
+
+            private IP ranges (RFC-1918, link-local). When DCRConfig is set, this
+
+            also gates the DCR discovery and registration calls made on this
+
+            upstream''s behalf (see pkg/authserver/runner/dcr_adapter.go), so a
+
+            single flag covers the whole upstream rather than needing a separate
+
+            DCR-specific setting. Use only when the upstream is hosted inside the
+
+            same cluster and has no public endpoint. HTTP-scheme restrictions are
+
+            unchanged — HTTPS is still required for non-localhost hosts. Defaults
+
+            to false.'
+          type: boolean
+        authorization_endpoint:
+          description: AuthorizationEndpoint is the URL for the OAuth authorization endpoint.
+          type: string
+        client_id:
+          description: 'ClientID is the OAuth 2.0 client identifier registered with the upstream IDP.
+
+            Mutually exclusive with DCRConfig: when DCRConfig is set, ClientID is obtained
+
+            at runtime via RFC 7591 Dynamic Client Registration and must be left empty.'
+          type: string
+        client_secret_env_var:
+          description: 'ClientSecretEnvVar is the name of an environment variable containing the client secret.
+
+            Mutually exclusive with ClientSecretFile. Optional for public clients using PKCE.'
+          type: string
+        client_secret_file:
+          description: 'ClientSecretFile is the path to a file containing the OAuth 2.0 client secret.
+
+            Mutually exclusive with ClientSecretEnvVar. Optional for public clients using PKCE.'
+          type: string
+        dcr_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.DCRUpstreamConfig'
+        identity_from_token:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.IdentityFromTokenRunConfig'
+        insecure_allow_http:
+          description: 'InsecureAllowHTTP permits plain-HTTP authorization and token endpoint URLs
+
+            for this upstream. Only for in-cluster development environments (e.g. an
+
+            OAuth2 provider served over HTTP in a kind cluster) where TLS is not
+
+            available. Never set this in production.'
+          type: boolean
+        redirect_uri:
+          description: 'RedirectURI is the callback URL where the upstream IDP will redirect after authentication.
+
+            When not specified, defaults to `{issuer}/oauth/callback`.'
+          type: string
+        scopes:
+          description: Scopes are the OAuth scopes to request from the upstream IDP.
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        token_endpoint:
+          description: TokenEndpoint is the URL for the OAuth token endpoint.
+          type: string
+        token_response_mapping:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.TokenResponseMappingRunConfig'
+        userinfo:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.UserInfoRunConfig'
+      type: object
+    github_com_stacklok_toolhive_pkg_container_runtime.WorkloadStatus:
+      description: Current status of the workload
+      enum:
+      - running
+      - stopped
+      - error
+      - starting
+      - stopping
+      - unhealthy
+      - removing
+      - unknown
+      - unauthenticated
+      - auth_retrying
+      - policy_stopped
+      - running
+      - stopped
+      - error
+      - starting
+      - stopping
+      - unhealthy
+      - removing
+      - unknown
+      - unauthenticated
+      - auth_retrying
+      - policy_stopped
+      - running
+      - stopped
+      - error
+      - starting
+      - stopping
+      - unhealthy
+      - removing
+      - unknown
+      - unauthenticated
+      - auth_retrying
+      - policy_stopped
+      type: string
+      x-enum-varnames:
+      - WorkloadStatusRunning
+      - WorkloadStatusStopped
+      - WorkloadStatusError
+      - WorkloadStatusStarting
+      - WorkloadStatusStopping
+      - WorkloadStatusUnhealthy
+      - WorkloadStatusRemoving
+      - WorkloadStatusUnknown
+      - WorkloadStatusUnauthenticated
+      - WorkloadStatusAuthRetrying
+      - WorkloadStatusPolicyStopped
+    pkg_api_v1.headerForwardConfig:
+      description: 'HeaderForward configures headers to inject into requests to remote MCP servers.
+
+        Use this to add custom headers like X-Tenant-ID or correlation IDs.'
+      properties:
+        add_headers_from_secret:
+          additionalProperties:
+            type: string
+          description: 'AddHeadersFromSecret maps header names to secret names in ToolHive''s secrets manager.
+
+            Key: HTTP header name, Value: secret name in the secrets manager'
+          type: object
+        add_plaintext_headers:
+          additionalProperties:
+            type: string
+          description: 'AddPlaintextHeaders contains literal header values to inject.
+
+            WARNING: These values are stored and transmitted in plaintext.
+
+            Use AddHeadersFromSecret for sensitive data like API keys.'
+          type: object
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver_storage.SentinelRunConfig:
+      description: 'SentinelConfig contains Sentinel-specific configuration.
+
+        Mutually exclusive with Addr.'
+      properties:
+        db:
+          description: 'DB is the Redis database number (default: 0).'
+          type: integer
+        master_name:
+          description: MasterName is the name of the Redis Sentinel master.
+          type: string
+        sentinel_addrs:
+          description: SentinelAddrs is the list of Sentinel addresses (host:port).
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_secrets.SecretParameter:
+      description: Bearer token for authentication (alternative to OAuth)
+      properties:
+        name:
+          type: string
+        target:
+          type: string
+      type: object
+    pkg_api_v1.upgradeCheckBulkResponse:
+      description: Results of checking multiple workloads for available upgrades
+      properties:
+        results:
+          description: 'Results holds one upgrade-check outcome per scoped workload, in the order
+
+            the workloads were enumerated. Each entry carries only metadata and never
+
+            secret values.'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.CheckResult'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_runner.ScalingConfig:
+      description: 'ScalingConfig contains configuration for horizontal scaling of the proxy runner.
+
+        Only applicable when running in Kubernetes with the ToolHive operator.
+
+        When nil, no scaling configuration is applied (single-replica default behavior).'
+      properties:
+        backend_replicas:
+          description: 'BackendReplicas is the desired StatefulSet replica count for the proxy runner backend.
+
+            When nil, replicas are unmanaged (preserving HPA or manual kubectl control).
+
+            When set (including 0), the value is an explicit replica count.'
+          type: integer
+        session_redis:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_runner.SessionRedisConfig'
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.UpstreamRunConfig:
+      properties:
+        name:
+          description: 'Name uniquely identifies this upstream.
+
+            Used for routing decisions and session binding in multi-upstream scenarios.
+
+            If empty when only one upstream is configured, defaults to "default".'
+          type: string
+        oauth2_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.OAuth2UpstreamRunConfig'
+        oidc_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.OIDCUpstreamRunConfig'
+        type:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.UpstreamProviderType'
+      type: object
+    github_com_stacklok_toolhive_pkg_ignore.Config:
+      description: IgnoreConfig contains configuration for ignore processing
+      properties:
+        loadGlobal:
+          description: Whether to load global ignore patterns
+          type: boolean
+        printOverlays:
+          description: Whether to print resolved overlay paths for debugging
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.TokenResponseMappingRunConfig:
+      description: 'TokenResponseMapping configures custom field extraction from non-standard token responses.
+
+        When set, the token exchange bypasses golang.org/x/oauth2 and extracts fields using
+
+        the configured dot-notation paths.'
+      properties:
+        access_token_path:
+          description: AccessTokenPath is the dot-notation path to the access token (required).
+          type: string
+        expires_in_path:
+          description: ExpiresInPath is the dot-notation path to the expires_in value. Defaults to "expires_in".
+          type: string
+        refresh_token_path:
+          description: RefreshTokenPath is the dot-notation path to the refresh token. Defaults to "refresh_token".
+          type: string
+        scope_path:
+          description: ScopePath is the dot-notation path to the scope. Defaults to "scope".
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.DCRUpstreamConfig:
+      description: 'DCRConfig enables RFC 7591 Dynamic Client Registration against the
+
+        upstream authorization server. When set, the client credentials are
+
+        obtained at runtime rather than being pre-provisioned via ClientID /
+
+        ClientSecretFile / ClientSecretEnvVar, and ClientID must be left empty.
+
+        Mutually exclusive with ClientID.'
+      properties:
+        discovery_url:
+          description: 'DiscoveryURL is the exact RFC 8414 / OIDC Discovery document URL to
+
+            fetch at runtime. The resolver issues a single GET against this URL
+
+            (no well-known-path fallback) and reads registration_endpoint,
+
+            authorization_endpoint, token_endpoint,
+
+            token_endpoint_auth_methods_supported, and scopes_supported from the
+
+            response. Per RFC 8414 §3.3, the document''s "issuer" field must
+
+            exactly match the upstream issuer configured on the parent
+
+            run-config.
+
+
+            Use this field when the upstream publishes discovery metadata at a
+
+            path that differs from the issuer-derived well-known paths — for
+
+            example a multi-tenant IdP whose metadata lives at
+
+            https://idp.example.com/tenants/acme/.well-known/openid-configuration.
+
+
+            Mutually exclusive with RegistrationEndpoint.'
+          type: string
+        initial_access_token_env_var:
+          description: 'InitialAccessTokenEnvVar is the name of an environment variable
+
+            containing the RFC 7591 initial access token. Mutually exclusive with
+
+            InitialAccessTokenFile.'
+          type: string
+        initial_access_token_file:
+          description: 'InitialAccessTokenFile is the path to a file containing the RFC 7591
+
+            initial access token presented to the registration endpoint. Mutually
+
+            exclusive with InitialAccessTokenEnvVar. Both may be omitted for open
+
+            registration endpoints.'
+          type: string
+        registration_endpoint:
+          description: 'RegistrationEndpoint is the RFC 7591 registration endpoint URL used
+
+            directly, bypassing discovery. Because no discovery is performed,
+
+            server-capability fields (token_endpoint_auth_methods_supported,
+
+            scopes_supported) are unavailable on this code path; the caller is
+
+            expected to also supply AuthorizationEndpoint, TokenEndpoint, and an
+
+            explicit Scopes list on the parent OAuth2UpstreamRunConfig. Auth
+
+            method falls back to the resolver''s default (client_secret_basic).
+
+
+            Mutually exclusive with DiscoveryURL.'
+          type: string
+        software_id:
+          description: 'SoftwareID is the RFC 7591 "software_id" registration metadata value,
+
+            identifying the client software independent of any particular
+
+            registration instance.'
+          type: string
+        software_statement:
+          description: 'SoftwareStatement is the RFC 7591 "software_statement" JWT asserting
+
+            metadata about the client software, signed by a party the authorization
+
+            server trusts.'
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_ratelimit_types.RateLimitBucket:
+      description: 'PerUser token bucket configuration for this tool.
+
+        +optional'
+      properties:
+        maxTokens:
+          description: 'MaxTokens is the maximum number of tokens (bucket capacity).
+
+            This is also the burst size: the maximum number of requests that can be served
+
+            instantaneously before the bucket is depleted.
+
+            +kubebuilder:validation:Required
+
+            +kubebuilder:validation:Minimum=1'
+          type: integer
+        refillPeriod:
+          $ref: '#/components/schemas/v1.Duration'
+      type: object
+    github_com_stacklok_toolhive_pkg_workloads_upgrade.EnvVarDrift:
+      description: 'EnvVarDrift describes environment variables the candidate registry entry
+
+        declares that differ from the workload''s current configuration.'
+      properties:
+        added:
+          description: 'Added lists environment variables the candidate declares that the
+
+            workload does not currently supply (via plain env vars or secrets).'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.EnvVarInfo'
+          type: array
+          uniqueItems: false
+        removed:
+          description: 'Removed lists environment variables the workload supplies that the
+
+            candidate no longer declares. Populated on a best-effort basis; may be
+
+            empty even when removals exist (forward-compatible field).'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.EnvVarInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_runner.HeaderForwardConfig:
+      description: HeaderForward contains configuration for injecting headers into requests to remote servers.
+      properties:
+        add_headers_from_secret:
+          additionalProperties:
+            type: string
+          description: 'AddHeadersFromSecret is a map of header names to secret names.
+
+            The key is the header name, the value is the secret name in ToolHive''s secrets manager.
+
+            Resolved at runtime via WithSecrets() into resolvedHeaders.
+
+            The actual secret value is only held in memory, never persisted.'
+          type: object
+        add_plaintext_headers:
+          additionalProperties:
+            type: string
+          description: 'AddPlaintextHeaders is a map of header names to literal values to inject into requests.
+
+            WARNING: These values are stored in plaintext in the configuration.
+
+            For sensitive values (API keys, tokens), use AddHeadersFromSecret instead.'
+          type: object
+      type: object
+    github_com_stacklok_toolhive_pkg_auth_upstreamswap.Config:
+      description: 'UpstreamSwapConfig contains configuration for upstream token swap middleware.
+
+        When set along with EmbeddedAuthServerConfig, this middleware exchanges ToolHive JWTs
+
+        for upstream IdP tokens before forwarding requests to the MCP server.'
+      properties:
+        custom_header_name:
+          description: CustomHeaderName is the header name when HeaderStrategy is "custom".
+          type: string
+        header_strategy:
+          description: 'HeaderStrategy determines how to inject the token: "replace" (default) or "custom".'
+          type: string
+        provider_name:
+          description: 'ProviderName identifies which upstream provider''s tokens to retrieve for injection.
+
+            This is required and must match a configured upstream provider name.'
+          type: string
+      type: object
+    permissions.Profile:
+      description: Permission profile to apply
+      properties:
+        name:
+          description: Name is the name of the profile
+          type: string
+        network:
+          $ref: '#/components/schemas/permissions.NetworkPermissions'
+        privileged:
+          description: 'Privileged indicates whether the container should run in privileged mode
+
+            When true, the container has access to all host devices and capabilities
+
+            Use with extreme caution as this removes most security isolation'
+          type: boolean
+        read:
+          description: 'Read is a list of mount declarations that the container can read from
+
+            These can be in the following formats:
+
+            - A single path: The same path will be mounted from host to container
+
+            - host-path:container-path: Different paths for host and container
+
+            - resource-uri:container-path: Mount a resource identified by URI to a container path'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        write:
+          description: 'Write is a list of mount declarations that the container can write to
+
+            These follow the same format as Read mounts but with write permissions'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_transport_types.ProxyMode:
+      description: 'ProxyMode is the effective HTTP protocol the proxy uses.
+
+        For stdio transports, this is the configured mode (sse or streamable-http).
+
+        For direct transports (sse/streamable-http), this matches the transport type.
+
+        Note: "sse" is deprecated; use "streamable-http" instead.'
+      enum:
+      - sse
+      - streamable-http
+      - sse
+      - streamable-http
+      type: string
+      x-enum-varnames:
+      - ProxyModeSSE
+      - ProxyModeStreamableHTTP
+    pkg_api_v1.bulkOperationRequest:
+      properties:
+        group:
+          description: Group name to operate on (mutually exclusive with names)
+          type: string
+        names:
+          description: Names of the workloads to operate on
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver_storage.RedisTLSRunConfig:
+      description: SentinelTLS configures TLS for Sentinel connections. Only applies when SentinelConfig is set.
+      properties:
+        ca_cert_file:
+          description: CACertFile is the path to a PEM-encoded CA certificate file.
+          type: string
+        insecure_skip_verify:
+          description: InsecureSkipVerify skips certificate verification.
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.OIDCUpstreamRunConfig:
+      description: 'OIDCConfig contains OIDC-specific configuration.
+
+        Required when Type is "oidc", must be nil when Type is "oauth2".'
+      properties:
+        additional_authorization_params:
+          additionalProperties:
+            type: string
+          description: 'AdditionalAuthorizationParams are extra query parameters to include in
+
+            authorization requests. Useful for provider-specific parameters like
+
+            Google''s access_type=offline.'
+          type: object
+        allow_private_ips:
+          description: 'AllowPrivateIPs permits the OIDC discovery and token HTTP clients to
+
+            connect to private IP ranges (RFC-1918, link-local). Use only when the
+
+            upstream is hosted inside the same cluster and has no public endpoint.
+
+            HTTP-scheme restrictions are unchanged — HTTPS is still required for
+
+            non-localhost hosts. Defaults to false.'
+          type: boolean
+        client_id:
+          description: ClientID is the OAuth 2.0 client identifier registered with the upstream IDP.
+          type: string
+        client_secret_env_var:
+          description: 'ClientSecretEnvVar is the name of an environment variable containing the client secret.
+
+            Mutually exclusive with ClientSecretFile. Optional for public clients using PKCE.'
+          type: string
+        client_secret_file:
+          description: 'ClientSecretFile is the path to a file containing the OAuth 2.0 client secret.
+
+            Mutually exclusive with ClientSecretEnvVar. Optional for public clients using PKCE.'
+          type: string
+        insecure_allow_http:
+          description: 'InsecureAllowHTTP permits a plain-HTTP issuer URL and HTTP discovery
+
+            endpoints for this upstream. Only for in-cluster development environments
+
+            (e.g. Dex served over HTTP in a kind cluster) where TLS is not available.
+
+            Never set this in production.'
+          type: boolean
+        issuer_url:
+          description: 'IssuerURL is the OIDC issuer URL for automatic endpoint discovery.
+
+            Must be a valid HTTPS URL.'
+          type: string
+        redirect_uri:
+          description: 'RedirectURI is the callback URL where the upstream IDP will redirect after authentication.
+
+            When not specified, defaults to `{issuer}/oauth/callback`.'
+          type: string
+        scopes:
+          description: 'Scopes are the OAuth scopes to request from the upstream IDP.
+
+            If not specified, defaults to ["openid", "offline_access"].
+
+            When using AdditionalAuthorizationParams with provider-specific refresh
+
+            token mechanisms (e.g., Google''s access_type=offline), set explicit scopes
+
+            to avoid sending both offline_access and the provider-specific parameter.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        subject_claim:
+          description: 'SubjectClaim names the validated ID-token claim to use as the upstream
+
+            subject. Defaults to "sub" when empty. Set for IdPs where "sub" isn''t
+
+            stable per user (e.g. Entra/Azure AD''s "oid"). See upstream.OIDCConfig.'
+          type: string
+        userinfo_override:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.UserInfoRunConfig'
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.SigningKeyRunConfig:
+      description: 'SigningKeyConfig configures the signing key provider for JWT operations.
+
+        If nil or empty, an ephemeral signing key will be auto-generated (development only).'
+      properties:
+        fallback_key_files:
+          description: 'FallbackKeyFiles are filenames of additional keys for verification (relative to KeyDir).
+
+            These keys are included in the JWKS endpoint for token verification but are NOT
+
+            used for signing new tokens. Useful for key rotation.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        key_dir:
+          description: 'KeyDir is the directory containing PEM-encoded private key files.
+
+            All key filenames are relative to this directory.
+
+            In Kubernetes, this is typically a mounted Secret volume.'
+          type: string
+        signing_key_file:
+          description: 'SigningKeyFile is the filename of the primary signing key (relative to KeyDir).
+
+            This key is used for signing new tokens.'
+          type: string
+      type: object
+    pkg_api_v1.toolOverride:
+      description: Tool override
+      properties:
+        description:
+          description: Description of the tool
+          type: string
+        name:
+          description: Name of the tool
+          type: string
+      type: object
+    registry.Header:
+      properties:
+        choices:
+          description: Choices provides a list of valid values for the header (optional)
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        default:
+          description: 'Default is the value to use if the header is not explicitly provided
+
+            Only used for non-required headers'
+          type: string
+        description:
+          description: Description is a human-readable explanation of the header's purpose
+          type: string
+        name:
+          description: Name is the header name (e.g., X-API-Key, Authorization)
+          type: string
+        required:
+          description: 'Required indicates whether this header must be provided
+
+            If true and not provided via command line or secrets, the user will be prompted for a value'
+          type: boolean
+        secret:
+          description: 'Secret indicates whether this header contains sensitive information
+
+            If true, the value will be stored as a secret rather than as plain text'
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.RunConfig:
+      description: 'EmbeddedAuthServerConfig contains configuration for the embedded OAuth2/OIDC authorization server.
+
+        When set, the proxy runner will start an embedded auth server that delegates to upstream IDPs.
+
+        This is the serializable RunConfig; secrets are referenced by file paths or env var names.'
+      properties:
+        allowed_audiences:
+          description: 'AllowedAudiences is the list of valid resource URIs that tokens can be issued for.
+
+            Per RFC 8707, the "resource" parameter in authorization and token requests is
+
+            validated against this list. Required for MCP compliance.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        authorization_endpoint_base_url:
+          description: 'AuthorizationEndpointBaseURL overrides the base URL used for the authorization_endpoint
+
+            in the OAuth discovery document. When set, the discovery document will advertise
+
+            `{authorization_endpoint_base_url}/oauth/authorize` instead of `{issuer}/oauth/authorize`.
+
+            All other endpoints remain derived from the issuer.'
+          type: string
+        baseline_client_scopes:
+          description: 'BaselineClientScopes is a baseline set of OAuth 2.0 scopes unioned into every
+
+            DCR registration. All values must appear in ScopesSupported; the auth server
+
+            rejects this RunConfig at startup otherwise. Empty means current behavior is
+
+            preserved (registered scope = client-requested, or DefaultScopes if empty).
+
+            When ScopesSupported is empty, the subset check uses registration.DefaultScopes
+
+            (the same set applyDefaults would substitute at startup) — so
+
+            BaselineClientScopes containing standard OIDC scopes works without enumerating
+
+            ScopesSupported explicitly.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        cimd:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.CIMDRunConfig'
+        delegation_token_lifespan:
+          description: 'DelegationTokenLifespan is the maximum lifetime for delegated tokens issued
+
+            via RFC 8693 token exchange. Specified as a Go duration string (e.g., "15m").
+
+            If empty, defaults to 15 minutes.'
+          type: string
+        disable_upstream_token_injection:
+          description: 'DisableUpstreamTokenInjection prevents the upstream swap middleware from being added.
+
+            When true, the embedded auth server handles OAuth flows for clients, but instead of
+
+            injecting upstream IdP tokens the proxy strips the client''s credential headers
+
+            (Authorization, Cookie, Proxy-Authorization) after the JWT is validated — the
+
+            backend receives an unauthenticated request. Incompatible with token exchange
+
+            and AWS STS, which would re-add credentials after the strip.'
+          type: boolean
+        hmac_secret_files:
+          description: 'HMACSecretFiles contains file paths to HMAC secrets for signing authorization codes
+
+            and refresh tokens (opaque tokens).
+
+            First file is the current secret (must be at least 32 bytes), subsequent files
+
+            are for rotation/verification of existing tokens.
+
+            If empty, an ephemeral secret will be auto-generated (development only).'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        insecure_allow_http:
+          description: 'InsecureAllowHTTP permits an http:// issuer URL for non-localhost hosts.
+
+            Only set this for in-cluster Kubernetes deployments on a trusted network.
+
+            Production deployments reachable outside the cluster MUST use https://.'
+          type: boolean
+        issuer:
+          description: 'Issuer is the issuer identifier for this authorization server.
+
+            This will be included in the "iss" claim of issued tokens.
+
+            Must be a valid HTTPS URL (or HTTP for localhost) without query, fragment, or trailing slash.'
+          type: string
+        schema_version:
+          description: SchemaVersion is the version of the RunConfig schema.
+          type: string
+        scopes_supported:
+          description: 'ScopesSupported lists the OAuth 2.0 scope values advertised in discovery documents.
+
+            If empty, defaults to registration.DefaultScopes (["openid", "profile", "email", "offline_access"]).'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        signing_key_config:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.SigningKeyRunConfig'
+        storage:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver_storage.RunConfig'
+        token_lifespans:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.TokenLifespanRunConfig'
+        upstreams:
+          description: 'Upstreams configures connections to upstream Identity Providers.
+
+            At least one upstream is required - the server delegates authentication to these providers.
+
+            Multiple upstreams are supported for sequential authorization chains.'
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.UpstreamRunConfig'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_runner.ToolOverride:
+      properties:
+        description:
+          description: Description is the redefined description of the tool
+          type: string
+        name:
+          description: Name is the redefined name of the tool
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_workloads_upgrade.EnvVarInfo:
+      properties:
+        default:
+          description: 'Default is the candidate''s default value. It is cleared (left empty)
+
+            whenever Secret is true: a secret env var''s default could carry sensitive
+
+            data, and surfacing it in a drift report (which may be logged or returned
+
+            over the API) would leak it. Non-secret defaults are safe to display.'
+          type: string
+        description:
+          description: Description is the human-readable purpose of the variable.
+          type: string
+        name:
+          description: Name is the environment variable name.
+          type: string
+        required:
+          description: Required indicates whether the candidate marks the variable as required.
+          type: boolean
+        secret:
+          description: Secret indicates whether the variable holds sensitive data.
+          type: boolean
+      type: object
+    pkg_api_v1.createWorkloadResponse:
+      description: Response after successfully creating a workload
+      properties:
+        name:
+          description: Name of the created workload
+          type: string
+        port:
+          description: Port the workload is listening on
+          type: integer
+      type: object
+    pkg_api_v1.workloadStatusResponse:
+      description: Response containing workload status information
+      properties:
+        status:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_container_runtime.WorkloadStatus'
+      type: object
+    pkg_api_v1.upgradeCheckResponse:
+      description: Result of checking a single workload for an available upgrade
+      properties:
+        result:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_workloads_upgrade.CheckResult'
+      type: object
+    github_com_stacklok_toolhive_pkg_transport_types.TransportType:
+      description: Transport is the transport mode (stdio, sse, or streamable-http)
+      enum:
+      - stdio
+      - sse
+      - streamable-http
+      - inspector
+      - stdio
+      - sse
+      - streamable-http
+      - inspector
+      - stdio
+      - sse
+      - streamable-http
+      - inspector
+      type: string
+      x-enum-varnames:
+      - TransportTypeStdio
+      - TransportTypeSSE
+      - TransportTypeStreamableHTTP
+      - TransportTypeInspector
+    github_com_stacklok_toolhive_pkg_auth.TokenValidatorConfig:
+      description: 'DEPRECATED: Middleware configuration.
+
+        OIDCConfig contains OIDC configuration'
+      properties:
+        allowPrivateIP:
+          description: AllowPrivateIP allows JWKS/OIDC endpoints on private IP addresses
+          type: boolean
+        audience:
+          description: Audience is the expected audience for the token
+          type: string
+        authTokenFile:
+          description: AuthTokenFile is the path to file containing bearer token for authentication
+          type: string
+        cacertPath:
+          description: CACertPath is the path to the CA certificate bundle for HTTPS requests
+          type: string
+        clientID:
+          description: ClientID is the OIDC client ID
+          type: string
+        clientSecret:
+          description: ClientSecret is the optional OIDC client secret for introspection
+          type: string
+        insecureAllowHTTP:
+          description: 'InsecureAllowHTTP allows HTTP (non-HTTPS) OIDC issuers for development/testing
+
+            WARNING: This is insecure and should NEVER be used in production'
+          type: boolean
+        introspectionURL:
+          description: IntrospectionURL is the optional introspection endpoint for validating tokens
+          type: string
+        issuer:
+          description: Issuer is the OIDC issuer URL (e.g., https://accounts.google.com)
+          type: string
+        jwksurl:
+          description: JWKSURL is the URL to fetch the JWKS from
+          type: string
+        resourceURL:
+          description: ResourceURL is the explicit resource URL for OAuth discovery (RFC 9728)
+          type: string
+        scopes:
+          description: 'Scopes is the list of OAuth scopes to advertise in the well-known endpoint (RFC 9728)
+
+            If empty, defaults to ["openid"]'
+          items:
+            type: string
+          type: array
+      type: object
+    permissions.InboundNetworkPermissions:
+      description: Inbound defines inbound network permissions
+      properties:
+        allow_host:
+          description: AllowHost is a list of allowed hosts for inbound connections
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_container_templates.RuntimeConfig:
+      description: 'RuntimeConfig allows overriding the default runtime configuration
+
+        for this specific workload (base images and packages)'
+      properties:
+        additional_packages:
+          description: 'AdditionalPackages lists extra packages to install in the builder and
+
+            runtime stages.
+
+            Examples for Alpine: ["git", "make", "gcc"]
+
+            Examples for Debian: ["git", "build-essential"]'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        builder_image:
+          description: 'BuilderImage is the full image reference for the builder stage.
+
+            An empty string signals "use the default for this transport type" during config merging.
+
+            Examples: "golang:1.26-alpine", "node:24-alpine", "python:3.14-slim"'
+          type: string
+        runtime_env:
+          additionalProperties:
+            type: string
+          description: 'RuntimeEnv contains environment variables to inject into the Dockerfile''s
+
+            final runtime stage. Unlike BuildEnv (pkg/container/templates.TemplateData.BuildEnv),
+
+            which only affects the builder stage, these variables are baked into the
+
+            shipped image and are present in the running container''s process
+
+            environment at startup. Use this for values a packaged MCP server reads at
+
+            process start (e.g. feature flags, cache backend selection), not for
+
+            build-time package manager configuration.
+
+            Keys must be uppercase with underscores, values are validated for safety.'
+          type: object
+      type: object
+    github_com_stacklok_toolhive_pkg_authserver.UserInfoRunConfig:
+      description: 'UserInfo contains configuration for fetching user information.
+
+        Optional: when nil, the upstream OAuth2 provider derives a deterministic
+
+        subject by SHA-256-hashing the access token (with a "tk-" prefix) instead
+
+        of calling a userinfo endpoint. OIDC providers always derive Subject from
+
+        the ID token and are unaffected.'
+      properties:
+        additional_headers:
+          additionalProperties:
+            type: string
+          description: 'AdditionalHeaders contains extra headers to include in the userinfo request.
+
+            Useful for providers that require specific headers (e.g., GitHub''s Accept header).'
+          type: object
+        endpoint_url:
+          description: EndpointURL is the URL of the userinfo endpoint.
+          type: string
+        field_mapping:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_authserver.UserInfoFieldMappingRunConfig'
+        http_method:
+          description: 'HTTPMethod is the HTTP method to use for the userinfo request.
+
+            If not specified, defaults to GET.'
+          type: string
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: ''
+  url: ''

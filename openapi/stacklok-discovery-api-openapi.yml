@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  contact:
+    url: https://github.com/stacklok/toolhive
+  description: 'API for accessing MCP server registry data and deployed server information
+
+    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
+
+    get information about available servers, and check the status of deployed servers.
+
+
+    Authentication is required by default. Use Bearer token authentication with a valid
+
+    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
+
+    OAuth discovery metadata (RFC 9728).'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ToolHive Registry clients discovery API
+  version: '0.1'
+tags:
+- name: discovery
+paths:
+  /api/v1beta/discovery/clients:
+    get:
+      description: 'List all clients compatible with ToolHive and their status.
+
+        Each object includes supports_skills when ToolHive can install skills for that client.'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.clientStatusResponse'
+          description: OK
+      summary: List all clients status
+      tags:
+      - discovery
+components:
+  schemas:
+    github_com_stacklok_toolhive_pkg_client.ClientAppStatus:
+      properties:
+        client_type:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
+        installed:
+          description: Installed indicates whether the client is installed on the system
+          type: boolean
+        registered:
+          description: Registered indicates whether the client is registered in the ToolHive configuration
+          type: boolean
+        supports_plugins:
+          description: SupportsPlugins indicates whether ToolHive can install plugins for this client
+          type: boolean
+        supports_skills:
+          description: SupportsSkills indicates whether ToolHive can install skills for this client
+          type: boolean
+      type: object
+    github_com_stacklok_toolhive_pkg_client.ClientApp:
+      description: ClientType is the type of MCP client
+      enum:
+      - roo-code
+      - cline
+      - cursor
+      - vscode-insider
+      - vscode
+      - claude-code
+      - windsurf
+      - windsurf-jetbrains
+      - amp-cli
+      - lm-studio
+      - goose
+      - trae
+      - continue
+      - opencode
+      - kiro
+      - antigravity
+      - zed
+      - gemini-cli
+      - vscode-server
+      - mistral-vibe
+      - codex
+      - kimi-cli
+      - factory
+      - copilot-cli
+      type: string
+      x-enum-varnames:
+      - RooCode
+      - Cline
+      - Cursor
+      - VSCodeInsider
+      - VSCode
+      - ClaudeCode
+      - Windsurf
+      - WindsurfJetBrains
+      - AmpCli
+      - LMStudio
+      - Goose
+      - Trae
+      - Continue
+      - OpenCode
+      - Kiro
+      - Antigravity
+      - Zed
+      - GeminiCli
+      - VSCodeServer
+      - MistralVibe
+      - Codex
+      - KimiCli
+      - Factory
+      - CopilotCli
+    pkg_api_v1.clientStatusResponse:
+      properties:
+        clients:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientAppStatus'
+          type: array
+          uniqueItems: false
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: ''
+  url: ''

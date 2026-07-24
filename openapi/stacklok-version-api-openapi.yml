@@ -1,0 +1,53 @@
+openapi: 3.1.0
+info:
+  contact:
+    url: https://github.com/stacklok/toolhive
+  description: 'API for accessing MCP server registry data and deployed server information
+
+    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
+
+    get information about available servers, and check the status of deployed servers.
+
+
+    Authentication is required by default. Use Bearer token authentication with a valid
+
+    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
+
+    OAuth discovery metadata (RFC 9728).'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ToolHive Registry clients version API
+  version: '0.1'
+tags:
+- name: version
+paths:
+  /api/v1beta/version:
+    get:
+      description: Returns the current version of the server
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pkg_api_v1.versionResponse'
+          description: OK
+      summary: Get server version
+      tags:
+      - version
+components:
+  schemas:
+    pkg_api_v1.versionResponse:
+      properties:
+        version:
+          type: string
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: ''
+  url: ''
