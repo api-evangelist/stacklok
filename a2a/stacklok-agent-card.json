@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "2025-06-18",
+  "name": "Stacklok",
+  "description": "Stacklok offers the most complete and secure MCP Platform for enterprises to use the Model Context Protocol in production.",
+  "url": "https://stacklok.com/",
+  "version": "7.0.2",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "supportedInterfaces": [
+    {
+      "transport": "HTTP+JSON",
+      "url": "https://stacklok.com/wp-json/"
+    },
+    {
+      "transport": "text/markdown",
+      "url": "https://stacklok.com/?format=md"
+    }
+  ],
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/markdown",
+    "text/html"
+  ],
+  "skills": [
+    {
+      "id": "search",
+      "name": "Site search",
+      "description": "Full-text search of the site content.",
+      "tags": [
+        "search"
+      ],
+      "examples": [
+        "?s=hello"
+      ]
+    },
+    {
+      "id": "fetch-markdown",
+      "name": "Fetch page as Markdown",
+      "description": "Return any public page as a Markdown document.",
+      "tags": [
+        "content",
+        "markdown"
+      ]
+    }
+  ]
+}
