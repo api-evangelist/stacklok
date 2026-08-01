@@ -1,0 +1,71 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.stacklok.com/toolhive/reference/cli/thv
+binary: thv
+name: ToolHive CLI
+description: >-
+  thv is the ToolHive command-line interface for running, managing, and governing Model
+  Context Protocol (MCP) servers and agent skills locally, in containers, and on Kubernetes.
+  It also starts the ToolHive API server (thv serve) that backs the desktop and cloud UIs.
+install:
+  - method: homebrew
+    command: brew tap stacklok/tap && brew install thv
+  - method: winget
+    command: winget install stacklok.thv
+  - method: binary
+    command: Download from https://github.com/stacklok/toolhive/releases/latest
+  - method: source
+    command: go install github.com/stacklok/toolhive/cmd/thv@latest
+commands:
+  - name: run
+    description: Execute an MCP server
+  - name: list
+    description: Display running MCP servers
+  - name: search
+    description: Locate MCP servers in the registry
+  - name: registry
+    description: Manage MCP server registry
+  - name: start
+    description: Resume a stopped MCP server
+  - name: stop
+    description: Halt one or more MCP servers
+  - name: rm
+    description: Remove one or more MCP servers
+  - name: status
+    description: Display detailed status of an MCP server
+  - name: logs
+    description: Output logs of an MCP server or manage log files
+  - name: build
+    description: Construct a container for an MCP server without executing it
+  - name: export
+    description: Export a workload's run configuration to a file
+  - name: group
+    description: Manage logical groupings of MCP servers
+  - name: client
+    description: Manage MCP clients
+  - name: config
+    description: Manage application configuration
+  - name: secret
+    description: Manage secrets
+  - name: skill
+    description: Manage agent skills
+  - name: proxy
+    description: Create a transparent proxy for an MCP server with auth support
+  - name: mcp
+    description: Interact with MCP servers for debugging
+  - name: inspector
+    description: Launch the MCP Inspector UI and connect to specified servers
+  - name: llm
+    description: Manage LLM gateway authentication
+  - name: vmcp
+    description: Run and manage a Virtual MCP Server locally
+  - name: runtime
+    description: Container runtime-related commands
+  - name: serve
+    description: Start the ToolHive API server
+  - name: upgrade
+    description: Manage upgrades for MCP server workloads
+  - name: tui
+    description: Open interactive TUI dashboard (experimental)
+  - name: version
+    description: Display ToolHive version

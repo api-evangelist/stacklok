@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/stacklok-toolhive-api-openapi.yml, openapi/stacklok-registry-api-openapi.yml
+skills:
+  - file: stacklok-discover-and-run-mcp-server.md
+    name: Discover and run an MCP server with ToolHive
+    api: openapi/stacklok-toolhive-api-openapi.yml
+    operations:
+      - "GET /api/v1beta/registry/{name}/servers"
+      - "GET /api/v1beta/registry/{name}/servers/{serverName}"
+      - "POST /api/v1beta/workloads"
+      - "GET /api/v1beta/workloads/{name}/status"
+      - "POST /api/v1beta/workloads/{name}/stop"
+  - file: stacklok-publish-registry-entry.md
+    name: Publish and govern an MCP registry entry
+    api: openapi/stacklok-registry-api-openapi.yml
+    operations:
+      - "PUT /v1/sources/{name}"
+      - "PUT /v1/registries/{name}"
+      - "POST /v1/entries"
+      - "GET /v1/entries/{type}/{name}/claims"
+      - "PUT /v1/entries/{type}/{name}/claims"

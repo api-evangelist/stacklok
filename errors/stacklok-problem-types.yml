@@ -1,0 +1,99 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/stacklok-toolhive-api-openapi.yml, openapi/stacklok-registry-api-openapi.yml
+format: json
+envelope:
+  schema: ErrorResponse
+  fields:
+  - error
+  - message
+  note: The ToolHive API returns a JSON ErrorResponse object; responses are not RFC 9457 application/problem+json.
+problems:
+- status: 400
+  title: Bad Request
+  remediation: Fix the request payload or parameters and retry.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/clients
+  - openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/clients/{name}
+  - openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/clients/{name}/groups/{group}
+- status: 401
+  title: Unauthorized
+  remediation: Provide a valid OAuth/OIDC Bearer token in the Authorization header.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills/content
+  - openapi/stacklok-registry-api-openapi.yml#GET /registry/{registryName}/v0.1/servers
+- status: 403
+  title: Forbidden
+  remediation: The authenticated identity lacks permission for this resource; check RBAC/Cedar policy
+    and JWT claims.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/registry/{name}
+  - openapi/stacklok-toolhive-api-openapi.yml#PUT /api/v1beta/registry/{name}
+  - openapi/stacklok-registry-api-openapi.yml#GET /v1/entries/{type}/{name}/claims
+- status: 404
+  title: Not Found
+  remediation: Verify the resource name/version exists in the target registry or workload set.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/clients/{name}/groups/{group}
+  - openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/groups/{name}
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/groups/{name}
+- status: 405
+  title: Method Not Allowed
+  remediation: The secrets provider or resource does not support this operation in the current mode.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/secrets/default/keys
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/secrets/default/keys
+  - openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/secrets/default/keys/{key}
+- status: 409
+  title: Conflict
+  remediation: A resource with this name/version already exists; use a different identifier or delete
+    the existing one.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/groups
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/secrets/default/keys
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills
+- status: 422
+  title: Unprocessable Entity
+  remediation: The upgrade or configuration could not be applied as requested; review constraints.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/{name}/upgrade
+- status: 429
+  title: Too Many Requests
+  remediation: Rate limit exceeded; back off and retry.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills/content
+- status: 500
+  title: Internal Server Error
+  remediation: Server error; retry and check server logs (thv logs / registry-api logs).
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/groups
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/groups
+  - openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/groups/{name}
+- status: 501
+  title: Not Implemented
+  remediation: This endpoint is not implemented in the current deployment mode.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/registry
+- status: 502
+  title: Bad Gateway
+  remediation: An upstream registry/source returned an error; verify the upstream endpoint.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#PUT /api/v1beta/registry/{name}
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills/content
+- status: 503
+  title: Service Unavailable
+  remediation: A dependency (database or upstream source) is unavailable; retry later.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/registry/{name}/refresh
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /registry/{registryName}/v0.1/servers
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /registry/{registryName}/v0.1/servers/{serverName}/versions/latest
+- status: 504
+  title: Gateway Timeout
+  remediation: An upstream registry/source timed out; retry or increase the configured timeout.
+  example_operations:
+  - openapi/stacklok-toolhive-api-openapi.yml#PUT /api/v1beta/registry/{name}
+  - openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills
+  - openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills/content

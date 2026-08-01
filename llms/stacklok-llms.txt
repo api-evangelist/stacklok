@@ -1,0 +1,395 @@
+# Stacklok Docs
+
+> Stacklok project documentation and resources
+
+- [Stacklok Docs](/index.md)
+
+## ai-gateway
+
+Govern, secure, and control access to large language model providers from one self-hosted enterprise gateway.
+
+- [AI Gateway](/ai-gateway.md): Govern, secure, and control access to large language model providers from one self-hosted enterprise gateway.
+
+## platform
+
+Govern LLM and MCP access, security, and visibility across your organization.
+
+- [Stacklok Enterprise](/platform.md): Govern LLM and MCP access, security, and visibility across your organization.
+
+### enterprise-authz
+
+Express MCP access control in familiar terms without learning a new policy language. Namespace self-service for the teams that own the servers.
+
+- [Enterprise authorization](/platform/enterprise-authz.md): Express MCP access control in familiar terms without learning a new policy language. Namespace self-service for the teams that own the servers.
+- [Introduction to enterprise authorization](/platform/enterprise-authz/intro.md): Express MCP access in RBAC terms and let the operator compile it to Cedar, so role-based authorization scales across an MCP fleet.
+- [Namespace self-service authorization](/platform/enterprise-authz/namespace-self-service.md): Hand authorization authoring to the team that owns the MCPServer, using PlatformRoleBinding inside their own namespace.
+- [Quickstart - GitHub MCP with Entra ID](/platform/enterprise-authz/quickstart-entra.md): Pair Microsoft Entra ID with the GitHub MCP server and enforce role-based authorization with a compiled ToolhiveAuthorizationPolicy.
+
+### enterprise-cli
+
+Enterprise edition of the ToolHive CLI with OIDC sign-in and centralized policy enforcement from the Enterprise Manager.
+
+- [Stacklok CLI](/platform/enterprise-cli.md): Enterprise edition of the ToolHive CLI with OIDC sign-in and centralized policy enforcement from the Enterprise Manager.
+
+### enterprise-cloud-ui
+
+Web console for discovering, installing, and managing MCP servers across your organization.
+
+- [Enterprise Cloud UI](/platform/enterprise-cloud-ui.md): Web console for discovering, installing, and managing MCP servers across your organization.
+- [Registry management](/platform/enterprise-cloud-ui/administration.md): Manage MCP server entries, sources, and registries through the Enterprise Cloud UI.
+- [Manage entries](/platform/enterprise-cloud-ui/administration/entries.md): Publish, edit, and delete MCP server entries in a managed source from the Cloud UI catalog.
+- [Manage registries](/platform/enterprise-cloud-ui/administration/registries.md): Create, edit, and delete registries that combine sources into a catalog audience in the Cloud UI.
+- [Manage sources](/platform/enterprise-cloud-ui/administration/sources.md): Create, edit, and delete the sources that supply MCP server entries to the catalog.
+- [AI assistant](/platform/enterprise-cloud-ui/ai-assistant.md): Chat with AI models that call MCP tools directly from the Cloud UI catalog.
+- [Browse the catalog](/platform/enterprise-cloud-ui/browse-catalog.md): Search MCP servers and skills, view their details, and install them into Stacklok Desktop or your AI clients.
+- [Configure the Enterprise Cloud UI](/platform/enterprise-cloud-ui/configure.md): Configuration reference for the Enterprise Cloud UI component in the Stacklok Enterprise platform chart.
+- [Introduction](/platform/enterprise-cloud-ui/intro.md): What the Enterprise Cloud UI does, where it fits, and how roles control access to catalog and administration features.
+
+### enterprise-desktop
+
+Enterprise edition of the ToolHive desktop app with OIDC sign-in, policy enforcement, and centralized management.
+
+- [Stacklok Desktop](/platform/enterprise-desktop.md): Enterprise edition of the ToolHive desktop app with OIDC sign-in, policy enforcement, and centralized management.
+- [Deep links](/platform/enterprise-desktop/deep-links.md): How Stacklok Desktop receives install requests from the Enterprise Cloud UI.
+- [Introduction](/platform/enterprise-desktop/intro.md): What Stacklok Desktop adds over the open source ToolHive desktop app, including OIDC sign-in, policy enforcement, and managed updates.
+- [Policy enforcement](/platform/enterprise-desktop/policy-enforcement.md): How Enterprise Manager policies control which features are visible and locked in Stacklok Desktop.
+- [Roll out Stacklok Desktop](/platform/enterprise-desktop/rollout.md): Distribute Stacklok Desktop to user devices via MDM, with the platform URL pre-configured so users sign in without typing it.
+
+### enterprise-manager
+
+Deploy and configure the Stacklok Enterprise Manager for centralized policy enforcement across Stacklok clients.
+
+- [Enterprise Manager](/platform/enterprise-manager.md): Deploy and configure the Stacklok Enterprise Manager for centralized policy enforcement across Stacklok clients.
+- [Configure the Enterprise Manager](/platform/enterprise-manager/configure.md): Configuration reference for the Enterprise Manager component in the Stacklok Enterprise platform chart.
+- [Degraded mode](/platform/enterprise-manager/degraded-mode.md): Configure how Stacklok clients behave when the Enterprise Manager is unreachable.
+- [Introduction](/platform/enterprise-manager/intro.md): What the Enterprise Manager does, where it fits, and how enforcement works across Stacklok clients.
+- [Policies](/platform/enterprise-manager/policies.md): How Enterprise Manager policies work, how to choose enforcement levels, and how to apply policy changes across Stacklok clients.
+- [Build environment policy](/platform/enterprise-manager/policies/build-env.md): Inject environment variables into all MCP server containers without modifying individual server definitions.
+- [CA certificate policy](/platform/enterprise-manager/policies/ca-certificate.md): Inject a custom CA certificate into all MCP server containers so they can reach internal services secured by a private certificate authority.
+- [Stacklok Desktop policies](/platform/enterprise-manager/policies/desktop-app.md): Control the visibility of the Playground tab and help menu in Stacklok Desktop.
+- [Non-registry servers policy](/platform/enterprise-manager/policies/non-registry-servers.md): Block or allow MCP servers that are not listed in the configured registry.
+- [Registry policy](/platform/enterprise-manager/policies/registry.md): Enforce a specific MCP registry URL for all Stacklok clients.
+- [Telemetry policy](/platform/enterprise-manager/policies/telemetry.md): Enforce OpenTelemetry settings across Stacklok clients.
+
+### enterprise-platform
+
+Deploy Stacklok Enterprise as a single umbrella Helm chart that bundles the operator, Cloud UI, Enterprise Manager, and supporting CRDs.
+
+- [Platform setup](/platform/enterprise-platform.md): Deploy Stacklok Enterprise as a single umbrella Helm chart that bundles the operator, Cloud UI, Enterprise Manager, and supporting CRDs.
+- [Install from a private registry (air-gapped)](/platform/enterprise-platform/airgap-install.md): Mirror the Stacklok Enterprise chart and images from Replicated into your own container registry, then install the platform from there.
+- [Configure platform identity](/platform/enterprise-platform/configure-identity.md): Configure your identity provider so the Stacklok Enterprise platform components can authenticate users and validate their requests.
+- [Configure the Registry Server](/platform/enterprise-platform/configure-registry-server.md): Configuration reference for the Registry Server component in the Stacklok Enterprise platform chart.
+- [Deploy the platform](/platform/enterprise-platform/deployment.md): Install the Stacklok Enterprise platform in your Kubernetes cluster as a single Helm release.
+- [Distributed deployments](/platform/enterprise-platform/distributed-deployments.md): Spread Stacklok Enterprise components across clusters or environments by enabling only the components each one needs.
+- [Verify the distribution](/platform/enterprise-platform/verify-artifacts.md): Independently verify the signatures, SLSA provenance, and SBOMs of Stacklok Enterprise container images with cosign.
+
+### reference
+
+- [Platform CRD reference](/platform/reference/crds.md): Reference for Stacklok Enterprise authorization custom resource definitions.
+- [ClusterPlatformRole](/platform/reference/crds/clusterplatformrole.md): Schema reference for ClusterPlatformRole, which defines what a role can do across MCP products in Stacklok Enterprise.
+- [ClusterPlatformRoleBinding](/platform/reference/crds/clusterplatformrolebinding.md): Schema reference for ClusterPlatformRoleBinding, which maps IdP groups and roles to a ClusterPlatformRole cluster-wide.
+- [PlatformRoleBinding](/platform/reference/crds/platformrolebinding.md): Schema reference for PlatformRoleBinding, which maps IdP groups and roles to a ClusterPlatformRole within a single namespace.
+- [ToolhiveAuthorizationPolicy](/platform/reference/crds/toolhiveauthorizationpolicy.md): Schema reference for ToolhiveAuthorizationPolicy, which attaches roles and deny rules to a specific MCP target.
+
+## toolhive
+
+ToolHive helps you run, govern, and connect MCP servers and agent skills across the desktop app, CLI, Kubernetes Operator, vMCP, and Registry Server.
+
+- [What is ToolHive?](/toolhive.md): ToolHive helps you run, govern, and connect MCP servers and agent skills across the desktop app, CLI, Kubernetes Operator, vMCP, and Registry Server.
+- [Contributing to ToolHive](/toolhive/contributing.md): Contribute to ToolHive through code, documentation, or community support across the project ecosystem.
+- [Frequently asked questions](/toolhive/faq.md): Answers to common questions about ToolHive, its components, MCP server management, security, and enterprise use.
+- [Using the ToolHive CLI](/toolhive/guides-cli.md): How-to guides for using the ToolHive command-line interface to run and manage MCP servers.
+- [ToolHive Cloud UI](/toolhive/guides-cloud-ui.md): Browse and discover MCP servers from a web-based catalog backed by the Registry Server
+- [Using the ToolHive Kubernetes Operator](/toolhive/guides-k8s.md): How-to guides for using the ToolHive Kubernetes Operator to run and manage MCP servers.
+- [ToolHive Registry Server](/toolhive/guides-registry.md): Deploy, configure, and secure the ToolHive Registry Server for MCP server and skill discovery
+- [Using ToolHive](/toolhive/guides-ui.md): How-to guides for using the ToolHive UI to run and manage MCP servers.
+- [Virtual MCP Server](/toolhive/guides-vmcp.md): Aggregate multiple MCP servers into a single unified endpoint.
+- [Reference](/toolhive/reference.md): Technical reference documentation for ToolHive, including CLI commands, API specifications, CRD definitions, and registry schemas.
+- [Getting support](/toolhive/support.md): Get help with ToolHive and Stacklok Enterprise through community channels, documentation search, and dedicated support.
+
+### concepts
+
+- [Authentication and authorization](/toolhive/concepts/auth-framework.md): ToolHive's authentication and authorization framework for securing access to MCP servers.
+- [Backend authentication](/toolhive/concepts/backend-auth.md): Backend authentication patterns for MCP servers, including static credentials, token exchange, and the embedded authorization server.
+- [Cedar policies](/toolhive/concepts/cedar-policies.md): Writing and configuring Cedar policies for MCP server authorization.
+- [Embedded authorization server](/toolhive/concepts/embedded-auth-server.md): How the ToolHive embedded authorization server works, including the OAuth flow, token storage and forwarding, and when to use it.
+- [Organizing MCP servers with groups](/toolhive/concepts/groups.md): Groups organize MCP servers into logical sets and control which clients can access them.
+- [Model Context Protocol (MCP): A primer for builders](/toolhive/concepts/mcp-primer.md): What MCP is, how it works, and how it fits into the ecosystem ToolHive manages.
+- [Observability](/toolhive/concepts/observability.md): Observability features in ToolHive, including metrics, traces, and logging for MCP server monitoring.
+- [Registry criteria](/toolhive/concepts/registry-criteria.md): Requirements and review criteria for adding MCP servers to the ToolHive registry.
+- [Understanding skills](/toolhive/concepts/skills.md): Skills are reusable MCP server configurations that bundle tools, permissions, and secrets for common tasks.
+- [Optimizing LLM context with tool filtering and overrides](/toolhive/concepts/tool-optimization.md): Tool filtering and overrides reduce context window pollution and improve AI tool selection accuracy.
+- [Understanding Virtual MCP Server](/toolhive/concepts/vmcp.md): Virtual MCP Server (vMCP) aggregates multiple MCP servers into one endpoint for simpler client configuration.
+
+### guides-cli
+
+- [Advanced CI/CD patterns](/toolhive/guides-cli/advanced-cicd.md): Advanced CI/CD patterns for building and deploying MCP server containers with ToolHive.
+- [Run the API server](/toolhive/guides-cli/api-server.md): Run the ToolHive API server locally for REST-based MCP server management and automation.
+- [Authentication and authorization](/toolhive/guides-cli/auth.md): How to set up authentication and authorization for MCP servers using the ToolHive CLI.
+- [Build MCP containers](/toolhive/guides-cli/build-containers.md): How to build MCP server containers without running them using the ToolHive CLI.
+- [Client configuration](/toolhive/guides-cli/client-configuration.md): Configure AI clients like Claude, Cursor, and VS Code to connect to ToolHive MCP servers.
+- [Configure MCP servers](/toolhive/guides-cli/configure-mcp-servers.md): Customize MCP server behavior with the ToolHive CLI, including names, secrets, ports, tool filtering, audit logging, volumes, and network isolation.
+- [Custom permissions](/toolhive/guides-cli/custom-permissions.md): How to create and apply file system permissions and network isolation for MCP servers using permission profiles in ToolHive.
+- [File system access](/toolhive/guides-cli/filesystem-access.md): How to enable MCP server access to your host's file system in ToolHive.
+- [Organize servers into groups](/toolhive/guides-cli/group-management.md): How to organize MCP servers into logical groups and configure client access.
+- [Install ToolHive](/toolhive/guides-cli/install.md): Install, upgrade, and manage the ToolHive CLI on macOS, Linux, and Windows.
+- [Manage servers](/toolhive/guides-cli/manage-mcp-servers.md): How to monitor and manage the lifecycle of MCP servers using ToolHive.
+- [Network isolation](/toolhive/guides-cli/network-isolation.md): How to configure network isolation for MCP servers in ToolHive
+- [Quickstart: ToolHive CLI](/toolhive/guides-cli/quickstart.md): Install the ToolHive CLI and run your first MCP server in minutes.
+- [Use the registry](/toolhive/guides-cli/registry.md): Search the built-in registry to find, inspect, and run MCP servers with one command.
+- [Run MCP servers](/toolhive/guides-cli/run-mcp-servers.md): Run MCP servers with the ToolHive CLI from the registry, custom Docker images, or protocol schemes.
+- [Run remote MCP servers](/toolhive/guides-cli/run-remote-mcp-servers.md): Connect to remotely hosted MCP servers with the ToolHive CLI, including OAuth, OIDC, and bearer token authentication.
+- [Secrets management](/toolhive/guides-cli/secrets-management.md): How to securely manage API tokens and other sensitive data in ToolHive.
+- [Manage agent skills](/toolhive/guides-cli/skills-management.md): How to install, distribute, and manage agent skills with the ToolHive CLI.
+- [Telemetry and metrics](/toolhive/guides-cli/telemetry-and-metrics.md): How to enable OpenTelemetry and Prometheus instrumentation for ToolHive MCP servers.
+- [Test MCP servers](/toolhive/guides-cli/test-mcp-servers.md): Test and validate MCP servers using the ToolHive CLI before deploying to production.
+- [Hide sensitive files](/toolhive/guides-cli/thvignore.md): Use .thvignore to prevent secrets from leaking into MCP containers while keeping fast bind mounts for development.
+- [Configure token exchange for backend authentication](/toolhive/guides-cli/token-exchange.md): How to set up token exchange so MCP servers can authenticate to backend services using ToolHive.
+- [Delegate tool authorization with webhooks](/toolhive/guides-cli/webhooks.md): Configure webhook middleware to delegate MCP tool call authorization to an external HTTP service when running MCP servers with the ToolHive CLI.
+
+### guides-cloud-ui
+
+- [Cloud UI configuration](/toolhive/guides-cloud-ui/configuration.md): Configure environment variables and OIDC authentication for the ToolHive Cloud UI.
+- [Deploy the Cloud UI](/toolhive/guides-cloud-ui/deployment.md): Deploy the ToolHive Cloud UI on Kubernetes alongside a Registry Server, with OIDC authentication.
+- [Introduction](/toolhive/guides-cloud-ui/intro.md): Architecture and use cases for the ToolHive Cloud UI, a read-only web catalog backed by a Registry Server
+
+### guides-k8s
+
+- [Authentication and authorization](/toolhive/guides-k8s/auth-k8s.md): How to set up authentication and authorization for MCP servers in Kubernetes using the ToolHive Operator.
+- [Set up Cedar authorization in Kubernetes](/toolhive/guides-k8s/authorization-k8s.md): Attach Cedar authorization policies to MCPServer, MCPRemoteProxy, and VirtualMCPServer resources in Kubernetes.
+- [Connect clients to MCP servers](/toolhive/guides-k8s/connect-clients.md): Connect AI clients to Kubernetes-hosted MCP servers managed by the ToolHive operator.
+- [Customize tools](/toolhive/guides-k8s/customize-tools.md): Filter and rename MCP server tools using the MCPToolConfig CRD and toolConfigRef.
+- [Deploy the operator](/toolhive/guides-k8s/deploy-operator.md): How to deploy the ToolHive operator in a Kubernetes cluster using Helm or kubectl
+- [Set up the embedded authorization server in Kubernetes](/toolhive/guides-k8s/embedded-auth-server-k8s.md): Configure ToolHive's embedded OAuth authorization server on MCPServer and MCPRemoteProxy resources in Kubernetes.
+- [Introduction](/toolhive/guides-k8s/intro.md): How to manage MCP servers in Kubernetes with the ToolHive Kubernetes Operator
+- [Audit logging](/toolhive/guides-k8s/logging.md): Configure log levels, formats, and output for the ToolHive operator and MCP servers in Kubernetes.
+- [Declare remote MCP server entries](/toolhive/guides-k8s/mcp-server-entry.md): Register remote MCP servers as lightweight catalog entries for vMCP discovery without deploying proxy infrastructure.
+- [Migrate to v1beta1](/toolhive/guides-k8s/migrate-to-v1beta1.md): Breaking changes and migration steps for the CRD API stabilization track from v0.15.0 through v0.23.0
+- [Quickstart: ToolHive Kubernetes Operator](/toolhive/guides-k8s/quickstart.md): Deploy the ToolHive Kubernetes Operator and run your first MCP server in a cluster.
+- [Rate limiting](/toolhive/guides-k8s/rate-limiting.md): Configure per-user and shared rate limits on MCPServer and VirtualMCPServer resources to prevent noisy neighbors and protect downstream services.
+- [Redis session storage](/toolhive/guides-k8s/redis-session-storage.md): Deploy Redis Sentinel, standalone Redis, or Redis Cluster as the session store for the ToolHive embedded auth server and horizontal scaling.
+- [Proxy remote MCP servers](/toolhive/guides-k8s/remote-mcp-proxy.md): How to deploy proxies for remote MCP servers in Kubernetes using the ToolHive operator
+- [Run MCP servers in Kubernetes](/toolhive/guides-k8s/run-mcp-k8s.md): Deploy and configure MCP servers in Kubernetes using MCPServer custom resources.
+- [Telemetry and metrics](/toolhive/guides-k8s/telemetry-and-metrics.md): Enable OpenTelemetry and Prometheus metrics for ToolHive MCP servers running in Kubernetes.
+- [Configure token exchange for backend authentication](/toolhive/guides-k8s/token-exchange-k8s.md): How to set up token exchange so MCP servers can authenticate to backend services in Kubernetes using the ToolHive Operator.
+
+### guides-mcp
+
+- [Context7 MCP server guide](/toolhive/guides-mcp/context7.md): Using the Context7 MCP server with ToolHive for up-to-date documentation.
+- [Fetch MCP server guide](/toolhive/guides-mcp/fetch.md): Using the Fetch MCP server with ToolHive to retrieve website data.
+- [Filesystem MCP server guide](/toolhive/guides-mcp/filesystem.md): Using the Filesystem MCP server with ToolHive for file access.
+- [GitHub MCP server guide](/toolhive/guides-mcp/github.md): Using the GitHub MCP server with ToolHive for repository management.
+- [Grafana MCP server guide](/toolhive/guides-mcp/grafana.md): Using the Grafana MCP server with ToolHive for dashboard management, datasource queries, alerting, and incident response.
+- [Kubernetes MCP server guide](/toolhive/guides-mcp/k8s.md): Using the Kubernetes (MKP) MCP server with ToolHive for cluster management.
+- [Notion MCP server guide](/toolhive/guides-mcp/notion-remote.md): Using the Notion remote MCP server with ToolHive to access your Notion workspace.
+- [OSV MCP server guide](/toolhive/guides-mcp/osv.md): Using the Open Source Vulnerabilities database (OSV) MCP server with ToolHive.
+- [Playwright MCP server guide](/toolhive/guides-mcp/playwright.md): Using the Playwright MCP server with ToolHive for browser automation.
+
+### guides-registry
+
+- [Audit logging](/toolhive/guides-registry/audit-logging.md): Configure audit logging for the ToolHive Registry Server to track API operations and meet security compliance requirements.
+- [Authentication configuration](/toolhive/guides-registry/authentication.md): How to configure authentication for the ToolHive Registry Server with anonymous and OAuth modes
+- [Authorization](/toolhive/guides-registry/authorization.md): Configure role-based access control and claims-based authorization for the Registry Server
+- [Configuration](/toolhive/guides-registry/configuration.md): Configure the ToolHive Registry Server with sources, registries, and sync policies
+- [Database configuration](/toolhive/guides-registry/database.md): How to configure PostgreSQL database storage and migrations for the ToolHive Registry server
+- [Deploy with Helm](/toolhive/guides-registry/deploy-helm.md): How to deploy the ToolHive Registry Server in Kubernetes using the official Helm chart
+- [Deploy manually](/toolhive/guides-registry/deploy-manual.md): How to deploy the ToolHive Registry Server in Kubernetes using raw manifests and RBAC configuration
+- [Deploy with the ToolHive Operator](/toolhive/guides-registry/deploy-operator.md): How to deploy the ToolHive Registry Server in Kubernetes using the ToolHive Operator
+- [Deploy the Registry Server](/toolhive/guides-registry/deployment.md): Deployment options for the ToolHive Registry Server in Kubernetes using the operator, Helm, or raw manifests
+- [Introduction](/toolhive/guides-registry/intro.md): Architecture, features, and registry source types for the ToolHive Registry Server
+- [Migrate from the operator to Helm](/toolhive/guides-registry/migrate-to-helm.md): Migrate an operator-managed MCPRegistry deployment to the standalone Registry Server Helm chart
+- [Publish MCP servers](/toolhive/guides-registry/publish-servers.md): How to publish MCP server entries to a ToolHive Registry Server using a Git or file source, or the managed source admin API.
+- [Quickstart: Registry Server](/toolhive/guides-registry/quickstart.md): Deploy the ToolHive Registry Server on a local Kubernetes cluster with a file-based source and query its API.
+- [Manage skills](/toolhive/guides-registry/skills.md): How to publish, list, retrieve, and delete skills in the ToolHive Registry Server through the admin API or a synced source.
+- [Telemetry and metrics](/toolhive/guides-registry/telemetry-metrics.md): How to enable OpenTelemetry metrics and distributed tracing for the ToolHive Registry Server
+
+### guides-ui
+
+- [Access the CLI from ToolHive UI](/toolhive/guides-ui/cli-access.md): How to use the ToolHive CLI when using the ToolHive UI application for advanced features and terminal-based workflows.
+- [Client configuration](/toolhive/guides-ui/client-configuration.md): Connect ToolHive to Claude, Cursor, VS Code, and other AI clients using the desktop app.
+- [Configure MCP servers](/toolhive/guides-ui/configure-mcp-servers.md): Configure MCP server settings in the ToolHive UI, including names, groups, ports, secrets, storage volumes, network isolation, and remote authentication.
+- [Customize tools](/toolhive/guides-ui/customize-tools.md): Select which tools from an MCP server are available to your AI clients using the ToolHive UI.
+- [Organize servers into groups](/toolhive/guides-ui/group-management.md): How to organize MCP servers into groups and configure client access in the ToolHive UI.
+- [Install ToolHive](/toolhive/guides-ui/install.md): Install the ToolHive desktop app on macOS, Windows, or Linux for graphical MCP server management.
+- [Network isolation](/toolhive/guides-ui/network-isolation.md): How to configure network isolation for MCP servers in ToolHive.
+- [Chat with AI agents](/toolhive/guides-ui/playground.md): Chat with built-in or custom AI agents in the ToolHive playground, with per-thread agent, model, MCP tool, and skill selection.
+- [Quickstart: ToolHive UI](/toolhive/guides-ui/quickstart.md): Install the ToolHive desktop app and run your first MCP server in minutes.
+- [Use the registry](/toolhive/guides-ui/registry.md): Search built-in or custom registries to find and install MCP servers in the ToolHive desktop app.
+- [Run MCP servers](/toolhive/guides-ui/run-mcp-servers.md): Install and run MCP servers from the registry or as custom servers using the ToolHive desktop app.
+- [Secrets management](/toolhive/guides-ui/secrets-management.md): How to securely manage API tokens and other sensitive data in the ToolHive UI.
+- [Manage skills in ToolHive UI](/toolhive/guides-ui/skills.md): Install, build, and manage agent skills in the ToolHive desktop app to teach your AI clients reusable workflows.
+- [Browse and install skills](/toolhive/guides-ui/skills-browse-install.md): Discover skills from the configured registry and install them into your AI clients with the ToolHive desktop app.
+- [Build a skill from a local folder](/toolhive/guides-ui/skills-build.md): Package a folder on your machine into an OCI skill artifact and reuse it with the ToolHive desktop app.
+- [Manage installed skills](/toolhive/guides-ui/skills-manage.md): Inspect, search, and uninstall agent skills you've added to your AI clients through the ToolHive desktop app.
+
+### guides-vmcp
+
+- [Audit logging](/toolhive/guides-vmcp/audit-logging.md): Configure audit logging for Virtual MCP Server to meet security compliance requirements and track MCP operations.
+- [Authentication and authorization](/toolhive/guides-vmcp/authentication.md): Configure client authentication, authorization, and backend authentication for vMCP.
+- [Backend discovery modes](/toolhive/guides-vmcp/backend-discovery.md): Choose between discovered and inline backend discovery for Virtual MCP Server.
+- [Run tool calls server-side with code mode](/toolhive/guides-vmcp/code-mode.md): Enable vMCP code mode so agents can submit a Starlark script that orchestrates many backend tool calls in a single request.
+- [Composite tools and workflows](/toolhive/guides-vmcp/composite-tools.md): Create multi-step workflows that span multiple backend MCP servers.
+- [Configure vMCP servers](/toolhive/guides-vmcp/configuration.md): How to configure a Virtual MCP Server for common scenarios.
+- [Embedded authorization server](/toolhive/guides-vmcp/embedded-auth-server-vmcp.md): Run an OAuth authorization server inside vMCP to broker user login and forward per-user tokens to backends.
+- [Failure handling](/toolhive/guides-vmcp/failure-handling.md): Configure circuit breaker and partial failure modes to handle backend failures gracefully.
+- [Introduction to vMCP](/toolhive/guides-vmcp/intro.md): Virtual MCP Server (vMCP) aggregates multiple MCP servers into one endpoint for simpler client configuration.
+- [Run vMCP locally with the CLI](/toolhive/guides-vmcp/local-cli.md): Run Virtual MCP Server locally with the thv vmcp command to aggregate a ToolHive group without Kubernetes.
+- [Optimize tool discovery](/toolhive/guides-vmcp/optimizer.md): Enable the optimizer in vMCP to reduce token usage and improve tool selection across aggregated backends.
+- [Quickstart: Virtual MCP Server](/toolhive/guides-vmcp/quickstart.md): Aggregate multiple MCP servers into a single endpoint using Virtual MCP Server.
+- [Scaling and performance](/toolhive/guides-vmcp/scaling-and-performance.md): How to scale Virtual MCP Server deployments vertically and horizontally.
+- [Telemetry and metrics](/toolhive/guides-vmcp/telemetry-and-metrics.md): How to enable OpenTelemetry traces and metrics for Virtual MCP Server.
+- [Tool aggregation and conflict resolution](/toolhive/guides-vmcp/tool-aggregation.md): How vMCP aggregates tools from multiple backend MCP servers and resolves naming conflicts.
+
+### tutorials
+
+- [Create a custom MCP registry](/toolhive/tutorials/custom-registry.md): Create a custom MCP server registry with curated servers for your team or organization.
+- [Reduce token usage with MCP Optimizer](/toolhive/tutorials/mcp-optimizer.md): Deploy the MCP Optimizer on Kubernetes with Virtual MCP Server and an EmbeddingServer to filter tools and reduce token usage.
+
+### integrations
+
+- [AWS STS authentication for the AWS MCP Server](/toolhive/integrations/aws-sts.md): Learn how to centralize AWS credential management by using ToolHive to exchange OIDC tokens for temporary AWS credentials via STS.
+- [Configure secure ingress for MCP servers on Kubernetes](/toolhive/integrations/ingress-ngrok.md): A guide to setting up secure ingress for MCP servers running on a Kubernetes cluster using the ToolHive Operator.
+- [Role-based authorization with Okta](/toolhive/integrations/okta.md): Deploy a GitHub MCP server on Kubernetes, add Okta OIDC authentication, and enforce role-based access control (RBAC) with Cedar policies.
+- [Collect telemetry for MCP workloads](/toolhive/integrations/opentelemetry.md): Collect metrics and traces for MCP workloads using OpenTelemetry, Jaeger, and Prometheus with the CLI or Kubernetes operator.
+- [HashiCorp Vault integration](/toolhive/integrations/vault.md): Learn how to securely manage MCP server secrets using HashiCorp Vault with ToolHive Kubernetes Operator.
+- [Connect ToolHive to Microsoft Entra ID](/toolhive/integrations/vmcp-entra-id.md): Connect a VirtualMCPServer to Microsoft Entra ID using the embedded auth server and Cedar policies for App Role-based access.
+- [Connect ToolHive to an enterprise identity provider](/toolhive/integrations/vmcp-idp-overview.md): Connect ToolHive to your corporate IdP so MCP clients authenticate with existing credentials and group memberships.
+- [Connect ToolHive to Okta](/toolhive/integrations/vmcp-okta.md): Connect a VirtualMCPServer to Okta using the embedded auth server and Cedar policies for group-based tool access.
+
+### reference
+
+- [Authorization policy reference](/toolhive/reference/authz-policy-reference.md): Complete reference for Cedar entity types, actions, attributes, and annotations available when writing ToolHive authorization policies.
+- [thv](/toolhive/reference/cli/thv.md): Reference for ToolHive CLI command `thv`
+- [thv build](/toolhive/reference/cli/thv_build.md): Reference for ToolHive CLI command `thv build`
+- [thv client](/toolhive/reference/cli/thv_client.md): Reference for ToolHive CLI command `thv client`
+- [thv client list-registered](/toolhive/reference/cli/thv_client_list-registered.md): Reference for ToolHive CLI command `thv client list-registered`
+- [thv client register](/toolhive/reference/cli/thv_client_register.md): Reference for ToolHive CLI command `thv client register`
+- [thv client remove](/toolhive/reference/cli/thv_client_remove.md): Reference for ToolHive CLI command `thv client remove`
+- [thv client setup](/toolhive/reference/cli/thv_client_setup.md): Reference for ToolHive CLI command `thv client setup`
+- [thv client status](/toolhive/reference/cli/thv_client_status.md): Reference for ToolHive CLI command `thv client status`
+- [thv config](/toolhive/reference/cli/thv_config.md): Reference for ToolHive CLI command `thv config`
+- [thv config get-build-auth-file](/toolhive/reference/cli/thv_config_get-build-auth-file.md): Reference for ToolHive CLI command `thv config get-build-auth-file`
+- [thv config get-build-env](/toolhive/reference/cli/thv_config_get-build-env.md): Reference for ToolHive CLI command `thv config get-build-env`
+- [thv config get-ca-cert](/toolhive/reference/cli/thv_config_get-ca-cert.md): Reference for ToolHive CLI command `thv config get-ca-cert`
+- [thv config get-registry](/toolhive/reference/cli/thv_config_get-registry.md): Reference for ToolHive CLI command `thv config get-registry`
+- [thv config otel](/toolhive/reference/cli/thv_config_otel.md): Reference for ToolHive CLI command `thv config otel`
+- [thv config otel get-enable-prometheus-metrics-path](/toolhive/reference/cli/thv_config_otel_get-enable-prometheus-metrics-path.md): Reference for ToolHive CLI command `thv config otel get-enable-prometheus-metrics-path`
+- [thv config otel get-endpoint](/toolhive/reference/cli/thv_config_otel_get-endpoint.md): Reference for ToolHive CLI command `thv config otel get-endpoint`
+- [thv config otel get-env-vars](/toolhive/reference/cli/thv_config_otel_get-env-vars.md): Reference for ToolHive CLI command `thv config otel get-env-vars`
+- [thv config otel get-insecure](/toolhive/reference/cli/thv_config_otel_get-insecure.md): Reference for ToolHive CLI command `thv config otel get-insecure`
+- [thv config otel get-metrics-enabled](/toolhive/reference/cli/thv_config_otel_get-metrics-enabled.md): Reference for ToolHive CLI command `thv config otel get-metrics-enabled`
+- [thv config otel get-sampling-rate](/toolhive/reference/cli/thv_config_otel_get-sampling-rate.md): Reference for ToolHive CLI command `thv config otel get-sampling-rate`
+- [thv config otel get-tracing-enabled](/toolhive/reference/cli/thv_config_otel_get-tracing-enabled.md): Reference for ToolHive CLI command `thv config otel get-tracing-enabled`
+- [thv config otel set-enable-prometheus-metrics-path](/toolhive/reference/cli/thv_config_otel_set-enable-prometheus-metrics-path.md): Reference for ToolHive CLI command `thv config otel set-enable-prometheus-metrics-path`
+- [thv config otel set-endpoint](/toolhive/reference/cli/thv_config_otel_set-endpoint.md): Reference for ToolHive CLI command `thv config otel set-endpoint`
+- [thv config otel set-env-vars](/toolhive/reference/cli/thv_config_otel_set-env-vars.md): Reference for ToolHive CLI command `thv config otel set-env-vars`
+- [thv config otel set-insecure](/toolhive/reference/cli/thv_config_otel_set-insecure.md): Reference for ToolHive CLI command `thv config otel set-insecure`
+- [thv config otel set-metrics-enabled](/toolhive/reference/cli/thv_config_otel_set-metrics-enabled.md): Reference for ToolHive CLI command `thv config otel set-metrics-enabled`
+- [thv config otel set-sampling-rate](/toolhive/reference/cli/thv_config_otel_set-sampling-rate.md): Reference for ToolHive CLI command `thv config otel set-sampling-rate`
+- [thv config otel set-tracing-enabled](/toolhive/reference/cli/thv_config_otel_set-tracing-enabled.md): Reference for ToolHive CLI command `thv config otel set-tracing-enabled`
+- [thv config otel unset-enable-prometheus-metrics-path](/toolhive/reference/cli/thv_config_otel_unset-enable-prometheus-metrics-path.md): Reference for ToolHive CLI command `thv config otel unset-enable-prometheus-metrics-path`
+- [thv config otel unset-endpoint](/toolhive/reference/cli/thv_config_otel_unset-endpoint.md): Reference for ToolHive CLI command `thv config otel unset-endpoint`
+- [thv config otel unset-env-vars](/toolhive/reference/cli/thv_config_otel_unset-env-vars.md): Reference for ToolHive CLI command `thv config otel unset-env-vars`
+- [thv config otel unset-insecure](/toolhive/reference/cli/thv_config_otel_unset-insecure.md): Reference for ToolHive CLI command `thv config otel unset-insecure`
+- [thv config otel unset-metrics-enabled](/toolhive/reference/cli/thv_config_otel_unset-metrics-enabled.md): Reference for ToolHive CLI command `thv config otel unset-metrics-enabled`
+- [thv config otel unset-sampling-rate](/toolhive/reference/cli/thv_config_otel_unset-sampling-rate.md): Reference for ToolHive CLI command `thv config otel unset-sampling-rate`
+- [thv config otel unset-tracing-enabled](/toolhive/reference/cli/thv_config_otel_unset-tracing-enabled.md): Reference for ToolHive CLI command `thv config otel unset-tracing-enabled`
+- [Set npmrc for private npm registry](/toolhive/reference/cli/thv_config_set-build-auth-file.md): Reference for ToolHive CLI command `thv config set-build-auth-file`
+- [thv config set-build-env](/toolhive/reference/cli/thv_config_set-build-env.md): Reference for ToolHive CLI command `thv config set-build-env`
+- [thv config set-ca-cert](/toolhive/reference/cli/thv_config_set-ca-cert.md): Reference for ToolHive CLI command `thv config set-ca-cert`
+- [thv config set-registry](/toolhive/reference/cli/thv_config_set-registry.md): Reference for ToolHive CLI command `thv config set-registry`
+- [thv config unset-build-auth-file](/toolhive/reference/cli/thv_config_unset-build-auth-file.md): Reference for ToolHive CLI command `thv config unset-build-auth-file`
+- [thv config unset-build-env](/toolhive/reference/cli/thv_config_unset-build-env.md): Reference for ToolHive CLI command `thv config unset-build-env`
+- [thv config unset-ca-cert](/toolhive/reference/cli/thv_config_unset-ca-cert.md): Reference for ToolHive CLI command `thv config unset-ca-cert`
+- [thv config unset-registry](/toolhive/reference/cli/thv_config_unset-registry.md): Reference for ToolHive CLI command `thv config unset-registry`
+- [thv config usage-metrics](/toolhive/reference/cli/thv_config_usage-metrics.md): Reference for ToolHive CLI command `thv config usage-metrics`
+- [thv export](/toolhive/reference/cli/thv_export.md): Reference for ToolHive CLI command `thv export`
+- [thv group](/toolhive/reference/cli/thv_group.md): Reference for ToolHive CLI command `thv group`
+- [thv group create](/toolhive/reference/cli/thv_group_create.md): Reference for ToolHive CLI command `thv group create`
+- [thv group list](/toolhive/reference/cli/thv_group_list.md): Reference for ToolHive CLI command `thv group list`
+- [thv group rm](/toolhive/reference/cli/thv_group_rm.md): Reference for ToolHive CLI command `thv group rm`
+- [thv inspector](/toolhive/reference/cli/thv_inspector.md): Reference for ToolHive CLI command `thv inspector`
+- [List running MCP servers](/toolhive/reference/cli/thv_list.md): Reference for ToolHive CLI command `thv list`
+- [thv llm](/toolhive/reference/cli/thv_llm.md): Reference for ToolHive CLI command `thv llm`
+- [thv llm config](/toolhive/reference/cli/thv_llm_config.md): Reference for ToolHive CLI command `thv llm config`
+- [thv llm config reset](/toolhive/reference/cli/thv_llm_config_reset.md): Reference for ToolHive CLI command `thv llm config reset`
+- [thv llm config set](/toolhive/reference/cli/thv_llm_config_set.md): Reference for ToolHive CLI command `thv llm config set`
+- [thv llm config show](/toolhive/reference/cli/thv_llm_config_show.md): Reference for ToolHive CLI command `thv llm config show`
+- [thv llm proxy](/toolhive/reference/cli/thv_llm_proxy.md): Reference for ToolHive CLI command `thv llm proxy`
+- [thv llm proxy start](/toolhive/reference/cli/thv_llm_proxy_start.md): Reference for ToolHive CLI command `thv llm proxy start`
+- [thv llm setup](/toolhive/reference/cli/thv_llm_setup.md): Reference for ToolHive CLI command `thv llm setup`
+- [thv llm teardown](/toolhive/reference/cli/thv_llm_teardown.md): Reference for ToolHive CLI command `thv llm teardown`
+- [thv llm token](/toolhive/reference/cli/thv_llm_token.md): Reference for ToolHive CLI command `thv llm token`
+- [View logs of an MCP server](/toolhive/reference/cli/thv_logs.md): Reference for ToolHive CLI command `thv logs`
+- [thv logs prune](/toolhive/reference/cli/thv_logs_prune.md): Reference for ToolHive CLI command `thv logs prune`
+- [thv mcp](/toolhive/reference/cli/thv_mcp.md): Reference for ToolHive CLI command `thv mcp`
+- [thv mcp call](/toolhive/reference/cli/thv_mcp_call.md): Reference for ToolHive CLI command `thv mcp call`
+- [thv mcp list](/toolhive/reference/cli/thv_mcp_list.md): Reference for ToolHive CLI command `thv mcp list`
+- [thv mcp list prompts](/toolhive/reference/cli/thv_mcp_list_prompts.md): Reference for ToolHive CLI command `thv mcp list prompts`
+- [thv mcp list resources](/toolhive/reference/cli/thv_mcp_list_resources.md): Reference for ToolHive CLI command `thv mcp list resources`
+- [thv mcp list tools](/toolhive/reference/cli/thv_mcp_list_tools.md): Reference for ToolHive CLI command `thv mcp list tools`
+- [thv proxy](/toolhive/reference/cli/thv_proxy.md): Reference for ToolHive CLI command `thv proxy`
+- [thv proxy stdio](/toolhive/reference/cli/thv_proxy_stdio.md): Reference for ToolHive CLI command `thv proxy stdio`
+- [thv proxy tunnel](/toolhive/reference/cli/thv_proxy_tunnel.md): Reference for ToolHive CLI command `thv proxy tunnel`
+- [thv registry](/toolhive/reference/cli/thv_registry.md): Reference for ToolHive CLI command `thv registry`
+- [thv registry convert](/toolhive/reference/cli/thv_registry_convert.md): Reference for ToolHive CLI command `thv registry convert`
+- [thv registry info](/toolhive/reference/cli/thv_registry_info.md): Reference for ToolHive CLI command `thv registry info`
+- [thv registry list](/toolhive/reference/cli/thv_registry_list.md): Reference for ToolHive CLI command `thv registry list`
+- [thv registry login](/toolhive/reference/cli/thv_registry_login.md): Reference for ToolHive CLI command `thv registry login`
+- [thv registry logout](/toolhive/reference/cli/thv_registry_logout.md): Reference for ToolHive CLI command `thv registry logout`
+- [Remove a single MCP server](/toolhive/reference/cli/thv_rm.md): Reference for ToolHive CLI command `thv rm`
+- [Run a server from the registry](/toolhive/reference/cli/thv_run.md): Reference for ToolHive CLI command `thv run`
+- [thv runtime](/toolhive/reference/cli/thv_runtime.md): Reference for ToolHive CLI command `thv runtime`
+- [thv runtime check](/toolhive/reference/cli/thv_runtime_check.md): Reference for ToolHive CLI command `thv runtime check`
+- [thv search](/toolhive/reference/cli/thv_search.md): Reference for ToolHive CLI command `thv search`
+- [thv secret](/toolhive/reference/cli/thv_secret.md): Reference for ToolHive CLI command `thv secret`
+- [thv secret delete](/toolhive/reference/cli/thv_secret_delete.md): Reference for ToolHive CLI command `thv secret delete`
+- [thv secret get](/toolhive/reference/cli/thv_secret_get.md): Reference for ToolHive CLI command `thv secret get`
+- [thv secret list](/toolhive/reference/cli/thv_secret_list.md): Reference for ToolHive CLI command `thv secret list`
+- [thv secret provider](/toolhive/reference/cli/thv_secret_provider.md): Reference for ToolHive CLI command `thv secret provider`
+- [thv secret reset-keyring](/toolhive/reference/cli/thv_secret_reset-keyring.md): Reference for ToolHive CLI command `thv secret reset-keyring`
+- [thv secret set](/toolhive/reference/cli/thv_secret_set.md): Reference for ToolHive CLI command `thv secret set`
+- [thv secret setup](/toolhive/reference/cli/thv_secret_setup.md): Reference for ToolHive CLI command `thv secret setup`
+- [thv serve](/toolhive/reference/cli/thv_serve.md): Reference for ToolHive CLI command `thv serve`
+- [thv skill](/toolhive/reference/cli/thv_skill.md): Reference for ToolHive CLI command `thv skill`
+- [thv skill build](/toolhive/reference/cli/thv_skill_build.md): Reference for ToolHive CLI command `thv skill build`
+- [thv skill builds](/toolhive/reference/cli/thv_skill_builds.md): Reference for ToolHive CLI command `thv skill builds`
+- [thv skill builds remove](/toolhive/reference/cli/thv_skill_builds_remove.md): Reference for ToolHive CLI command `thv skill builds remove`
+- [thv skill info](/toolhive/reference/cli/thv_skill_info.md): Reference for ToolHive CLI command `thv skill info`
+- [thv skill install](/toolhive/reference/cli/thv_skill_install.md): Reference for ToolHive CLI command `thv skill install`
+- [thv skill list](/toolhive/reference/cli/thv_skill_list.md): Reference for ToolHive CLI command `thv skill list`
+- [thv skill push](/toolhive/reference/cli/thv_skill_push.md): Reference for ToolHive CLI command `thv skill push`
+- [thv skill uninstall](/toolhive/reference/cli/thv_skill_uninstall.md): Reference for ToolHive CLI command `thv skill uninstall`
+- [thv skill validate](/toolhive/reference/cli/thv_skill_validate.md): Reference for ToolHive CLI command `thv skill validate`
+- [thv start](/toolhive/reference/cli/thv_start.md): Reference for ToolHive CLI command `thv start`
+- [thv status](/toolhive/reference/cli/thv_status.md): Reference for ToolHive CLI command `thv status`
+- [Stop a single MCP server](/toolhive/reference/cli/thv_stop.md): Reference for ToolHive CLI command `thv stop`
+- [thv tui](/toolhive/reference/cli/thv_tui.md): Reference for ToolHive CLI command `thv tui`
+- [thv upgrade](/toolhive/reference/cli/thv_upgrade.md): Reference for ToolHive CLI command `thv upgrade`
+- [Apply the available upgrade, prompting for confirmation](/toolhive/reference/cli/thv_upgrade_apply.md): Reference for ToolHive CLI command `thv upgrade apply`
+- [Check all workloads](/toolhive/reference/cli/thv_upgrade_check.md): Reference for ToolHive CLI command `thv upgrade check`
+- [thv version](/toolhive/reference/cli/thv_version.md): Reference for ToolHive CLI command `thv version`
+- [thv vmcp](/toolhive/reference/cli/thv_vmcp.md): Reference for ToolHive CLI command `thv vmcp`
+- [thv vmcp init](/toolhive/reference/cli/thv_vmcp_init.md): Reference for ToolHive CLI command `thv vmcp init`
+- [thv vmcp serve](/toolhive/reference/cli/thv_vmcp_serve.md): Reference for ToolHive CLI command `thv vmcp serve`
+- [thv vmcp validate](/toolhive/reference/cli/thv_vmcp_validate.md): Reference for ToolHive CLI command `thv vmcp validate`
+- [Client compatibility](/toolhive/reference/client-compatibility.md): Supported AI clients and their transport, authentication, and feature compatibility with ToolHive.
+- [Kubernetes CRD reference](/toolhive/reference/crds.md): Reference for all ToolHive Kubernetes Operator custom resource definitions.
+- [EmbeddingServer](/toolhive/reference/crds/embeddingserver.md): Schema reference for EmbeddingServer, which defines a local embedding model deployment used by the vMCP optimizer.
+- [MCPAuthzConfig](/toolhive/reference/crds/mcpauthzconfig.md): Schema reference for MCPAuthzConfig, which configures backend-agnostic authorization policy for MCP servers and proxies.
+- [MCPExternalAuthConfig](/toolhive/reference/crds/mcpexternalauthconfig.md): Schema reference for MCPExternalAuthConfig, which configures external authentication for MCP servers and proxies.
+- [MCPGroup](/toolhive/reference/crds/mcpgroup.md): Schema reference for MCPGroup, which groups backend MCP servers, remote proxies, and server entries for shared configuration.
+- [MCPOIDCConfig](/toolhive/reference/crds/mcpoidcconfig.md): Schema reference for MCPOIDCConfig, which configures OIDC-based incoming authentication for MCP servers.
+- [MCPRegistry](/toolhive/reference/crds/mcpregistry.md): Schema reference for MCPRegistry, which declares a ToolHive Registry Server deployment managed by the operator.
+- [MCPRemoteProxy](/toolhive/reference/crds/mcpremoteproxy.md): Schema reference for MCPRemoteProxy, which proxies a remote MCP server through the operator for auth, telemetry, and tool filtering.
+- [MCPServer](/toolhive/reference/crds/mcpserver.md): Schema reference for MCPServer, which defines a containerized MCP server managed by the ToolHive operator.
+- [MCPServerEntry](/toolhive/reference/crds/mcpserverentry.md): Schema reference for MCPServerEntry, which declares a remote MCP server as a member of an MCPGroup.
+- [MCPTelemetryConfig](/toolhive/reference/crds/mcptelemetryconfig.md): Schema reference for MCPTelemetryConfig, which configures OpenTelemetry tracing, metrics, and logging for MCP workloads.
+- [MCPToolConfig](/toolhive/reference/crds/mcptoolconfig.md): Schema reference for MCPToolConfig, which filters and renames tools exposed by an MCP server.
+- [MCPWebhookConfig](/toolhive/reference/crds/mcpwebhookconfig.md): Schema reference for MCPWebhookConfig, which configures validating and mutating webhook middleware for MCP servers.
+- [VirtualMCPCompositeToolDefinition](/toolhive/reference/crds/virtualmcpcompositetooldefinition.md): Schema reference for VirtualMCPCompositeToolDefinition, which defines a composite tool workflow for a VirtualMCPServer.
+- [VirtualMCPServer](/toolhive/reference/crds/virtualmcpserver.md): Schema reference for VirtualMCPServer, which aggregates multiple MCP servers into a single virtual endpoint.
+
+## Optional
+- [Stacklok website](https://stacklok.com): Official website of Stacklok, the creators of ToolHive.
+- [Community Discord](https://discord.gg/stacklok)

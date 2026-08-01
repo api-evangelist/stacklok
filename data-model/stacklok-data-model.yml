@@ -1,0 +1,54 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/stacklok-toolhive-api-openapi.yml, openapi/stacklok-registry-api-openapi.yml
+entities:
+- name: registry
+- name: source
+- name: entry
+- name: server
+- name: skill
+- name: workload
+- name: group
+- name: client
+- name: secret
+relationships:
+- from: registry
+  to: source
+  type: has_many
+  via: sources
+- from: source
+  to: entry
+  type: has_many
+  via: entries
+- from: entry
+  to: server
+  type: has_one
+  via: server
+- from: entry
+  to: skill
+  type: has_one
+  via: skill
+- from: server
+  to: server
+  type: has_many
+  via: versions
+- from: skill
+  to: skill
+  type: has_many
+  via: versions
+- from: workload
+  to: group
+  type: belongs_to
+  via: group
+- from: group
+  to: workload
+  type: has_many
+  via: workloads
+- from: client
+  to: group
+  type: has_many
+  via: groups
+- from: workload
+  to: server
+  type: has_one
+  via: image/server

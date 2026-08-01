@@ -1,0 +1,195 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/stacklok-toolhive-api-openapi.yml
+note: Candidate tool list derived from the ToolHive local API server operations (thv serve). Stacklok
+  is itself an MCP platform (ToolHive/Enterprise) for running and governing MCP servers; it also publishes
+  a Stacklok Documentation Search MCP server documented at https://docs.stacklok.com. No single hosted
+  first-party MCP endpoint URL is published for the ToolHive control API (self-hosted).
+server:
+  name: stacklok-toolhive
+  transport: http
+tools:
+- name: get_api_openapi_json
+  description: Get OpenAPI specification
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/openapi.json
+- name: get_api_v1beta_clients
+  description: List all clients
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/clients
+- name: create_api_v1beta_clients
+  description: Register a new client
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/clients
+- name: delete_api_v1beta_clients
+  description: Unregister a client
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/clients/{name}
+- name: delete_api_v1beta_clients_groups
+  description: Unregister a client from a specific group
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/clients/{name}/groups/{group}
+- name: create_api_v1beta_clients_register
+  description: Register multiple clients
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/clients/register
+- name: create_api_v1beta_clients_unregister
+  description: Unregister multiple clients
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/clients/unregister
+- name: get_api_v1beta_discovery_clients
+  description: List all clients status
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/discovery/clients
+- name: get_api_v1beta_groups
+  description: List all groups
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/groups
+- name: create_api_v1beta_groups
+  description: Create a new group
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/groups
+- name: delete_api_v1beta_groups
+  description: Delete a group
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/groups/{name}
+- name: get_api_v1beta_groups
+  description: Get group details
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/groups/{name}
+- name: get_api_v1beta_registry
+  description: List registries
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/registry
+- name: create_api_v1beta_registry
+  description: Add a registry
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/registry
+- name: delete_api_v1beta_registry
+  description: Remove a registry
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/registry/{name}
+- name: get_api_v1beta_registry
+  description: Get a registry
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/registry/{name}
+- name: update_api_v1beta_registry
+  description: Update registry configuration
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#PUT /api/v1beta/registry/{name}
+- name: create_api_v1beta_registry_refresh
+  description: Refresh registry cache
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/registry/{name}/refresh
+- name: get_api_v1beta_registry_servers
+  description: List servers in a registry
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/registry/{name}/servers
+- name: get_api_v1beta_registry_servers
+  description: Get a server from a registry
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/registry/{name}/servers/{serverName}
+- name: create_api_v1beta_registry_auth_login
+  description: Registry login
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/registry/auth/login
+- name: create_api_v1beta_registry_auth_logout
+  description: Registry logout
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/registry/auth/logout
+- name: create_api_v1beta_secrets
+  description: Setup or reconfigure secrets provider
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/secrets
+- name: get_api_v1beta_secrets_default
+  description: Get secrets provider details
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/secrets/default
+- name: get_api_v1beta_secrets_default_keys
+  description: List secrets
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/secrets/default/keys
+- name: create_api_v1beta_secrets_default_keys
+  description: Create a new secret
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/secrets/default/keys
+- name: delete_api_v1beta_secrets_default_keys
+  description: Delete a secret
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/secrets/default/keys/{key}
+- name: update_api_v1beta_secrets_default_keys
+  description: Update a secret
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#PUT /api/v1beta/secrets/default/keys/{key}
+- name: get_api_v1beta_skills
+  description: List all installed skills
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills
+- name: create_api_v1beta_skills
+  description: Install a skill
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills
+- name: delete_api_v1beta_skills
+  description: Uninstall a skill
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/skills/{name}
+- name: get_api_v1beta_skills
+  description: Get skill details
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills/{name}
+- name: create_api_v1beta_skills_build
+  description: Build a skill
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills/build
+- name: get_api_v1beta_skills_builds
+  description: List locally-built skill artifacts
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills/builds
+- name: delete_api_v1beta_skills_builds
+  description: Delete a locally-built skill artifact
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/skills/builds/{tag}
+- name: get_api_v1beta_skills_content
+  description: Get skill content
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/skills/content
+- name: create_api_v1beta_skills_push
+  description: Push a skill
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills/push
+- name: create_api_v1beta_skills_validate
+  description: Validate a skill
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/skills/validate
+- name: get_api_v1beta_version
+  description: Get server version
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/version
+- name: get_api_v1beta_workloads
+  description: List all workloads
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads
+- name: create_api_v1beta_workloads
+  description: Create a new workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads
+- name: delete_api_v1beta_workloads
+  description: Delete a workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#DELETE /api/v1beta/workloads/{name}
+- name: get_api_v1beta_workloads
+  description: Get workload details
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads/{name}
+- name: create_api_v1beta_workloads_edit
+  description: Update workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/{name}/edit
+- name: get_api_v1beta_workloads_export
+  description: Export workload configuration
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads/{name}/export
+- name: get_api_v1beta_workloads_logs
+  description: Get logs for a specific workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads/{name}/logs
+- name: get_api_v1beta_workloads_proxy_logs
+  description: Get proxy logs for a specific workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads/{name}/proxy-logs
+- name: create_api_v1beta_workloads_restart
+  description: Restart a workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/{name}/restart
+- name: get_api_v1beta_workloads_status
+  description: Get workload status
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads/{name}/status
+- name: create_api_v1beta_workloads_stop
+  description: Stop a workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/{name}/stop
+- name: create_api_v1beta_workloads_upgrade
+  description: Apply an available upgrade to a workload
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/{name}/upgrade
+- name: get_api_v1beta_workloads_upgrade_check
+  description: Check a workload for an available upgrade
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads/{name}/upgrade-check
+- name: create_api_v1beta_workloads_delete
+  description: Delete workloads in bulk
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/delete
+- name: create_api_v1beta_workloads_restart
+  description: Restart workloads in bulk
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/restart
+- name: create_api_v1beta_workloads_stop
+  description: Stop workloads in bulk
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#POST /api/v1beta/workloads/stop
+- name: get_api_v1beta_workloads_upgrade_check
+  description: Check workloads for available upgrades
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /api/v1beta/workloads/upgrade-check
+- name: get_health
+  description: Health check
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /health
+- name: get_registry_v0_1_servers
+  description: List available registry servers
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /registry/{registryName}/v0.1/servers
+- name: get_registry_v0_1_servers_versions_latest
+  description: Get a registry server
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /registry/{registryName}/v0.1/servers/{serverName}/versions/latest
+- name: get_registry_v0_1_x_dev_toolhive_skills
+  description: List available registry skills
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /registry/{registryName}/v0.1/x/dev.toolhive/skills
+- name: get_registry_v0_1_x_dev_toolhive_skills
+  description: Get a registry skill
+  source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{skillName}

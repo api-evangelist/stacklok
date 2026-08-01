@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/stacklok-registry-api-openapi.yml, openapi/stacklok-toolhive-api-openapi.yml, https://docs.stacklok.com
+authentication:
+  style: bearer
+  detail: >-
+    OAuth 2.0 / OIDC Bearer access token in the Authorization header (Authorization: Bearer
+    {token}) is required by default on the Registry API. The /.well-known/oauth-protected-resource
+    endpoint publishes OAuth discovery metadata (RFC 9728). An anonymous mode is available for
+    development. See authentication/stacklok-authentication.yml.
+pagination:
+  style: cursor
+  detail: >-
+    List endpoints on the MCP Registry API use cursor-based pagination with a limit parameter
+    and a next cursor returned in response metadata (ResponseMeta / ServerListResponse).
+  params: [cursor, limit]
+  response_fields: [metadata.next_cursor]
+versioning:
+  style: uri-path
+  detail: Control API under /api/v1beta; MCP Registry API under /registry/{name}/v0.1; admin API under /v1.
+error_envelope:
+  shape: json-object
+  fields: [error, message]
+  problem_json: false
+  ref: errors/stacklok-problem-types.yml
+idempotency:
+  supported: false
+  detail: >-
+    No Idempotency-Key header or idempotency contract is documented. Create/update semantics
+    rely on named PUT upserts (e.g. PUT /v1/registries/{name}, PUT /v1/sources/{name}) which are
+    naturally idempotent by resource name, but there is no explicit idempotency-key mechanism.
+rate_limiting:
+  detail: >-
+    The AI Gateway / ToolHive middleware supports configurable rate limiting (RateLimitConfig /
+    RateLimitBucket) applied to proxied MCP/LLM traffic; the control API itself documents no
+    standard rate-limit response headers.
+  ref: null
+standards:
+  - MCP Registry API v0.1
+  - RFC 9728 (OAuth 2.0 Protected Resource Metadata)

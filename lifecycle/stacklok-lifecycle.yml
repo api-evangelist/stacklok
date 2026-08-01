@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/stacklok/toolhive, https://docs.stacklok.com
+versioning:
+  scheme: mixed
+  detail: >-
+    Software releases use semver (ToolHive v0.40.x). The HTTP APIs use URI-path API
+    versioning: the ToolHive control API is served under /api/v1beta, and the MCP Registry
+    API under /registry/{name}/v0.1 (MCP Registry API v0.1 spec) with a /v1 admin API.
+  current:
+    toolhive_cli: v0.40.1
+    control_api: v1beta
+    registry_api: v0.1
+    admin_api: v1
+  docs: https://docs.stacklok.com
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal public deprecation/Sunset (RFC 8594) policy is published; the v1beta path signals pre-GA API status.
+sla:
+  url: null
+  note: Self-hosted open-source and enterprise software; no hosted-service SLA published.
+status_page: null
+deprecated_operations: []

@@ -17,7 +17,111 @@ modified: '2026-07-17'
 tags:
 - Company
 - Open Source
-apis: []
+apis:
+- aid: stacklok:stacklok-clients-api
+  name: Stacklok clients API
+  description: The clients API from Stacklok — 5 operation(s) for clients.
+  tags:
+  - clients
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-clients-api-openapi.yml
+- aid: stacklok:stacklok-discovery-api
+  name: Stacklok discovery API
+  description: The discovery API from Stacklok — 1 operation(s) for discovery.
+  tags:
+  - discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-discovery-api-openapi.yml
+- aid: stacklok:stacklok-groups-api
+  name: Stacklok groups API
+  description: The groups API from Stacklok — 2 operation(s) for groups.
+  tags:
+  - groups
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-groups-api-openapi.yml
+- aid: stacklok:stacklok-logs-api
+  name: Stacklok logs API
+  description: The logs API from Stacklok — 2 operation(s) for logs.
+  tags:
+  - logs
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-logs-api-openapi.yml
+- aid: stacklok:stacklok-registry-api
+  name: Stacklok registry API
+  description: The registry API from Stacklok — 10 operation(s) for registry.
+  tags:
+  - registry
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-registry-api-openapi.yml
+- aid: stacklok:stacklok-registry-servers-api
+  name: Stacklok registry-servers API
+  description: The registry-servers API from Stacklok — 2 operation(s) for registry-servers.
+  tags:
+  - registry-servers
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-registry-servers-api-openapi.yml
+- aid: stacklok:stacklok-registry-skills-api
+  name: Stacklok registry-skills API
+  description: The registry-skills API from Stacklok — 2 operation(s) for registry-skills.
+  tags:
+  - registry-skills
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-registry-skills-api-openapi.yml
+- aid: stacklok:stacklok-secrets-api
+  name: Stacklok secrets API
+  description: The secrets API from Stacklok — 4 operation(s) for secrets.
+  tags:
+  - secrets
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-secrets-api-openapi.yml
+- aid: stacklok:stacklok-skills-api
+  name: Stacklok skills API
+  description: The skills API from Stacklok — 12 operation(s) for skills.
+  tags:
+  - skills
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-skills-api-openapi.yml
+- aid: stacklok:stacklok-system-api
+  name: Stacklok system API
+  description: The system API from Stacklok — 3 operation(s) for system.
+  tags:
+  - system
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-system-api-openapi.yml
+- aid: stacklok:stacklok-v1-api
+  name: Stacklok v1 API
+  description: The v1 API from Stacklok — 10 operation(s) for v1.
+  tags:
+  - v1
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-v1-api-openapi.yml
+- aid: stacklok:stacklok-version-api
+  name: Stacklok version API
+  description: The version API from Stacklok — 1 operation(s) for version.
+  tags:
+  - version
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-version-api-openapi.yml
+- aid: stacklok:stacklok-workloads-api
+  name: Stacklok workloads API
+  description: The workloads API from Stacklok — 13 operation(s) for workloads.
+  tags:
+  - workloads
+  properties:
+  - type: OpenAPI
+    url: openapi/stacklok-workloads-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

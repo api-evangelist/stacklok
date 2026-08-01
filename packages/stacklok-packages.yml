@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/stacklok
+note: >-
+  Stacklok ships open-source Go modules and the ToolHive CLI (thv). ToolHive and the
+  registry server are Apache-2.0 Go projects importable as modules; the CLI is distributed
+  via Homebrew, WinGet, and prebuilt release binaries. The npm package name "toolhive" is an
+  unrelated/empty placeholder (no repository, description, or published version) and is NOT
+  first-party, so it is excluded.
+packages:
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/stacklok/toolhive
+    url: https://pkg.go.dev/github.com/stacklok/toolhive
+    install: go get github.com/stacklok/toolhive
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/stacklok/toolhive-registry-server
+    url: https://pkg.go.dev/github.com/stacklok/toolhive-registry-server
+    install: go get github.com/stacklok/toolhive-registry-server
+    official: true
+  - language: cli
+    registry: homebrew
+    name: thv
+    url: https://github.com/stacklok/toolhive
+    install: brew tap stacklok/tap && brew install thv
+    official: true
+  - language: cli
+    registry: winget
+    name: stacklok.thv
+    url: https://github.com/stacklok/toolhive
+    install: winget install stacklok.thv
+    official: true

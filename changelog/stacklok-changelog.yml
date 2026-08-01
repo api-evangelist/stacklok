@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/stacklok/toolhive/releases
+scheme: semver
+project: toolhive
+current_version: v0.40.1
+cadence: frequent (multiple releases per week)
+note: >-
+  ToolHive publishes dated, semver-tagged GitHub Releases with auto-generated notes. The
+  registry server and other org projects version independently. Recent window captured below;
+  the live releases page is the source of truth.
+entries:
+  - version: v0.40.1
+    date: '2026-07-20'
+    type: patch
+  - version: v0.40.0
+    date: '2026-07-17'
+    type: minor
+  - version: v0.39.0
+    date: '2026-07-16'
+    type: minor
+  - version: v0.38.0
+    date: '2026-07-15'
+    type: minor
+  - version: v0.37.0
+    date: '2026-07-15'
+    type: minor
+  - version: v0.36.0
+    date: '2026-07-14'
+    type: minor

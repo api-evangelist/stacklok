@@ -1,0 +1,38 @@
+{
+  "provider": "stacklok",
+  "sources": [
+    "stacklok-clients-api-openapi.yml",
+    "stacklok-discovery-api-openapi.yml",
+    "stacklok-groups-api-openapi.yml",
+    "stacklok-logs-api-openapi.yml",
+    "stacklok-registry-api-openapi.yml",
+    "stacklok-registry-servers-api-openapi.yml",
+    "stacklok-registry-skills-api-openapi.yml",
+    "stacklok-secrets-api-openapi.yml",
+    "stacklok-skills-api-openapi.yml",
+    "stacklok-system-api-openapi.yml",
+    "stacklok-v1-api-openapi.yml",
+    "stacklok-version-api-openapi.yml",
+    "stacklok-workloads-api-openapi.yml"
+  ],
+  "outputs": [
+    "stacklok-clients-api-openapi.yml",
+    "stacklok-discovery-api-openapi.yml",
+    "stacklok-groups-api-openapi.yml",
+    "stacklok-logs-api-openapi.yml",
+    "stacklok-registry-api-openapi.yml",
+    "stacklok-registry-servers-api-openapi.yml",
+    "stacklok-registry-skills-api-openapi.yml",
+    "stacklok-secrets-api-openapi.yml",
+    "stacklok-skills-api-openapi.yml",
+    "stacklok-system-api-openapi.yml",
+    "stacklok-v1-api-openapi.yml",
+    "stacklok-version-api-openapi.yml",
+    "stacklok-workloads-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

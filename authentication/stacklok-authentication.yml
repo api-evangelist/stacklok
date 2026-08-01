@@ -1,0 +1,25 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/stacklok-registry-api-openapi.yml, openapi/stacklok-toolhive-api-openapi.yml
+docs: https://docs.stacklok.com
+summary:
+  types:
+  - oauth2
+  - openIdConnect
+  api_key_in:
+  - header
+  detail: >-
+    The ToolHive Registry API requires OAuth 2.0 / OIDC Bearer access tokens in the
+    Authorization header (Authorization: Bearer {token}). OAuth discovery metadata is
+    published at /.well-known/oauth-protected-resource (RFC 9728). Enterprise deployments
+    integrate external identity providers (Okta, Auth0, Microsoft Entra ID) for OIDC
+    sign-in; an anonymous mode is available for local development. The local ToolHive
+    control API (thv serve) does not declare an in-spec security scheme.
+schemes:
+- name: BearerAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'OAuth 2.0 / OIDC Bearer token authentication. Format: "Bearer {token}"'
+  sources:
+  - openapi/stacklok-registry-api-openapi.yml

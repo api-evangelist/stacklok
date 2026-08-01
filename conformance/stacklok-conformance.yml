@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/stacklok-registry-api-openapi.yml, openapi/stacklok-toolhive-api-openapi.yml, https://docs.stacklok.com
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: Registry API requires OAuth 2.0 Bearer access tokens; enterprise auth integrates Okta/Auth0/Entra ID.
+  - id: oidc
+    conforms: true
+    evidence: OIDC sign-in documented for Enterprise CLI/Desktop/Cloud UI; OIDC access tokens accepted by the Registry API.
+  - id: rfc9728-oauth-protected-resource
+    conforms: true
+    evidence: /.well-known/oauth-protected-resource endpoint publishes OAuth protected-resource discovery metadata.
+  - id: mcp-registry-api-0.1
+    conforms: true
+    evidence: Implements the standards-compliant Model Context Protocol Registry API v0.1 (/registry/{name}/v0.1/servers).
+  - id: model-context-protocol
+    conforms: true
+    evidence: ToolHive runs, proxies, and governs MCP servers and exposes MCP tooling surfaces.
+  - id: cedar-policy
+    conforms: true
+    evidence: Enterprise authorization compiles RBAC to Cedar policy for MCP access control.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a plain JSON ErrorResponse object, not application/problem+json.
+  - id: openapi-3.1
+    conforms: true
+    evidence: Both APIs publish OpenAPI 3.1.0 specifications.
