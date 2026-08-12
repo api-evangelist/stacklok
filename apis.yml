@@ -128,6 +128,12 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgentSkill
+  url: skills/stacklok-discover-and-run-mcp-server.md
+- type: MCPServer
+  url: mcp/stacklok-mcp.yml
+- type: Overlay
+  url: overlays/stacklok-registry-overlay.yaml
 - type: AgentCard
   url: a2a/stacklok-a2a.yml
   name: A2A Agent Card
