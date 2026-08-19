@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients logs API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get logs for a specific workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/logs",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Retrieve at most 1000 lines of logs for a specific workload by name."
+        },
+        {
+          "info": {
+            "name": "Get proxy logs for a specific workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/proxy-logs",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Retrieve at most 1000 lines of proxy logs for a specific workload by name from the file system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

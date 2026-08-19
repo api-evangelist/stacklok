@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients groups API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/groups"
+          },
+          "docs": "Get a list of all groups"
+        },
+        {
+          "info": {
+            "name": "Create a new group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new group with the specified name"
+        },
+        {
+          "info": {
+            "name": "Get group details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/groups/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Group name"
+              }
+            ]
+          },
+          "docs": "Get details of a specific group"
+        },
+        {
+          "info": {
+            "name": "Delete a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1beta/groups/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Group name"
+              },
+              {
+                "name": "with-workloads",
+                "value": "",
+                "type": "query",
+                "description": "Delete all workloads in the group (default: false, moves workloads to default group)"
+              }
+            ]
+          },
+          "docs": "Delete a group by name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

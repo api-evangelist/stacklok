@@ -1,0 +1,2708 @@
+{
+  "item": [
+    {
+      "id": "c2e1ee5c-4738-466f-aa24-2992f24c9039",
+      "name": "workloads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "48604233-c3f9-406f-94f5-6cbd33255c6b",
+          "name": "List all workloads",
+          "request": {
+            "name": "List all workloads",
+            "description": {
+              "content": "Get a list of all running workloads, optionally filtered by group",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "all",
+                  "value": "<boolean>",
+                  "description": "List all workloads, including stopped ones"
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Filter workloads by group name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3d74936-c228-4a83-9e93-3a47897b934d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workloads\": [\n    {\n      \"created_at\": \"string\",\n      \"group\": \"string\",\n      \"labels\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"name\": \"string\",\n      \"package\": \"string\",\n      \"port\": 3003,\n      \"proxy_mode\": \"string\",\n      \"remote\": false,\n      \"started_at\": \"string\",\n      \"status\": \"stopped\",\n      \"status_context\": \"string\",\n      \"tools\": [\n        \"string\",\n        \"string\"\n      ],\n      \"transport_type\": \"sse\",\n      \"url\": \"string\"\n    },\n    {\n      \"created_at\": \"string\",\n      \"group\": \"string\",\n      \"labels\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"name\": \"string\",\n      \"package\": \"string\",\n      \"port\": 4501,\n      \"proxy_mode\": \"string\",\n      \"remote\": false,\n      \"started_at\": \"string\",\n      \"status\": \"starting\",\n      \"status_context\": \"string\",\n      \"tools\": [\n        \"string\",\n        \"string\"\n      ],\n      \"transport_type\": \"sse\",\n      \"url\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d91b86b6-0fd6-4784-9984-9d3cad4a80f9",
+              "name": "Group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc77dffc-29eb-4e93-b046-ee270bdd28b7",
+          "name": "Create a new workload",
+          "request": {
+            "name": "Create a new workload",
+            "description": {
+              "content": "Create and start a new workload",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43ac136e-39ef-46e5-bf31-ebbb633d903c",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"port\": 7535\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cada9727-299f-4f28-b37d-b374ae2c04cf",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c69865a8-063e-42b6-855c-b4f629220abd",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b638a29-1cf9-493e-a1ae-448c91caba02",
+          "name": "Delete a workload",
+          "request": {
+            "name": "Delete a workload",
+            "description": {
+              "content": "Delete a workload asynchronously. Returns 202 Accepted immediately.\nThe deletion happens in the background. Poll the workload list to confirm deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b517a035-ba91-4daa-8ded-78051e0ecf53",
+              "name": "Accepted - deletion started",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5c237f7-7b5f-4690-ae48-eeb312514f35",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ea8990d-dbaa-457c-8128-e9a1419baf18",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06dd47ed-6139-44d7-8ad2-5811fe4c238f",
+          "name": "Get workload details",
+          "request": {
+            "name": "Get workload details",
+            "description": {
+              "content": "Get details of a specific workload",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f392d02-0003-41aa-84e3-1696351032a5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allow_docker_gateway\": false,\n  \"authz_config\": \"string\",\n  \"cmd_arguments\": [\n    \"string\",\n    \"string\"\n  ],\n  \"env_vars\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": \"string\"\n  },\n  \"group\": \"string\",\n  \"header_forward\": {\n    \"add_headers_from_secret\": {\n      \"key_0\": \"string\"\n    },\n    \"add_plaintext_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"headers\": [\n    {\n      \"choices\": [\n        \"string\",\n        \"string\"\n      ],\n      \"default\": \"string\",\n      \"description\": \"string\",\n      \"name\": \"string\",\n      \"required\": false,\n      \"secret\": true\n    },\n    {\n      \"choices\": [\n        \"string\",\n        \"string\"\n      ],\n      \"default\": \"string\",\n      \"description\": \"string\",\n      \"name\": \"string\",\n      \"required\": false,\n      \"secret\": true\n    }\n  ],\n  \"host\": \"string\",\n  \"image\": \"string\",\n  \"name\": \"string\",\n  \"network_isolation\": true,\n  \"oauth_config\": {\n    \"authorize_url\": \"string\",\n    \"bearer_token\": {\n      \"name\": \"string\",\n      \"target\": \"string\"\n    },\n    \"callback_port\": 2233,\n    \"client_id\": \"string\",\n    \"client_secret\": {\n      \"name\": \"string\",\n      \"target\": \"string\"\n    },\n    \"issuer\": \"string\",\n    \"oauth_params\": {\n      \"key_0\": \"string\"\n    },\n    \"resource\": \"string\",\n    \"scopes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"skip_browser\": false,\n    \"token_url\": \"string\",\n    \"use_pkce\": true\n  },\n  \"oidc\": {\n    \"audience\": \"string\",\n    \"client_id\": \"string\",\n    \"client_secret\": \"string\",\n    \"introspection_url\": \"string\",\n    \"issuer\": \"string\",\n    \"jwks_url\": \"string\",\n    \"scopes\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"permission_profile\": {\n    \"name\": \"string\",\n    \"network\": {\n      \"inbound\": {\n        \"allow_host\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"mode\": \"string\",\n      \"outbound\": {\n        \"allow_host\": [\n          \"string\",\n          \"string\"\n        ],\n        \"allow_port\": [\n          9325,\n          176\n        ],\n        \"insecure_allow_all\": false\n      }\n    },\n    \"privileged\": false,\n    \"read\": [\n      \"string\",\n      \"string\"\n    ],\n    \"write\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"proxy_mode\": \"string\",\n  \"proxy_port\": 2250,\n  \"registry\": \"string\",\n  \"runtime_config\": {\n    \"additional_packages\": [\n      \"string\",\n      \"string\"\n    ],\n    \"builder_image\": \"string\",\n    \"runtime_env\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    }\n  },\n  \"secrets\": [\n    {\n      \"name\": \"string\",\n      \"target\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"target\": \"string\"\n    }\n  ],\n  \"server\": \"string\",\n  \"target_port\": 8805,\n  \"tools\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tools_override\": {\n    \"key_0\": {\n      \"description\": \"string\",\n      \"name\": \"string\"\n    }\n  },\n  \"transport\": \"string\",\n  \"trust_proxy_headers\": false,\n  \"url\": \"string\",\n  \"volumes\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35fec135-8f84-4262-8796-fd8c49fc4ba1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "563eb4ba-1578-4a93-ba33-4104ee76a718",
+          "name": "Update workload",
+          "request": {
+            "name": "Update workload",
+            "description": {
+              "content": "Update an existing workload configuration",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name",
+                "edit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d077346-6e14-4c2f-afc5-823c4adf030b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"port\": 7535\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9206f62c-5ba1-4b78-a2c8-8edf82b039de",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "561f4867-a793-4f53-9ba7-4076872f6b79",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "edit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59bfd675-97e8-4c98-984d-33ad307f98a8",
+          "name": "Export workload configuration",
+          "request": {
+            "name": "Export workload configuration",
+            "description": {
+              "content": "Export a workload's run configuration as JSON",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7fd4cc6-fd6a-47b8-bcec-c3df5896ecdc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"additional_middleware_configs\": [\n    {\n      \"parameters\": {},\n      \"type\": \"string\"\n    },\n    {\n      \"parameters\": {},\n      \"type\": \"string\"\n    }\n  ],\n  \"allow_docker_gateway\": false,\n  \"allowed_origins\": [\n    \"string\",\n    \"string\"\n  ],\n  \"audit_config\": {\n    \"component\": \"string\",\n    \"detectApplicationErrors\": true,\n    \"enabled\": false,\n    \"eventTypes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"excludeEventTypes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"includeRequestData\": true,\n    \"includeResponseData\": false,\n    \"logFile\": \"string\",\n    \"maxDataSize\": 8279\n  },\n  \"audit_config_path\": \"string\",\n  \"authz_config\": {\n    \"type\": \"string\",\n    \"version\": \"string\"\n  },\n  \"authz_config_path\": \"string\",\n  \"aws_sts_config\": {\n    \"fallback_role_arn\": \"string\",\n    \"region\": \"string\",\n    \"role_claim\": \"string\",\n    \"role_mappings\": [\n      {\n        \"claim\": \"string\",\n        \"matcher\": \"string\",\n        \"priority\": 1608,\n        \"role_arn\": \"string\"\n      },\n      {\n        \"claim\": \"string\",\n        \"matcher\": \"string\",\n        \"priority\": 2788,\n        \"role_arn\": \"string\"\n      }\n    ],\n    \"service\": \"string\",\n    \"session_duration\": 2364,\n    \"session_name_claim\": \"string\",\n    \"subject_provider_name\": \"string\"\n  },\n  \"base_name\": \"string\",\n  \"cmd_args\": [\n    \"string\",\n    \"string\"\n  ],\n  \"container_labels\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  },\n  \"container_name\": \"string\",\n  \"debug\": false,\n  \"embedded_auth_server_config\": {\n    \"allowed_audiences\": [\n      \"string\",\n      \"string\"\n    ],\n    \"authorization_endpoint_base_url\": \"string\",\n    \"baseline_client_scopes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cimd\": {\n      \"cache_fallback_ttl\": \"5m\",\n      \"cache_max_size\": 405,\n      \"enabled\": true\n    },\n    \"delegation_token_lifespan\": \"string\",\n    \"disable_upstream_token_injection\": true,\n    \"hmac_secret_files\": [\n      \"string\",\n      \"string\"\n    ],\n    \"insecure_allow_http\": true,\n    \"issuer\": \"string\",\n    \"schema_version\": \"string\",\n    \"scopes_supported\": [\n      \"string\",\n      \"string\"\n    ],\n    \"signing_key_config\": {\n      \"fallback_key_files\": [\n        \"string\",\n        \"string\"\n      ],\n      \"key_dir\": \"string\",\n      \"signing_key_file\": \"string\"\n    },\n    \"storage\": {\n      \"redis_config\": {\n        \"acl_user_config\": {\n          \"password_env_var\": \"string\",\n          \"username_env_var\": \"string\"\n        },\n        \"addr\": \"string\",\n        \"auth_type\": \"string\",\n        \"cluster_mode\": true,\n        \"dial_timeout\": \"string\",\n        \"key_prefix\": \"string\",\n        \"read_timeout\": \"string\",\n        \"sentinel_config\": {\n          \"db\": 1636,\n          \"master_name\": \"string\",\n          \"sentinel_addrs\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"sentinel_tls\": {\n          \"ca_cert_file\": \"string\",\n          \"insecure_skip_verify\": false\n        },\n        \"tls\": {\n          \"ca_cert_file\": \"string\",\n          \"insecure_skip_verify\": false\n        },\n        \"write_timeout\": \"string\"\n      },\n      \"type\": \"string\"\n    },\n    \"token_lifespans\": {\n      \"access_token_lifespan\": \"string\",\n      \"auth_code_lifespan\": \"string\",\n      \"refresh_token_lifespan\": \"string\"\n    },\n    \"upstreams\": [\n      {\n        \"name\": \"string\",\n        \"oauth2_config\": {\n          \"additional_authorization_params\": {\n            \"key_0\": \"string\"\n          },\n          \"allow_private_ips\": true,\n          \"authorization_endpoint\": \"string\",\n          \"client_id\": \"string\",\n          \"client_secret_env_var\": \"string\",\n          \"client_secret_file\": \"string\",\n          \"dcr_config\": {\n            \"discovery_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initial_access_token_env_var\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initial_access_token_file\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"registration_endpoint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"software_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"software_statement\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"identity_from_token\": {\n            \"email_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subject_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"insecure_allow_http\": true,\n          \"redirect_uri\": \"string\",\n          \"scopes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"token_endpoint\": \"string\",\n          \"token_response_mapping\": {\n            \"access_token_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expires_in_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refresh_token_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scope_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"userinfo\": {\n            \"additional_headers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"endpoint_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"field_mapping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http_method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"oidc_config\": {\n          \"additional_authorization_params\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"allow_private_ips\": true,\n          \"client_id\": \"string\",\n          \"client_secret_env_var\": \"string\",\n          \"client_secret_file\": \"string\",\n          \"insecure_allow_http\": false,\n          \"issuer_url\": \"string\",\n          \"redirect_uri\": \"string\",\n          \"scopes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"subject_claim\": \"string\",\n          \"userinfo_override\": {\n            \"additional_headers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"endpoint_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"field_mapping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http_method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"type\": \"oidc\"\n      },\n      {\n        \"name\": \"string\",\n        \"oauth2_config\": {\n          \"additional_authorization_params\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"allow_private_ips\": false,\n          \"authorization_endpoint\": \"string\",\n          \"client_id\": \"string\",\n          \"client_secret_env_var\": \"string\",\n          \"client_secret_file\": \"string\",\n          \"dcr_config\": {\n            \"discovery_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initial_access_token_env_var\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"initial_access_token_file\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"registration_endpoint\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"software_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"software_statement\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"identity_from_token\": {\n            \"email_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"subject_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"insecure_allow_http\": true,\n          \"redirect_uri\": \"string\",\n          \"scopes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"token_endpoint\": \"string\",\n          \"token_response_mapping\": {\n            \"access_token_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expires_in_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refresh_token_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scope_path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"userinfo\": {\n            \"additional_headers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"endpoint_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"field_mapping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http_method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"oidc_config\": {\n          \"additional_authorization_params\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"allow_private_ips\": true,\n          \"client_id\": \"string\",\n          \"client_secret_env_var\": \"string\",\n          \"client_secret_file\": \"string\",\n          \"insecure_allow_http\": false,\n          \"issuer_url\": \"string\",\n          \"redirect_uri\": \"string\",\n          \"scopes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"subject_claim\": \"string\",\n          \"userinfo_override\": {\n            \"additional_headers\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"endpoint_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"field_mapping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"http_method\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"type\": \"oauth2\"\n      }\n    ]\n  },\n  \"endpoint_prefix\": \"string\",\n  \"env_file_dir\": \"string\",\n  \"env_vars\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  },\n  \"group\": \"string\",\n  \"header_forward\": {\n    \"add_headers_from_secret\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"add_plaintext_headers\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"host\": \"string\",\n  \"ignore_config\": {\n    \"loadGlobal\": false,\n    \"printOverlays\": true\n  },\n  \"image\": \"string\",\n  \"isolate_network\": true,\n  \"jwks_auth_token_file\": \"string\",\n  \"k8s_pod_template_patch\": \"string\",\n  \"mcpserver_generation\": 5756,\n  \"middleware_configs\": [\n    {\n      \"parameters\": {},\n      \"type\": \"string\"\n    },\n    {\n      \"parameters\": {},\n      \"type\": \"string\"\n    }\n  ],\n  \"mutating_webhooks\": [\n    {\n      \"failure_policy\": \"fail\",\n      \"hmac_secret_ref\": \"string\",\n      \"name\": \"string\",\n      \"timeout\": 6289,\n      \"tls_config\": {\n        \"ca_bundle_path\": \"string\",\n        \"client_cert_path\": \"string\",\n        \"client_key_path\": \"string\",\n        \"insecure_skip_verify\": true\n      },\n      \"url\": \"string\"\n    },\n    {\n      \"failure_policy\": \"fail\",\n      \"hmac_secret_ref\": \"string\",\n      \"name\": \"string\",\n      \"timeout\": 6438,\n      \"tls_config\": {\n        \"ca_bundle_path\": \"string\",\n        \"client_cert_path\": \"string\",\n        \"client_key_path\": \"string\",\n        \"insecure_skip_verify\": true\n      },\n      \"url\": \"string\"\n    }\n  ],\n  \"name\": \"string\",\n  \"oidc_config\": {\n    \"allowPrivateIP\": true,\n    \"audience\": \"string\",\n    \"authTokenFile\": \"string\",\n    \"cacertPath\": \"string\",\n    \"clientID\": \"string\",\n    \"clientSecret\": \"string\",\n    \"insecureAllowHTTP\": false,\n    \"introspectionURL\": \"string\",\n    \"issuer\": \"string\",\n    \"jwksurl\": \"string\",\n    \"resourceURL\": \"string\",\n    \"scopes\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"permission_profile_name_or_path\": \"string\",\n  \"port\": 7887,\n  \"proxy_mode\": \"sse\",\n  \"publish\": [\n    \"string\",\n    \"string\"\n  ],\n  \"rate_limit_config\": {\n    \"perUser\": {\n      \"maxTokens\": 5321,\n      \"refillPeriod\": {}\n    },\n    \"shared\": {\n      \"maxTokens\": 3843,\n      \"refillPeriod\": {}\n    },\n    \"tools\": [\n      {\n        \"name\": \"string\",\n        \"perUser\": {\n          \"maxTokens\": 3771,\n          \"refillPeriod\": {}\n        },\n        \"shared\": {\n          \"maxTokens\": 7975,\n          \"refillPeriod\": {}\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"perUser\": {\n          \"maxTokens\": 4171,\n          \"refillPeriod\": {}\n        },\n        \"shared\": {\n          \"maxTokens\": 9827,\n          \"refillPeriod\": {}\n        }\n      }\n    ]\n  },\n  \"rate_limit_namespace\": \"string\",\n  \"registry_api_url\": \"string\",\n  \"registry_server_name\": \"string\",\n  \"registry_url\": \"string\",\n  \"remote_auth_config\": {\n    \"authorize_url\": \"string\",\n    \"bearer_token\": \"string\",\n    \"bearer_token_file\": \"string\",\n    \"cached_cimd_client_id\": \"string\",\n    \"cached_client_id\": \"string\",\n    \"cached_client_secret_ref\": \"string\",\n    \"cached_dcr_callback_port\": 1926,\n    \"cached_refresh_token_ref\": \"string\",\n    \"cached_reg_client_uri\": \"string\",\n    \"cached_reg_token_ref\": \"string\",\n    \"cached_secret_expiry\": \"string\",\n    \"cached_token_auth_method\": \"string\",\n    \"cached_token_expiry\": \"string\",\n    \"callback_port\": 1239,\n    \"client_id\": \"string\",\n    \"client_secret\": \"string\",\n    \"client_secret_file\": \"string\",\n    \"issuer\": \"string\",\n    \"oauth_params\": {\n      \"key_0\": \"string\"\n    },\n    \"resource\": \"string\",\n    \"scope_param_name\": \"string\",\n    \"scopes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"skip_browser\": false,\n    \"timeout\": \"5m\",\n    \"token_url\": \"string\",\n    \"use_pkce\": true\n  },\n  \"remote_url\": \"string\",\n  \"runtime_config\": {\n    \"additional_packages\": [\n      \"string\",\n      \"string\"\n    ],\n    \"builder_image\": \"string\",\n    \"runtime_env\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"scaling_config\": {\n    \"backend_replicas\": 3216,\n    \"session_redis\": {\n      \"address\": \"string\",\n      \"db\": 5377,\n      \"key_prefix\": \"string\"\n    }\n  },\n  \"schema_version\": \"string\",\n  \"secrets\": [\n    \"string\",\n    \"string\"\n  ],\n  \"session_ttl\": \"2h\",\n  \"stateless\": true,\n  \"target_host\": \"string\",\n  \"target_port\": 8657,\n  \"telemetry_config\": {\n    \"caCertPath\": \"string\",\n    \"customAttributes\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"enablePrometheusMetricsPath\": false,\n    \"endpoint\": \"string\",\n    \"environmentVariables\": [\n      \"string\",\n      \"string\"\n    ],\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"insecure\": true,\n    \"metricsEnabled\": false,\n    \"samplingRate\": \"string\",\n    \"serviceName\": \"string\",\n    \"serviceVersion\": \"string\",\n    \"tracingEnabled\": true,\n    \"useLegacyAttributes\": true\n  },\n  \"thv_ca_bundle\": \"string\",\n  \"token_exchange_config\": {\n    \"audience\": \"string\",\n    \"client_id\": \"string\",\n    \"client_secret\": \"string\",\n    \"external_token_header_name\": \"string\",\n    \"header_strategy\": \"string\",\n    \"scopes\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subject_token_type\": \"string\",\n    \"token_url\": \"string\"\n  },\n  \"tools_filter\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tools_override\": {\n    \"key_0\": {\n      \"description\": \"string\",\n      \"name\": \"string\"\n    },\n    \"key_1\": {\n      \"description\": \"string\",\n      \"name\": \"string\"\n    }\n  },\n  \"transport\": \"streamable-http\",\n  \"trust_proxy_headers\": true,\n  \"upstream_swap_config\": {\n    \"custom_header_name\": \"string\",\n    \"header_strategy\": \"string\",\n    \"provider_name\": \"string\"\n  },\n  \"validating_webhooks\": [\n    {\n      \"failure_policy\": \"ignore\",\n      \"hmac_secret_ref\": \"string\",\n      \"name\": \"string\",\n      \"timeout\": 7798,\n      \"tls_config\": {\n        \"ca_bundle_path\": \"string\",\n        \"client_cert_path\": \"string\",\n        \"client_key_path\": \"string\",\n        \"insecure_skip_verify\": false\n      },\n      \"url\": \"string\"\n    },\n    {\n      \"failure_policy\": \"fail\",\n      \"hmac_secret_ref\": \"string\",\n      \"name\": \"string\",\n      \"timeout\": 9169,\n      \"tls_config\": {\n        \"ca_bundle_path\": \"string\",\n        \"client_cert_path\": \"string\",\n        \"client_key_path\": \"string\",\n        \"insecure_skip_verify\": true\n      },\n      \"url\": \"string\"\n    }\n  ],\n  \"volumes\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf66f71b-47f0-462f-ac1f-7b9984dcf278",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c792605-f02f-4ba4-bec0-d56e863973a4",
+          "name": "Restart a workload",
+          "request": {
+            "name": "Restart a workload",
+            "description": {
+              "content": "Restart a running workload",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name",
+                "restart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d6070886-c214-4ef0-87b3-569c1b9dc12f",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b05b34ac-ea61-42e7-b523-a539efdbaded",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1ff224c-9fec-46eb-b253-1bd694e826e6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95c441cd-3c32-46ed-b3fa-25e8bbf58fbd",
+          "name": "Get workload status",
+          "request": {
+            "name": "Get workload status",
+            "description": {
+              "content": "Get the current status of a specific workload",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63c70b06-42a7-49ba-9a1b-2b15414a03ce",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"starting\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9909cfe5-c5f1-437d-bee0-5688f4bdf190",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba83d80b-3296-416a-987c-e00696087e14",
+          "name": "Stop a workload",
+          "request": {
+            "name": "Stop a workload",
+            "description": {
+              "content": "Stop a running workload",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cd41ab0-d087-4118-a555-6accd874f51b",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ead5403-bab2-45e1-aa0d-6d5783ed9879",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90ec8654-709a-430a-ae97-ef19aabb7916",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe795f09-9ba8-4190-9454-bb4b9e5a98a2",
+          "name": "Apply an available upgrade to a workload",
+          "request": {
+            "name": "Apply an available upgrade to a workload",
+            "description": {
+              "content": "Apply a registry-sourced upgrade to a single workload. This\nre-resolves and verifies the candidate image, pulls it, and only\nthen recreates the workload with the new image, preserving the\nexisting configuration. If the workload is already up to date or\nis not registry-sourced, the current check result is returned\nunchanged (no-op). Secret values are never accepted or returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name",
+                "upgrade"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a85d67c6-3894-4abc-b7bf-f8ff1d827826",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"candidate_image\": \"string\",\n    \"config_drift\": {\n      \"permission_profile\": {\n        \"from\": \"string\",\n        \"to\": \"string\"\n      },\n      \"transport\": {\n        \"from\": \"string\",\n        \"to\": \"string\"\n      }\n    },\n    \"current_image\": \"string\",\n    \"env_var_drift\": {\n      \"added\": [\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": false,\n          \"secret\": true\n        },\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": false,\n          \"secret\": false\n        }\n      ],\n      \"removed\": [\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": true,\n          \"secret\": false\n        },\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": false,\n          \"secret\": false\n        }\n      ]\n    },\n    \"reason\": \"string\",\n    \"registry_server\": \"string\",\n    \"status\": \"upgrade-available\",\n    \"workload_name\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3078bd35-21e8-4e09-a6cc-b588692b653a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1011839-f0ac-4015-ae88-ed11cea7e5d2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b63b1472-0ab1-43f5-ae2c-715706bc396a",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5d6ad4e-1934-4468-9014-805402ca0e95",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6489b017-0c9e-40aa-a210-603936d247b0",
+          "name": "Check a workload for an available upgrade",
+          "request": {
+            "name": "Check a workload for an available upgrade",
+            "description": {
+              "content": "Check whether a single workload has a newer image available in\nits source registry. This is an offline metadata comparison; it\ndoes not pull images. Secret values are never returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                ":name",
+                "upgrade-check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Workload name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df601b8d-6e37-49b5-86f0-1e80288523cf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"candidate_image\": \"string\",\n    \"config_drift\": {\n      \"permission_profile\": {\n        \"from\": \"string\",\n        \"to\": \"string\"\n      },\n      \"transport\": {\n        \"from\": \"string\",\n        \"to\": \"string\"\n      }\n    },\n    \"current_image\": \"string\",\n    \"env_var_drift\": {\n      \"added\": [\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": false,\n          \"secret\": true\n        },\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": false,\n          \"secret\": false\n        }\n      ],\n      \"removed\": [\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": true,\n          \"secret\": false\n        },\n        {\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"name\": \"string\",\n          \"required\": false,\n          \"secret\": false\n        }\n      ]\n    },\n    \"reason\": \"string\",\n    \"registry_server\": \"string\",\n    \"status\": \"upgrade-available\",\n    \"workload_name\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bcd757b-621c-4a40-a0e3-09d36850bbe6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f57d0f2b-9879-4237-93cf-1e97cc3d93b1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    ":name",
+                    "upgrade-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Workload name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7e7f699-5369-4a8a-89ac-bf19df126d54",
+          "name": "Delete workloads in bulk",
+          "request": {
+            "name": "Delete workloads in bulk",
+            "description": {
+              "content": "Delete multiple workloads by name or by group asynchronously.\nReturns 202 Accepted immediately. Deletion happens in the background.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a43fa9f3-b6e1-4f04-ae68-65424f6e3f64",
+              "name": "Accepted - deletion started",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbbffd2c-3aaf-4c9e-9a48-cbec64544fb9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3b03894-1fc2-45be-bf0a-3f8a706f76f5",
+          "name": "Restart workloads in bulk",
+          "request": {
+            "name": "Restart workloads in bulk",
+            "description": {
+              "content": "Restart multiple workloads by name or by group",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                "restart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ca2a104-3ded-437e-a28d-7806ccd10e02",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3457a003-b639-4b90-8e6c-a24fad9d4a54",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "restart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbc2d8d5-8de0-4b51-8461-f23a98b8bf39",
+          "name": "Stop workloads in bulk",
+          "request": {
+            "name": "Stop workloads in bulk",
+            "description": {
+              "content": "Stop multiple workloads by name or by group",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "906e445c-49d5-4879-b396-df8d04bc7468",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "819d6296-5a2a-41b2-84ce-95d5c0831a03",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c759eabc-bc67-4d19-a427-b6040a8427eb",
+          "name": "Check workloads for available upgrades",
+          "request": {
+            "name": "Check workloads for available upgrades",
+            "description": {
+              "content": "Check all workloads (optionally filtered by group) for newer\nimages available in their source registries. This is an offline\nmetadata comparison; it does not pull images. Secret values are\nnever returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1beta",
+                "workloads",
+                "upgrade-check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "all",
+                  "value": "<boolean>",
+                  "description": "Include stopped workloads"
+                },
+                {
+                  "disabled": false,
+                  "key": "group",
+                  "value": "<string>",
+                  "description": "Filter workloads by group name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e87e4a70-6816-429f-98ac-3d9e32115ad3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "upgrade-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"candidate_image\": \"string\",\n      \"config_drift\": {\n        \"permission_profile\": {\n          \"from\": \"string\",\n          \"to\": \"string\"\n        },\n        \"transport\": {\n          \"from\": \"string\",\n          \"to\": \"string\"\n        }\n      },\n      \"current_image\": \"string\",\n      \"env_var_drift\": {\n        \"added\": [\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": true,\n            \"secret\": false\n          },\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": true,\n            \"secret\": true\n          }\n        ],\n        \"removed\": [\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": true,\n            \"secret\": false\n          },\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": false,\n            \"secret\": true\n          }\n        ]\n      },\n      \"reason\": \"string\",\n      \"registry_server\": \"string\",\n      \"status\": \"up-to-date\",\n      \"workload_name\": \"string\"\n    },\n    {\n      \"candidate_image\": \"string\",\n      \"config_drift\": {\n        \"permission_profile\": {\n          \"from\": \"string\",\n          \"to\": \"string\"\n        },\n        \"transport\": {\n          \"from\": \"string\",\n          \"to\": \"string\"\n        }\n      },\n      \"current_image\": \"string\",\n      \"env_var_drift\": {\n        \"added\": [\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": true,\n            \"secret\": true\n          },\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": true,\n            \"secret\": true\n          }\n        ],\n        \"removed\": [\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": true,\n            \"secret\": true\n          },\n          {\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"name\": \"string\",\n            \"required\": true,\n            \"secret\": true\n          }\n        ]\n      },\n      \"reason\": \"string\",\n      \"registry_server\": \"string\",\n      \"status\": \"not-registry-sourced\",\n      \"workload_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8812db7e-27d9-4625-8ef6-991d0d29c6f8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "upgrade-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e96044db-6aa5-4e4d-a184-5532dcb129d5",
+              "name": "Group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1beta",
+                    "workloads",
+                    "upgrade-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "group",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "983fafbf-fcdc-4a7c-99e0-a50afaaef71a",
+    "name": "ToolHive Registry clients workloads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for accessing MCP server registry data and deployed server information\nThis API provides endpoints to query the MCP (Model Context Protocol) server registry,\nget information about available servers, and check the status of deployed servers.\n\nAuthentication is required by default. Use Bearer token authentication with a valid\nOAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides\nOAuth discovery metadata (RFC 9728).",
+      "type": "text/plain"
+    }
+  }
+}

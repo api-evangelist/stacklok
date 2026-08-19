@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients discovery API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all clients status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/discovery/clients"
+          },
+          "docs": "List all clients compatible with ToolHive and their status.\nEach object includes supports_skills when ToolHive can install skills for that client."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

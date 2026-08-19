@@ -1,0 +1,307 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive clients registry API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List servers in specific registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/servers",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor for retrieving next set of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search servers by name (substring match)"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Filter by version ('latest' for latest version, or an exact version like '1.2.3')"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of available servers from a specific registry"
+        },
+        {
+          "info": {
+            "name": "List all versions of an MCP server in specific registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/servers/:serverName/versions",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "URL-encoded server name (e.g., \\"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns all available versions for a specific MCP server from a specific registry"
+        },
+        {
+          "info": {
+            "name": "Get specific MCP server version in specific registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/servers/:serverName/versions/:version",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "URL-encoded server name (e.g., \\"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "URL-encoded version to retrieve (e.g., \\"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns detailed information about a specific version of an MCP server from a specific registry.\nUse the special version `latest` to get the latest version."
+        },
+        {
+          "info": {
+            "name": "List registries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/registry"
+          },
+          "docs": "Get a list of the current registries"
+        },
+        {
+          "info": {
+            "name": "Add a registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/registry",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new registry"
+        },
+        {
+          "info": {
+            "name": "Get a registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/registry/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              }
+            ]
+          },
+          "docs": "Get details of a specific registry"
+        },
+        {
+          "info": {
+            "name": "Update registry configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1beta/registry/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry name (must be 'default')"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update registry URL or local path for the default registry"
+        },
+        {
+          "info": {
+            "name": "Remove a registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1beta/registry/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              }
+            ]
+          },
+          "docs": "Remove a specific registry"
+        },
+        {
+          "info": {
+            "name": "Refresh registry cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/registry/:name/refresh",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry name (must be 'default')"
+              }
+            ]
+          },
+          "docs": "Force a refresh of the server-side registry cache for the default registry"
+        },
+        {
+          "info": {
+            "name": "List servers in a registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/registry/:name/servers",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              }
+            ]
+          },
+          "docs": "Get a list of servers in a specific registry"
+        },
+        {
+          "info": {
+            "name": "Get a server from a registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/registry/:name/servers/:serverName",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "serverName",
+                "value": "",
+                "type": "path",
+                "description": "ImageMetadata name"
+              }
+            ]
+          },
+          "docs": "Get details of a specific server in a registry"
+        },
+        {
+          "info": {
+            "name": "Registry login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/registry/auth/login"
+          },
+          "docs": "Trigger an interactive OAuth flow to authenticate with the configured registry. Only available in serve mode."
+        },
+        {
+          "info": {
+            "name": "Registry logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/registry/auth/logout"
+          },
+          "docs": "Clear cached OAuth tokens for the configured registry. Only available in serve mode."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

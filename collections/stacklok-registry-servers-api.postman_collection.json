@@ -1,0 +1,610 @@
+{
+  "item": [
+    {
+      "id": "85655438-ff47-4b3f-9998-0281886c6ced",
+      "name": "registry-servers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d097daf-a0b5-4a58-b45c-4a14253b2aef",
+          "name": "List available registry servers",
+          "request": {
+            "name": "List available registry servers",
+            "description": {
+              "content": "Get a paginated list of servers from the registry. Supports optional full-text search and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registry",
+                ":registryName",
+                "v0.1",
+                "servers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Search filter — matches against server name and description"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number, 1-based (default: 1)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Items per page, max 200 (default: 50)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "registryName",
+                  "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ce3843f-5448-4ea8-b8f4-a89a239e5032",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"limit\": 3640,\n    \"page\": 3645,\n    \"total\": 3084\n  },\n  \"servers\": [\n    {\n      \"$schema\": \"https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json\",\n      \"_meta\": {\n        \"io.modelcontextprotocol.registry/publisher-provided\": {\n          \"key_0\": {}\n        }\n      },\n      \"description\": \"MCP server providing weather data and forecasts via OpenWeatherMap API\",\n      \"icons\": [\n        {\n          \"mimeType\": \"image/png\",\n          \"sizes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"src\": \"https://example.com/icon.png\",\n          \"theme\": \"string\"\n        },\n        {\n          \"mimeType\": \"image/png\",\n          \"sizes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"src\": \"https://example.com/icon.png\",\n          \"theme\": \"string\"\n        }\n      ],\n      \"name\": \"io.github.user/weather\",\n      \"packages\": [\n        {\n          \"environmentVariables\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"fileSha256\": \"fe333e598595000ae021bd27117db32ec69af6987f507ba7a63c90638ff633ce\",\n          \"identifier\": \"@modelcontextprotocol/server-brave-search\",\n          \"packageArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"registryBaseUrl\": \"https://registry.npmjs.org\",\n          \"registryType\": \"npm\",\n          \"runtimeArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"runtimeHint\": \"npx\",\n          \"transport\": {\n            \"headers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"type\": \"stdio\",\n            \"url\": \"https://api.example.com/mcp\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"version\": \"1.0.2\"\n        },\n        {\n          \"environmentVariables\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"fileSha256\": \"fe333e598595000ae021bd27117db32ec69af6987f507ba7a63c90638ff633ce\",\n          \"identifier\": \"@modelcontextprotocol/server-brave-search\",\n          \"packageArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"registryBaseUrl\": \"https://registry.npmjs.org\",\n          \"registryType\": \"npm\",\n          \"runtimeArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"runtimeHint\": \"npx\",\n          \"transport\": {\n            \"headers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"type\": \"stdio\",\n            \"url\": \"https://api.example.com/mcp\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"version\": \"1.0.2\"\n        }\n      ],\n      \"remotes\": [\n        {\n          \"headers\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"type\": \"stdio\",\n          \"url\": \"https://api.example.com/mcp\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"headers\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"type\": \"stdio\",\n          \"url\": \"https://api.example.com/mcp\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"repository\": {\n        \"id\": \"b94b5f7e-c7c6-d760-2c78-a5e9b8a5b8c9\",\n        \"source\": \"github\",\n        \"subfolder\": \"src/everything\",\n        \"url\": \"https://github.com/modelcontextprotocol/servers\"\n      },\n      \"title\": \"Weather API\",\n      \"version\": \"1.0.2\",\n      \"websiteUrl\": \"https://modelcontextprotocol.io/examples\"\n    },\n    {\n      \"$schema\": \"https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json\",\n      \"_meta\": {\n        \"io.modelcontextprotocol.registry/publisher-provided\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {},\n          \"key_3\": {}\n        }\n      },\n      \"description\": \"MCP server providing weather data and forecasts via OpenWeatherMap API\",\n      \"icons\": [\n        {\n          \"mimeType\": \"image/png\",\n          \"sizes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"src\": \"https://example.com/icon.png\",\n          \"theme\": \"string\"\n        },\n        {\n          \"mimeType\": \"image/png\",\n          \"sizes\": [\n            \"string\",\n            \"string\"\n          ],\n          \"src\": \"https://example.com/icon.png\",\n          \"theme\": \"string\"\n        }\n      ],\n      \"name\": \"io.github.user/weather\",\n      \"packages\": [\n        {\n          \"environmentVariables\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"fileSha256\": \"fe333e598595000ae021bd27117db32ec69af6987f507ba7a63c90638ff633ce\",\n          \"identifier\": \"@modelcontextprotocol/server-brave-search\",\n          \"packageArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"registryBaseUrl\": \"https://registry.npmjs.org\",\n          \"registryType\": \"npm\",\n          \"runtimeArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"runtimeHint\": \"npx\",\n          \"transport\": {\n            \"headers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"type\": \"stdio\",\n            \"url\": \"https://api.example.com/mcp\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"version\": \"1.0.2\"\n        },\n        {\n          \"environmentVariables\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"fileSha256\": \"fe333e598595000ae021bd27117db32ec69af6987f507ba7a63c90638ff633ce\",\n          \"identifier\": \"@modelcontextprotocol/server-brave-search\",\n          \"packageArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"registryBaseUrl\": \"https://registry.npmjs.org\",\n          \"registryType\": \"npm\",\n          \"runtimeArguments\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"runtimeHint\": \"npx\",\n          \"transport\": {\n            \"headers\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"type\": \"stdio\",\n            \"url\": \"https://api.example.com/mcp\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"version\": \"1.0.2\"\n        }\n      ],\n      \"remotes\": [\n        {\n          \"headers\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"type\": \"stdio\",\n          \"url\": \"https://api.example.com/mcp\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"headers\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"type\": \"stdio\",\n          \"url\": \"https://api.example.com/mcp\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"repository\": {\n        \"id\": \"b94b5f7e-c7c6-d760-2c78-a5e9b8a5b8c9\",\n        \"source\": \"github\",\n        \"subfolder\": \"src/everything\",\n        \"url\": \"https://github.com/modelcontextprotocol/servers\"\n      },\n      \"title\": \"Weather API\",\n      \"version\": \"1.0.2\",\n      \"websiteUrl\": \"https://modelcontextprotocol.io/examples\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4dfea76-da60-44a8-85c1-f8f1fd331aa3",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "399d2635-60da-48ff-afd5-cfdbc4d415bf",
+              "name": "Registry authentication required or upstream registry unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4719eee-cbfe-4798-903d-31fb9b714c40",
+          "name": "Get a registry server",
+          "request": {
+            "name": "Get a registry server",
+            "description": {
+              "content": "Retrieve a single server by name. Names use reverse-DNS format; URL-encode slashes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registry",
+                ":registryName",
+                "v0.1",
+                "servers",
+                ":serverName",
+                "versions",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "registryName",
+                  "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serverName",
+                  "description": "(Required) Server name (URL-encoded reverse-DNS format)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bad0b16d-1467-4431-aaa9-5c5dfef6712d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers",
+                    ":serverName",
+                    "versions",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serverName",
+                      "description": "(Required) Server name (URL-encoded reverse-DNS format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"$schema\": \"https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json\",\n  \"_meta\": {\n    \"io.modelcontextprotocol.registry/publisher-provided\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  },\n  \"description\": \"MCP server providing weather data and forecasts via OpenWeatherMap API\",\n  \"icons\": [\n    {\n      \"mimeType\": \"image/png\",\n      \"sizes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"src\": \"https://example.com/icon.png\",\n      \"theme\": \"string\"\n    },\n    {\n      \"mimeType\": \"image/png\",\n      \"sizes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"src\": \"https://example.com/icon.png\",\n      \"theme\": \"string\"\n    }\n  ],\n  \"name\": \"io.github.user/weather\",\n  \"packages\": [\n    {\n      \"environmentVariables\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"filepath\",\n          \"isRequired\": false,\n          \"isSecret\": false,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"boolean\",\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_3\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_4\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"fileSha256\": \"fe333e598595000ae021bd27117db32ec69af6987f507ba7a63c90638ff633ce\",\n      \"identifier\": \"@modelcontextprotocol/server-brave-search\",\n      \"packageArguments\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"number\",\n          \"isRepeated\": true,\n          \"isRequired\": false,\n          \"isSecret\": false,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"filepath\",\n          \"isRepeated\": false,\n          \"isRequired\": false,\n          \"isSecret\": false,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"registryBaseUrl\": \"https://registry.npmjs.org\",\n      \"registryType\": \"npm\",\n      \"runtimeArguments\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"boolean\",\n          \"isRepeated\": false,\n          \"isRequired\": true,\n          \"isSecret\": true,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"boolean\",\n          \"isRepeated\": false,\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"runtimeHint\": \"npx\",\n      \"transport\": {\n        \"headers\": [\n          {\n            \"choices\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isRequired\": false,\n            \"isSecret\": false,\n            \"name\": \"SOME_VARIABLE\",\n            \"placeholder\": \"string\",\n            \"value\": \"string\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"choices\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isRequired\": true,\n            \"isSecret\": false,\n            \"name\": \"SOME_VARIABLE\",\n            \"placeholder\": \"string\",\n            \"value\": \"string\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ],\n        \"type\": \"stdio\",\n        \"url\": \"https://api.example.com/mcp\",\n        \"variables\": {\n          \"key_0\": {\n            \"choices\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isRequired\": true,\n            \"isSecret\": true,\n            \"placeholder\": \"string\",\n            \"value\": \"string\"\n          }\n        }\n      },\n      \"version\": \"1.0.2\"\n    },\n    {\n      \"environmentVariables\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\",\n          \"isRequired\": false,\n          \"isSecret\": false,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"filepath\",\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"fileSha256\": \"fe333e598595000ae021bd27117db32ec69af6987f507ba7a63c90638ff633ce\",\n      \"identifier\": \"@modelcontextprotocol/server-brave-search\",\n      \"packageArguments\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\",\n          \"isRepeated\": false,\n          \"isRequired\": true,\n          \"isSecret\": true,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"filepath\",\n          \"isRepeated\": false,\n          \"isRequired\": true,\n          \"isSecret\": true,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"registryBaseUrl\": \"https://registry.npmjs.org\",\n      \"registryType\": \"npm\",\n      \"runtimeArguments\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\",\n          \"isRepeated\": false,\n          \"isRequired\": false,\n          \"isSecret\": true,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"boolean\",\n          \"isRepeated\": true,\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"name\": \"--port\",\n          \"placeholder\": \"string\",\n          \"type\": \"positional\",\n          \"value\": \"string\",\n          \"valueHint\": \"file_path\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"runtimeHint\": \"npx\",\n      \"transport\": {\n        \"headers\": [\n          {\n            \"choices\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isRequired\": true,\n            \"isSecret\": true,\n            \"name\": \"SOME_VARIABLE\",\n            \"placeholder\": \"string\",\n            \"value\": \"string\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"choices\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isRequired\": false,\n            \"isSecret\": false,\n            \"name\": \"SOME_VARIABLE\",\n            \"placeholder\": \"string\",\n            \"value\": \"string\",\n            \"variables\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ],\n        \"type\": \"stdio\",\n        \"url\": \"https://api.example.com/mcp\",\n        \"variables\": {\n          \"key_0\": {\n            \"choices\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isRequired\": true,\n            \"isSecret\": true,\n            \"placeholder\": \"string\",\n            \"value\": \"string\"\n          },\n          \"key_1\": {\n            \"choices\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"default\": \"string\",\n            \"description\": \"string\",\n            \"format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isRequired\": true,\n            \"isSecret\": false,\n            \"placeholder\": \"string\",\n            \"value\": \"string\"\n          }\n        }\n      },\n      \"version\": \"1.0.2\"\n    }\n  ],\n  \"remotes\": [\n    {\n      \"headers\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\",\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\",\n          \"isRequired\": false,\n          \"isSecret\": true,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"type\": \"stdio\",\n      \"url\": \"https://api.example.com/mcp\",\n      \"variables\": {\n        \"key_0\": {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"boolean\",\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"placeholder\": \"string\",\n          \"value\": \"string\"\n        },\n        \"key_1\": {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"number\",\n          \"isRequired\": false,\n          \"isSecret\": false,\n          \"placeholder\": \"string\",\n          \"value\": \"string\"\n        }\n      }\n    },\n    {\n      \"headers\": [\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"number\",\n          \"isRequired\": false,\n          \"isSecret\": false,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"filepath\",\n          \"isRequired\": true,\n          \"isSecret\": true,\n          \"name\": \"SOME_VARIABLE\",\n          \"placeholder\": \"string\",\n          \"value\": \"string\",\n          \"variables\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"type\": \"stdio\",\n      \"url\": \"https://api.example.com/mcp\",\n      \"variables\": {\n        \"key_0\": {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"number\",\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"placeholder\": \"string\",\n          \"value\": \"string\"\n        },\n        \"key_1\": {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"filepath\",\n          \"isRequired\": false,\n          \"isSecret\": false,\n          \"placeholder\": \"string\",\n          \"value\": \"string\"\n        },\n        \"key_2\": {\n          \"choices\": [\n            \"string\",\n            \"string\"\n          ],\n          \"default\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"boolean\",\n          \"isRequired\": true,\n          \"isSecret\": false,\n          \"placeholder\": \"string\",\n          \"value\": \"string\"\n        }\n      }\n    }\n  ],\n  \"repository\": {\n    \"id\": \"b94b5f7e-c7c6-d760-2c78-a5e9b8a5b8c9\",\n    \"source\": \"github\",\n    \"subfolder\": \"src/everything\",\n    \"url\": \"https://github.com/modelcontextprotocol/servers\"\n  },\n  \"title\": \"Weather API\",\n  \"version\": \"1.0.2\",\n  \"websiteUrl\": \"https://modelcontextprotocol.io/examples\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0491a16f-e4be-4736-8e03-1cf6e900e40d",
+              "name": "Invalid server name encoding",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers",
+                    ":serverName",
+                    "versions",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serverName",
+                      "description": "(Required) Server name (URL-encoded reverse-DNS format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae2fff01-5458-42d1-a26d-0c8e210cced8",
+              "name": "Server not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers",
+                    ":serverName",
+                    "versions",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serverName",
+                      "description": "(Required) Server name (URL-encoded reverse-DNS format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0955a021-1d7c-431f-973f-fb5a63abe26f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers",
+                    ":serverName",
+                    "versions",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serverName",
+                      "description": "(Required) Server name (URL-encoded reverse-DNS format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05d17cbd-98fe-438a-b189-2921f6c7bddc",
+              "name": "Registry authentication required or upstream registry unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "servers",
+                    ":serverName",
+                    "versions",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serverName",
+                      "description": "(Required) Server name (URL-encoded reverse-DNS format)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4a238c81-b5a9-4668-a499-c3f3194728d0",
+    "name": "ToolHive Registry clients registry-servers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for accessing MCP server registry data and deployed server information\nThis API provides endpoints to query the MCP (Model Context Protocol) server registry,\nget information about available servers, and check the status of deployed servers.\n\nAuthentication is required by default. Use Bearer token authentication with a valid\nOAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides\nOAuth discovery metadata (RFC 9728).",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients v1 API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "v1",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Publish entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/entries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish a new server or skill entry. Exactly one of 'server' or 'skill' must be provided."
+        },
+        {
+          "info": {
+            "name": "Get entry claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/entries/:type/:name/claims",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Entry Type (server or skill)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Entry Name"
+              }
+            ]
+          },
+          "docs": "Get the claims for an API-published entry name within the managed source.\nClaims are stored at the entry-name level and are shared by every version of that name.\nSynced-source entries (git/api/file/kubernetes) are out of scope: their claims come from\nupstream (the source manifest or the `toolhive.stacklok.dev/authz-claims` annotation) and\nare surfaced through the `/v1/sources/{name}/entries` and `/v1/registries/{name}/entries` lists."
+        },
+        {
+          "info": {
+            "name": "Update entry claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/entries/:type/:name/claims",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Entry Type (server or skill)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Entry Name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update claims for a published entry name"
+        },
+        {
+          "info": {
+            "name": "Delete published entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/entries/:type/:name/versions/:version",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Entry Type (server or skill)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Entry Name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Version"
+              }
+            ]
+          },
+          "docs": "Delete a published entry version"
+        },
+        {
+          "info": {
+            "name": "Get current user info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/me"
+          },
+          "docs": "Returns the authenticated caller's identity and roles"
+        },
+        {
+          "info": {
+            "name": "List registries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/registries"
+          },
+          "docs": "List all registries"
+        },
+        {
+          "info": {
+            "name": "Get registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/registries/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry Name"
+              }
+            ]
+          },
+          "docs": "Get a registry by name"
+        },
+        {
+          "info": {
+            "name": "Create or update registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/registries/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry Name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new registry or update an existing one"
+        },
+        {
+          "info": {
+            "name": "Delete registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/registries/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry Name"
+              }
+            ]
+          },
+          "docs": "Delete a registry by name"
+        },
+        {
+          "info": {
+            "name": "List registry entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/registries/:name/entries",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Registry Name"
+              }
+            ]
+          },
+          "docs": "List all entries for a registry"
+        },
+        {
+          "info": {
+            "name": "List sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/sources"
+          },
+          "docs": "List all sources"
+        },
+        {
+          "info": {
+            "name": "Get source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/sources/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Source Name"
+              }
+            ]
+          },
+          "docs": "Get a source by name"
+        },
+        {
+          "info": {
+            "name": "Create or update source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/sources/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Source Name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new source or update an existing one"
+        },
+        {
+          "info": {
+            "name": "Delete source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/sources/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Source Name"
+              }
+            ]
+          },
+          "docs": "Delete a source by name"
+        },
+        {
+          "info": {
+            "name": "List source entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/sources/:name/entries",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Source Name"
+              }
+            ]
+          },
+          "docs": "List all entries for a source"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

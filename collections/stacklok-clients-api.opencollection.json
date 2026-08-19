@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/clients"
+          },
+          "docs": "List all registered clients in ToolHive"
+        },
+        {
+          "info": {
+            "name": "Register a new client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/clients",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new client with ToolHive"
+        },
+        {
+          "info": {
+            "name": "Unregister a client",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1beta/clients/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Client name to unregister"
+              }
+            ]
+          },
+          "docs": "Unregister a client from ToolHive"
+        },
+        {
+          "info": {
+            "name": "Unregister a client from a specific group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1beta/clients/:name/groups/:group",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Client name to unregister"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "Group name to remove client from"
+              }
+            ]
+          },
+          "docs": "Unregister a client from a specific group in ToolHive"
+        },
+        {
+          "info": {
+            "name": "Register multiple clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/clients/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register multiple clients with ToolHive"
+        },
+        {
+          "info": {
+            "name": "Unregister multiple clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/clients/unregister",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unregister multiple clients from ToolHive"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

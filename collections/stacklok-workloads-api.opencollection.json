@@ -1,0 +1,307 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients workloads API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "workloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all workloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads",
+            "params": [
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "List all workloads, including stopped ones"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter workloads by group name"
+              }
+            ]
+          },
+          "docs": "Get a list of all running workloads, optionally filtered by group"
+        },
+        {
+          "info": {
+            "name": "Create a new workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create and start a new workload"
+        },
+        {
+          "info": {
+            "name": "Get workload details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Get details of a specific workload"
+        },
+        {
+          "info": {
+            "name": "Delete a workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Delete a workload asynchronously. Returns 202 Accepted immediately.\nThe deletion happens in the background. Poll the workload list to confirm deletion."
+        },
+        {
+          "info": {
+            "name": "Update workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/edit",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing workload configuration"
+        },
+        {
+          "info": {
+            "name": "Export workload configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/export",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Export a workload's run configuration as JSON"
+        },
+        {
+          "info": {
+            "name": "Restart a workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/restart",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Restart a running workload"
+        },
+        {
+          "info": {
+            "name": "Get workload status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/status",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Get the current status of a specific workload"
+        },
+        {
+          "info": {
+            "name": "Stop a workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/stop",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Stop a running workload"
+        },
+        {
+          "info": {
+            "name": "Apply an available upgrade to a workload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/upgrade",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a registry-sourced upgrade to a single workload. This\nre-resolves and verifies the candidate image, pulls it, and only\nthen recreates the workload with the new image, preserving the\nexisting configuration. If the workload is already up to date or\nis not registry-sourced, the current check result is returned\nunchanged (no-op). Secret values are never accepted or returned."
+        },
+        {
+          "info": {
+            "name": "Check a workload for an available upgrade",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads/:name/upgrade-check",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Workload name"
+              }
+            ]
+          },
+          "docs": "Check whether a single workload has a newer image available in\nits source registry. This is an offline metadata comparison; it\ndoes not pull images. Secret values are never returned."
+        },
+        {
+          "info": {
+            "name": "Delete workloads in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete multiple workloads by name or by group asynchronously.\nReturns 202 Accepted immediately. Deletion happens in the background."
+        },
+        {
+          "info": {
+            "name": "Restart workloads in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads/restart",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Restart multiple workloads by name or by group"
+        },
+        {
+          "info": {
+            "name": "Stop workloads in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/workloads/stop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stop multiple workloads by name or by group"
+        },
+        {
+          "info": {
+            "name": "Check workloads for available upgrades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/workloads/upgrade-check",
+            "params": [
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "Include stopped workloads"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter workloads by group name"
+              }
+            ]
+          },
+          "docs": "Check all workloads (optionally filtered by group) for newer\nimages available in their source registries. This is an offline\nmetadata comparison; it does not pull images. Secret values are\nnever returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

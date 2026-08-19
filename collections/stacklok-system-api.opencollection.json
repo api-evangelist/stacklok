@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients system API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "system",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "OpenAPI specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/openapi.json"
+          },
+          "docs": "Get the OpenAPI 3.1.0 specification for this API"
+        },
+        {
+          "info": {
+            "name": "Get OpenAPI specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/openapi.json"
+          },
+          "docs": "Returns the OpenAPI specification for the API"
+        },
+        {
+          "info": {
+            "name": "Health check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          },
+          "docs": "Check if the API is healthy"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -193,3 +193,9 @@ tools:
 - name: get_registry_v0_1_x_dev_toolhive_skills
   description: Get a registry skill
   source_operation: openapi/stacklok-toolhive-api-openapi.yml#GET /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{skillName}
+deployment:
+  mode: none
+  verified: derived
+  tools: 61
+  checked: '2026-08-12'
+  source: catalog MCP census

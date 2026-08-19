@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients registry-skills API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "registry-skills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available registry skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/x/dev.toolhive/skills",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name (currently ignored, uses the default provider)"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search filter — matches against skill name, namespace, and description"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number, 1-based (default: 1)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Items per page, max 200 (default: 50)"
+              }
+            ]
+          },
+          "docs": "Get a paginated list of skills from the registry. Supports optional full-text search and pagination."
+        },
+        {
+          "info": {
+            "name": "Get a registry skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/x/dev.toolhive/skills/:namespace/:skillName",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name (currently ignored, uses the default provider)"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Skill namespace in reverse-DNS format (e.g. io.github.stacklok)"
+              },
+              {
+                "name": "skillName",
+                "value": "",
+                "type": "path",
+                "description": "Skill name"
+              }
+            ]
+          },
+          "docs": "Retrieve a single skill by its namespace and name from the registry."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

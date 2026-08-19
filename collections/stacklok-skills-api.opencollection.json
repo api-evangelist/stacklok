@@ -1,0 +1,392 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ToolHive Registry clients skills API",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "skills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List skills in registry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/x/dev.toolhive/skills",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name/description substring"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status (comma-separated, e.g. active,deprecated)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max results (default 50, max 100)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List skills in a registry (paginated, latest versions)."
+        },
+        {
+          "info": {
+            "name": "Get latest skill version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/x/dev.toolhive/skills/:namespace/:name",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Skill namespace (reverse-DNS)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Skill name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the latest version of a skill by namespace and name."
+        },
+        {
+          "info": {
+            "name": "List skill versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/x/dev.toolhive/skills/:namespace/:name/versions",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Skill namespace (reverse-DNS)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Skill name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all versions of a skill."
+        },
+        {
+          "info": {
+            "name": "Get specific skill version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/registry/:registryName/v0.1/x/dev.toolhive/skills/:namespace/:name/versions/:version",
+            "params": [
+              {
+                "name": "registryName",
+                "value": "",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Skill namespace (reverse-DNS)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Skill name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Skill version"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific version of a skill."
+        },
+        {
+          "info": {
+            "name": "List all installed skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/skills",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scope (user or project)"
+              },
+              {
+                "name": "client",
+                "value": "",
+                "type": "query",
+                "description": "Filter by client app"
+              },
+              {
+                "name": "project_root",
+                "value": "",
+                "type": "query",
+                "description": "Filter by project root path"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter by group name"
+              }
+            ]
+          },
+          "docs": "Get a list of all installed skills"
+        },
+        {
+          "info": {
+            "name": "Install a skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/skills",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Install a skill from a remote source"
+        },
+        {
+          "info": {
+            "name": "Get skill details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/skills/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Skill name"
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Filter by scope (user or project)"
+              },
+              {
+                "name": "project_root",
+                "value": "",
+                "type": "query",
+                "description": "Project root path for project-scoped skills"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific skill"
+        },
+        {
+          "info": {
+            "name": "Uninstall a skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1beta/skills/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Skill name"
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope to uninstall from (user or project)"
+              },
+              {
+                "name": "project_root",
+                "value": "",
+                "type": "query",
+                "description": "Project root path for project-scoped skills"
+              }
+            ]
+          },
+          "docs": "Remove an installed skill"
+        },
+        {
+          "info": {
+            "name": "Build a skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/skills/build",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Build a skill from a local directory"
+        },
+        {
+          "info": {
+            "name": "List locally-built skill artifacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/skills/builds"
+          },
+          "docs": "Get a list of all locally-built OCI skill artifacts in the local store"
+        },
+        {
+          "info": {
+            "name": "Delete a locally-built skill artifact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1beta/skills/builds/:tag",
+            "params": [
+              {
+                "name": "tag",
+                "value": "",
+                "type": "path",
+                "description": "Artifact tag"
+              }
+            ]
+          },
+          "docs": "Remove a locally-built OCI skill artifact and its blobs from the local store"
+        },
+        {
+          "info": {
+            "name": "Get skill content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1beta/skills/content",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "query",
+                "description": "OCI reference or local build tag"
+              }
+            ]
+          },
+          "docs": "Retrieve the SKILL.md body and file listing from an artifact\nwithout installing it. Accepts OCI refs, git refs, or local tags."
+        },
+        {
+          "info": {
+            "name": "Push a skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/skills/push",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Push a built skill artifact to a remote registry"
+        },
+        {
+          "info": {
+            "name": "Validate a skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1beta/skills/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate a skill definition"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

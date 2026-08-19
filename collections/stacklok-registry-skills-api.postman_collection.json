@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "cfdf2332-fdb0-4b44-8518-9d76e18ceb30",
+      "name": "registry-skills",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f61081de-f21f-4549-a7cf-6a0ec35d747e",
+          "name": "List available registry skills",
+          "request": {
+            "name": "List available registry skills",
+            "description": {
+              "content": "Get a paginated list of skills from the registry. Supports optional full-text search and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registry",
+                ":registryName",
+                "v0.1",
+                "x",
+                "dev.toolhive",
+                "skills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Search filter — matches against skill name, namespace, and description"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number, 1-based (default: 1)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Items per page, max 200 (default: 50)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "registryName",
+                  "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c492233d-879f-4601-b7db-94ed48e1bbaf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "x",
+                    "dev.toolhive",
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"limit\": 2370,\n    \"page\": 2696,\n    \"total\": 6221\n  },\n  \"skills\": [\n    {\n      \"_meta\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"allowedTools\": [\n        \"string\",\n        \"string\"\n      ],\n      \"compatibility\": \"string\",\n      \"description\": \"string\",\n      \"icons\": [\n        {\n          \"label\": \"string\",\n          \"size\": \"string\",\n          \"src\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"size\": \"string\",\n          \"src\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"license\": \"string\",\n      \"metadata\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"name\": \"string\",\n      \"namespace\": \"string\",\n      \"packages\": [\n        {\n          \"commit\": \"string\",\n          \"digest\": \"string\",\n          \"identifier\": \"string\",\n          \"mediaType\": \"string\",\n          \"ref\": \"string\",\n          \"registryType\": \"string\",\n          \"subfolder\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"commit\": \"string\",\n          \"digest\": \"string\",\n          \"identifier\": \"string\",\n          \"mediaType\": \"string\",\n          \"ref\": \"string\",\n          \"registryType\": \"string\",\n          \"subfolder\": \"string\",\n          \"url\": \"string\"\n        }\n      ],\n      \"repository\": {\n        \"type\": \"string\",\n        \"url\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"version\": \"string\"\n    },\n    {\n      \"_meta\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      },\n      \"allowedTools\": [\n        \"string\",\n        \"string\"\n      ],\n      \"compatibility\": \"string\",\n      \"description\": \"string\",\n      \"icons\": [\n        {\n          \"label\": \"string\",\n          \"size\": \"string\",\n          \"src\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"size\": \"string\",\n          \"src\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"license\": \"string\",\n      \"metadata\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"name\": \"string\",\n      \"namespace\": \"string\",\n      \"packages\": [\n        {\n          \"commit\": \"string\",\n          \"digest\": \"string\",\n          \"identifier\": \"string\",\n          \"mediaType\": \"string\",\n          \"ref\": \"string\",\n          \"registryType\": \"string\",\n          \"subfolder\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"commit\": \"string\",\n          \"digest\": \"string\",\n          \"identifier\": \"string\",\n          \"mediaType\": \"string\",\n          \"ref\": \"string\",\n          \"registryType\": \"string\",\n          \"subfolder\": \"string\",\n          \"url\": \"string\"\n        }\n      ],\n      \"repository\": {\n        \"type\": \"string\",\n        \"url\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"version\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6dbaefd-776e-41b6-b432-f2b419eebfa1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "x",
+                    "dev.toolhive",
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "176837a8-56f0-4d06-bbd9-9fc3473fbbb4",
+              "name": "Registry authentication required or upstream registry unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "x",
+                    "dev.toolhive",
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c3fa9fa-1f66-4739-a3bd-30c50dba9e53",
+          "name": "Get a registry skill",
+          "request": {
+            "name": "Get a registry skill",
+            "description": {
+              "content": "Retrieve a single skill by its namespace and name from the registry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registry",
+                ":registryName",
+                "v0.1",
+                "x",
+                "dev.toolhive",
+                "skills",
+                ":namespace",
+                ":skillName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "registryName",
+                  "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Skill namespace in reverse-DNS format (e.g. io.github.stacklok)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "skillName",
+                  "description": "(Required) Skill name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f978e5e5-0b91-4975-b20f-6be6ee606ba7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "x",
+                    "dev.toolhive",
+                    "skills",
+                    ":namespace",
+                    ":skillName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Skill namespace in reverse-DNS format (e.g. io.github.stacklok)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skillName",
+                      "description": "(Required) Skill name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_meta\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"allowedTools\": [\n    \"string\",\n    \"string\"\n  ],\n  \"compatibility\": \"string\",\n  \"description\": \"string\",\n  \"icons\": [\n    {\n      \"label\": \"string\",\n      \"size\": \"string\",\n      \"src\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"label\": \"string\",\n      \"size\": \"string\",\n      \"src\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"license\": \"string\",\n  \"metadata\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"name\": \"string\",\n  \"namespace\": \"string\",\n  \"packages\": [\n    {\n      \"commit\": \"string\",\n      \"digest\": \"string\",\n      \"identifier\": \"string\",\n      \"mediaType\": \"string\",\n      \"ref\": \"string\",\n      \"registryType\": \"string\",\n      \"subfolder\": \"string\",\n      \"url\": \"string\"\n    },\n    {\n      \"commit\": \"string\",\n      \"digest\": \"string\",\n      \"identifier\": \"string\",\n      \"mediaType\": \"string\",\n      \"ref\": \"string\",\n      \"registryType\": \"string\",\n      \"subfolder\": \"string\",\n      \"url\": \"string\"\n    }\n  ],\n  \"repository\": {\n    \"type\": \"string\",\n    \"url\": \"string\"\n  },\n  \"status\": \"string\",\n  \"title\": \"string\",\n  \"version\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "042e13e9-e94e-4c81-93bc-668ebf31099a",
+              "name": "Skill not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "x",
+                    "dev.toolhive",
+                    "skills",
+                    ":namespace",
+                    ":skillName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Skill namespace in reverse-DNS format (e.g. io.github.stacklok)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skillName",
+                      "description": "(Required) Skill name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bf36a8c-2103-4f27-8bda-75fd4c5bf654",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "x",
+                    "dev.toolhive",
+                    "skills",
+                    ":namespace",
+                    ":skillName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Skill namespace in reverse-DNS format (e.g. io.github.stacklok)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skillName",
+                      "description": "(Required) Skill name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "152bed5e-1a6e-4516-b351-1c5a57ba46e0",
+              "name": "Registry authentication required or upstream registry unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registry",
+                    ":registryName",
+                    "v0.1",
+                    "x",
+                    "dev.toolhive",
+                    "skills",
+                    ":namespace",
+                    ":skillName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "registryName",
+                      "description": "(Required) Registry name (currently ignored, uses the default provider)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Skill namespace in reverse-DNS format (e.g. io.github.stacklok)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skillName",
+                      "description": "(Required) Skill name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e5d8dbb4-5af3-4d92-adb0-d015fce6c3f5",
+    "name": "ToolHive Registry clients registry-skills API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for accessing MCP server registry data and deployed server information\nThis API provides endpoints to query the MCP (Model Context Protocol) server registry,\nget information about available servers, and check the status of deployed servers.\n\nAuthentication is required by default. Use Bearer token authentication with a valid\nOAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides\nOAuth discovery metadata (RFC 9728).",
+      "type": "text/plain"
+    }
+  }
+}
