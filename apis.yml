@@ -16,12 +16,17 @@ created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
+- Open-Source
+tags_raw:
+- Company
 - Open Source
 apis:
 - aid: stacklok:stacklok-clients-api
   name: Stacklok clients API
   description: The clients API from Stacklok — 5 operation(s) for clients.
   tags:
+  - Clients
+  tags_raw:
   - clients
   properties:
   - type: OpenAPI
@@ -30,6 +35,8 @@ apis:
   name: Stacklok discovery API
   description: The discovery API from Stacklok — 1 operation(s) for discovery.
   tags:
+  - Discovery
+  tags_raw:
   - discovery
   properties:
   - type: OpenAPI
@@ -38,6 +45,8 @@ apis:
   name: Stacklok groups API
   description: The groups API from Stacklok — 2 operation(s) for groups.
   tags:
+  - Group
+  tags_raw:
   - groups
   properties:
   - type: OpenAPI
@@ -46,6 +55,8 @@ apis:
   name: Stacklok logs API
   description: The logs API from Stacklok — 2 operation(s) for logs.
   tags:
+  - Logs
+  tags_raw:
   - logs
   properties:
   - type: OpenAPI
@@ -54,6 +65,8 @@ apis:
   name: Stacklok registry API
   description: The registry API from Stacklok — 10 operation(s) for registry.
   tags:
+  - Registry
+  tags_raw:
   - registry
   properties:
   - type: OpenAPI
@@ -78,6 +91,8 @@ apis:
   name: Stacklok secrets API
   description: The secrets API from Stacklok — 4 operation(s) for secrets.
   tags:
+  - Secrets
+  tags_raw:
   - secrets
   properties:
   - type: OpenAPI
@@ -86,6 +101,8 @@ apis:
   name: Stacklok skills API
   description: The skills API from Stacklok — 12 operation(s) for skills.
   tags:
+  - Skills
+  tags_raw:
   - skills
   properties:
   - type: OpenAPI
@@ -94,6 +111,8 @@ apis:
   name: Stacklok system API
   description: The system API from Stacklok — 3 operation(s) for system.
   tags:
+  - System
+  tags_raw:
   - system
   properties:
   - type: OpenAPI
@@ -110,6 +129,8 @@ apis:
   name: Stacklok version API
   description: The version API from Stacklok — 1 operation(s) for version.
   tags:
+  - Version
+  tags_raw:
   - version
   properties:
   - type: OpenAPI
@@ -118,6 +139,8 @@ apis:
   name: Stacklok workloads API
   description: The workloads API from Stacklok — 13 operation(s) for workloads.
   tags:
+  - Workloads
+  tags_raw:
   - workloads
   properties:
   - type: OpenAPI
