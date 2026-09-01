@@ -150,7 +150,7 @@ apis:
   name: Stacklok workloads API
   description: The workloads API from Stacklok — 13 operation(s) for workloads.
   tags:
-  - workloads
+  - Workloads
   tags_raw:
   - workloads
   properties:
