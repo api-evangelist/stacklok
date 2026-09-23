@@ -1,19 +1,11 @@
 {
   "provider": "stacklok",
   "sources": [
-    "stacklok-clients-api-openapi.yml",
-    "stacklok-discovery-api-openapi.yml",
-    "stacklok-groups-api-openapi.yml",
-    "stacklok-logs-api-openapi.yml",
+    "_original/stacklok-toolhive-api-openapi.yml",
     "stacklok-registry-api-openapi.yml",
-    "stacklok-registry-servers-api-openapi.yml",
-    "stacklok-registry-skills-api-openapi.yml",
-    "stacklok-secrets-api-openapi.yml",
     "stacklok-skills-api-openapi.yml",
     "stacklok-system-api-openapi.yml",
-    "stacklok-v1-api-openapi.yml",
-    "stacklok-version-api-openapi.yml",
-    "stacklok-workloads-api-openapi.yml"
+    "stacklok-v1-api-openapi.yml"
   ],
   "outputs": [
     "stacklok-clients-api-openapi.yml",
@@ -26,13 +18,47 @@
     "stacklok-secrets-api-openapi.yml",
     "stacklok-skills-api-openapi.yml",
     "stacklok-system-api-openapi.yml",
-    "stacklok-v1-api-openapi.yml",
     "stacklok-version-api-openapi.yml",
-    "stacklok-workloads-api-openapi.yml"
+    "stacklok-workloads-api-openapi.yml",
+    "stacklok-v1-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "stacklok-registry-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /registry/{registryName}/v0.1/servers/{serverName}/versions get, /registry/{registryName}/v0.1/servers/{serverName}/versions/{version} get); its other 10 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "stacklok-skills-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name} get, /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name}/versions get, /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name}/versions/{version} get); its other 10 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "stacklok-system-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /openapi.json get); its other 2 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "stacklok-v1-api-openapi.yml: previously refined output kept for 15 operation(s) no archived document covers (e.g. /v1/entries post, /v1/entries/{type}/{name}/claims get, /v1/entries/{type}/{name}/claims put); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "stacklok-toolhive-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: clients",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: discovery",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: groups",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: logs",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: registry",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: registry-servers",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: registry-skills",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: secrets",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: skills",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: system",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: version",
+    "stacklok-toolhive-api-openapi.yml: declared missing tag: workloads",
+    "tag 'registry' spans 2 source specs (stacklok-toolhive-api-openapi.yml, stacklok-registry-api-openapi.yml): per-path servers applied",
+    "tag 'skills' spans 2 source specs (stacklok-toolhive-api-openapi.yml, stacklok-skills-api-openapi.yml): per-path servers applied",
+    "tag 'system' spans 2 source specs (stacklok-toolhive-api-openapi.yml, stacklok-system-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "stacklok-clients-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-logs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-registry-servers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-registry-skills-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-secrets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-version-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stacklok-workloads-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

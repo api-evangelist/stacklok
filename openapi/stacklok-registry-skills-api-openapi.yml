@@ -1,24 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  contact:
-    url: https://github.com/stacklok/toolhive
-  description: 'API for accessing MCP server registry data and deployed server information
-
-    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
-
-    get information about available servers, and check the status of deployed servers.
-
-
-    Authentication is required by default. Use Bearer token authentication with a valid
-
-    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
-
-    OAuth discovery metadata (RFC 9728).'
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: ToolHive Registry clients registry-skills API
-  version: '0.1'
+  description: This is the ToolHive API server.
+  title: ToolHive Registry Skills API
+  version: '1.0'
 tags:
 - name: registry-skills
 paths:
@@ -69,6 +53,8 @@ paths:
       summary: List available registry skills
       tags:
       - registry-skills
+      operationId: getRegistryByRegistryNameV01XDevToolhiveSkills
+      x-operation-id-source: derived
   /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{skillName}:
     get:
       description: Retrieve a single skill by its namespace and name from the registry.
@@ -119,19 +105,86 @@ paths:
       summary: Get a registry skill
       tags:
       - registry-skills
+      operationId: getRegistryByRegistryNameV01XDevToolhiveSkillsByNamespaceBySkillName
+      x-operation-id-source: derived
 components:
   schemas:
-    pkg_api_v1.skillsV01Response:
-      description: Paginated list of skills from the registry
+    registry.SkillPackage:
       properties:
-        metadata:
-          $ref: '#/components/schemas/pkg_api_v1.paginationV01Metadata'
-        skills:
-          description: Skills is the list of skills on the current page
-          items:
-            $ref: '#/components/schemas/registry.Skill'
-          type: array
-          uniqueItems: false
+        commit:
+          description: Commit is the commit of the package.
+          type: string
+        digest:
+          description: Digest is the digest of the package.
+          type: string
+        identifier:
+          description: Identifier is the OCI identifier of the package.
+          type: string
+        mediaType:
+          description: MediaType is the media type of the package.
+          type: string
+        ref:
+          description: Ref is the reference of the package.
+          type: string
+        registryType:
+          description: 'RegistryType is the type of registry the package is from.
+
+            Can be "oci" or "git".'
+          type: string
+        subfolder:
+          description: Subfolder is the subfolder of the package.
+          type: string
+        url:
+          description: URL is the URL of the package.
+          type: string
+      type: object
+    pkg_api_v1.paginationV01Metadata:
+      description: Metadata contains pagination information
+      properties:
+        limit:
+          description: Limit is the maximum number of items per page
+          type: integer
+        page:
+          description: Page is the current page number (1-based)
+          type: integer
+        total:
+          description: Total is the total number of items matching the query
+          type: integer
+      type: object
+    registry.SkillIcon:
+      properties:
+        label:
+          description: Label is the label of the icon.
+          type: string
+        size:
+          description: Size is the size of the icon.
+          type: string
+        src:
+          description: Src is the source of the icon.
+          type: string
+        type:
+          description: Type is the type of the icon.
+          type: string
+      type: object
+    registry.SkillRepository:
+      description: Repository is the source repository of the skill.
+      properties:
+        type:
+          description: Type is the type of the repository.
+          type: string
+        url:
+          description: URL is the URL of the repository.
+          type: string
+      type: object
+    pkg_api_v1.registryErrorResponse:
+      description: Structured error response returned by registry endpoints
+      properties:
+        code:
+          description: Code is a machine-readable error code (e.g. "not_found", "registry_auth_required")
+          type: string
+        message:
+          description: Message is a human-readable description of the error
+          type: string
       type: object
     registry.Skill:
       properties:
@@ -204,89 +257,18 @@ components:
             semantic version or a commit hash.'
           type: string
       type: object
-    registry.SkillRepository:
-      description: Repository is the source repository of the skill.
+    pkg_api_v1.skillsV01Response:
+      description: Paginated list of skills from the registry
       properties:
-        type:
-          description: Type is the type of the repository.
-          type: string
-        url:
-          description: URL is the URL of the repository.
-          type: string
+        metadata:
+          $ref: '#/components/schemas/pkg_api_v1.paginationV01Metadata'
+        skills:
+          description: Skills is the list of skills on the current page
+          items:
+            $ref: '#/components/schemas/registry.Skill'
+          type: array
+          uniqueItems: false
       type: object
-    pkg_api_v1.registryErrorResponse:
-      description: Structured error response returned by registry endpoints
-      properties:
-        code:
-          description: Code is a machine-readable error code (e.g. "not_found", "registry_auth_required")
-          type: string
-        message:
-          description: Message is a human-readable description of the error
-          type: string
-      type: object
-    registry.SkillIcon:
-      properties:
-        label:
-          description: Label is the label of the icon.
-          type: string
-        size:
-          description: Size is the size of the icon.
-          type: string
-        src:
-          description: Src is the source of the icon.
-          type: string
-        type:
-          description: Type is the type of the icon.
-          type: string
-      type: object
-    pkg_api_v1.paginationV01Metadata:
-      description: Metadata contains pagination information
-      properties:
-        limit:
-          description: Limit is the maximum number of items per page
-          type: integer
-        page:
-          description: Page is the current page number (1-based)
-          type: integer
-        total:
-          description: Total is the total number of items matching the query
-          type: integer
-      type: object
-    registry.SkillPackage:
-      properties:
-        commit:
-          description: Commit is the commit of the package.
-          type: string
-        digest:
-          description: Digest is the digest of the package.
-          type: string
-        identifier:
-          description: Identifier is the OCI identifier of the package.
-          type: string
-        mediaType:
-          description: MediaType is the media type of the package.
-          type: string
-        ref:
-          description: Ref is the reference of the package.
-          type: string
-        registryType:
-          description: 'RegistryType is the type of registry the package is from.
-
-            Can be "oci" or "git".'
-          type: string
-        subfolder:
-          description: Subfolder is the subfolder of the package.
-          type: string
-        url:
-          description: URL is the URL of the package.
-          type: string
-      type: object
-  securitySchemes:
-    BearerAuth:
-      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
-      in: header
-      name: Authorization
-      type: apiKey
 externalDocs:
   description: ''
   url: ''

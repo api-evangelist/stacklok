@@ -1,26 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  contact:
-    url: https://github.com/stacklok/toolhive
-  description: 'API for accessing MCP server registry data and deployed server information
-
-    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
-
-    get information about available servers, and check the status of deployed servers.
-
-
-    Authentication is required by default. Use Bearer token authentication with a valid
-
-    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
-
-    OAuth discovery metadata (RFC 9728).'
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: ToolHive Registry clients logs API
-  version: '0.1'
+  description: This is the ToolHive API server.
+  title: ToolHive Logs API
+  version: '1.0'
 tags:
-- name: logs
+- name: Logs
 paths:
   /api/v1beta/workloads/{name}/logs:
     get:
@@ -53,7 +37,9 @@ paths:
           description: Not Found
       summary: Get logs for a specific workload
       tags:
-      - logs
+      - Logs
+      operationId: getApiV1betaWorkloadsByNameLogs
+      x-operation-id-source: derived
   /api/v1beta/workloads/{name}/proxy-logs:
     get:
       description: Retrieve at most 1000 lines of proxy logs for a specific workload by name from the file system.
@@ -85,14 +71,9 @@ paths:
           description: Proxy logs not found for workload
       summary: Get proxy logs for a specific workload
       tags:
-      - logs
-components:
-  securitySchemes:
-    BearerAuth:
-      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
-      in: header
-      name: Authorization
-      type: apiKey
+      - Logs
+      operationId: getApiV1betaWorkloadsByNameProxyLogs
+      x-operation-id-source: derived
 externalDocs:
   description: ''
   url: ''
