@@ -144,21 +144,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    pkg_api_v1.createGroupResponse:
-      properties:
-        name:
-          description: Name of the created group
-          type: string
-      type: object
-    pkg_api_v1.groupListResponse:
-      properties:
-        groups:
-          description: List of groups
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_groups.Group'
-          type: array
-          uniqueItems: false
-      type: object
     pkg_api_v1.createGroupRequest:
       properties:
         name:
@@ -184,6 +169,21 @@ components:
             type: string
           type: array
           uniqueItems: false
+      type: object
+    pkg_api_v1.groupListResponse:
+      properties:
+        groups:
+          description: List of groups
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_groups.Group'
+          type: array
+          uniqueItems: false
+      type: object
+    pkg_api_v1.createGroupResponse:
+      properties:
+        name:
+          description: Name of the created group
+          type: string
       type: object
 externalDocs:
   description: ''

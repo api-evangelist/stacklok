@@ -1,0 +1,546 @@
+openapi: 3.2.0
+info:
+  contact:
+    url: https://github.com/stacklok/toolhive
+  description: 'API for accessing MCP server registry data and deployed server information
+
+    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
+
+    get information about available servers, and check the status of deployed servers.
+
+
+    Authentication is required by default. Use Bearer token authentication with a valid
+
+    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
+
+    OAuth discovery metadata (RFC 9728).'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ToolHive Registry clients V1 Sources API
+  version: '0.1'
+tags:
+- name: Sources
+paths:
+  /v1/sources:
+    get:
+      description: List all sources
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceListResponse'
+          description: Sources list
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: List sources
+      tags:
+      - Sources
+      operationId: getV1Sources
+      x-operation-id-source: derived
+  /v1/sources/{name}:
+    delete:
+      description: Delete a source by name
+      parameters:
+      - description: Source Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Source deleted
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '403':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Cannot modify config-created source
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Source not found
+        '409':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Source in use
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: Delete source
+      tags:
+      - Sources
+      operationId: deleteV1SourcesByName
+      x-operation-id-source: derived
+    get:
+      description: Get a source by name
+      parameters:
+      - description: Source Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo'
+          description: Source details
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Source not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: Get source
+      tags:
+      - Sources
+      operationId: getV1SourcesByName
+      x-operation-id-source: derived
+    put:
+      description: Create a new source or update an existing one
+      parameters:
+      - description: Source Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceCreateRequest'
+                description: Source configuration
+                summary: request
+        description: Source configuration
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo'
+          description: Source updated
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo'
+          description: Source created
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '403':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Cannot modify config-created source
+        '409':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Managed source limit reached
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: Create or update source
+      tags:
+      - Sources
+      operationId: putV1SourcesByName
+      x-operation-id-source: derived
+  /v1/sources/{name}/entries:
+    get:
+      description: List all entries for a source
+      parameters:
+      - description: Source Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceEntriesResponse'
+          description: Source entries
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Source not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: List source entries
+      tags:
+      - Sources
+      operationId: getV1SourcesByNameEntries
+      x-operation-id-source: derived
+components:
+  schemas:
+    github_com_stacklok_toolhive-registry-server_internal_config.ManagedConfig:
+      description: Managed registry (no sync)
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceListResponse:
+      properties:
+        sources:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig:
+      description: Filtering rules
+      properties:
+        names:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.NameFilterConfig'
+        tags:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.TagFilterConfig'
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo:
+      properties:
+        claims:
+          additionalProperties: {}
+          description: Authorization claims
+          type: object
+        createdAt:
+          type: string
+        creationType:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.CreationType'
+        filterConfig:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig'
+        name:
+          type: string
+        sourceConfig:
+          description: Type-specific source configuration
+        sourceType:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.SourceType'
+        syncSchedule:
+          description: Sync interval string
+          type: string
+        syncStatus:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceSyncStatus'
+        type:
+          description: MANAGED, FILE, REMOTE, KUBERNETES
+          type: string
+        updatedAt:
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.FileConfig:
+      description: Local file or URL source
+      properties:
+        data:
+          description: 'Data is the inline registry data as a JSON string
+
+            Mutually exclusive with Path and URL - exactly one must be specified
+
+            Useful for API-created registries where the data is provided directly'
+          type: string
+        path:
+          description: 'Path is the path to the registry.json file on the local filesystem
+
+            Can be absolute or relative to the working directory
+
+            Mutually exclusive with URL and Data - exactly one must be specified'
+          type: string
+        timeout:
+          description: 'Timeout is the timeout for HTTP requests when using URL
+
+            Defaults to 30s if not specified
+
+            Only applicable when URL is set'
+          type: string
+        url:
+          description: 'URL is the HTTP/HTTPS URL to fetch the registry file from
+
+            Mutually exclusive with Path and Data - exactly one must be specified
+
+            HTTPS is required unless the host is localhost or THV_REGISTRY_INSECURE_URL=true'
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.CreationType:
+      description: API or CONFIG
+      enum:
+      - API
+      - CONFIG
+      type: string
+      x-enum-varnames:
+      - CreationTypeAPI
+      - CreationTypeCONFIG
+    github_com_stacklok_toolhive-registry-server_internal_config.KubernetesConfig:
+      description: Kubernetes discovery source
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.GitConfig:
+      description: Git repository source
+      properties:
+        auth:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.GitAuthConfig'
+        branch:
+          description: Branch is the Git branch to use (mutually exclusive with Tag and Commit)
+          type: string
+        commit:
+          description: Commit is the Git commit SHA to use (mutually exclusive with Branch and Tag)
+          type: string
+        path:
+          description: Path is the path to the registry file within the repository
+          type: string
+        repository:
+          description: Repository is the Git repository URL (HTTP/HTTPS/SSH)
+          type: string
+        tag:
+          description: Tag is the Git tag to use (mutually exclusive with Branch and Commit)
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.SourceType:
+      description: git, api, file, managed, kubernetes
+      enum:
+      - git
+      - api
+      - file
+      - managed
+      - kubernetes
+      type: string
+      x-enum-varnames:
+      - SourceTypeGit
+      - SourceTypeAPI
+      - SourceTypeFile
+      - SourceTypeManaged
+      - SourceTypeKubernetes
+    github_com_stacklok_toolhive-registry-server_internal_config.NameFilterConfig:
+      properties:
+        exclude:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        include:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.TagFilterConfig:
+      properties:
+        exclude:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        include:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.GitAuthConfig:
+      description: Auth contains optional authentication for private repositories
+      properties:
+        passwordFile:
+          description: 'PasswordFile is the path to a file containing the Git password/token
+
+            Must be an absolute path; whitespace is trimmed from the content'
+          type: string
+        username:
+          description: Username is the Git username for HTTP Basic authentication
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceCreateRequest:
+      properties:
+        api:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.APIConfig'
+        claims:
+          additionalProperties: {}
+          description: Authorization claims
+          type: object
+        file:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FileConfig'
+        filter:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig'
+        git:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.GitConfig'
+        kubernetes:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.KubernetesConfig'
+        managed:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.ManagedConfig'
+        syncPolicy:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.SyncPolicyConfig'
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceEntriesResponse:
+      properties:
+        entries:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceEntryInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.EntryVersionInfo:
+      properties:
+        createdAt:
+          type: string
+        description:
+          type: string
+        title:
+          type: string
+        updatedAt:
+          type: string
+        version:
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.APIConfig:
+      description: API endpoint source
+      properties:
+        endpoint:
+          description: "Endpoint is the base API URL (without path)\nThe registry handler will append the appropriate paths for the MCP Registry API v0.1:\n  - /v0.1/servers - List all servers\n  - /v0.1/servers/{name}/versions - List server versions\n  - /v0.1/servers/{name}/versions/{version} - Get specific version\nExample: \"http://my-registry-api.default.svc.cluster.local/registry\""
+          type: string
+        timeout:
+          description: 'Timeout is the per-request timeout for HTTP requests to the API endpoint
+
+            Accepts a Go duration string (e.g., "30s", "1m"); must be > 0 and <= 5m
+
+            Defaults to 10s if not specified
+
+            Useful for public or occasionally-slow upstreams where the default is too aggressive'
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.SyncPolicyConfig:
+      description: Sync schedule configuration
+      properties:
+        interval:
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceEntryInfo:
+      properties:
+        claims:
+          additionalProperties: {}
+          type: object
+        entryType:
+          type: string
+        name:
+          type: string
+        versions:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.EntryVersionInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceSyncStatus:
+      properties:
+        attemptCount:
+          description: Number of sync attempts
+          type: integer
+        lastAttempt:
+          description: Last sync attempt
+          type: string
+        lastSyncTime:
+          description: Last completed sync attempt
+          type: string
+        message:
+          description: Status or error message
+          type: string
+        phase:
+          description: complete, syncing, failed
+          type: string
+        serverCount:
+          description: Number of servers in registry
+          type: integer
+        skillCount:
+          description: Number of skills in registry
+          type: integer
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: ''
+  url: ''

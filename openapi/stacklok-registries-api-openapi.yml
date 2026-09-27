@@ -1,0 +1,339 @@
+openapi: 3.2.0
+info:
+  contact:
+    url: https://github.com/stacklok/toolhive
+  description: 'API for accessing MCP server registry data and deployed server information
+
+    This API provides endpoints to query the MCP (Model Context Protocol) server registry,
+
+    get information about available servers, and check the status of deployed servers.
+
+
+    Authentication is required by default. Use Bearer token authentication with a valid
+
+    OAuth/OIDC access token. The /.well-known/oauth-protected-resource endpoint provides
+
+    OAuth discovery metadata (RFC 9728).'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ToolHive Registry clients V1 Registries API
+  version: '0.1'
+tags:
+- name: Registries
+paths:
+  /v1/registries:
+    get:
+      description: List all registries
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internal_api_v1.registryListResponse'
+          description: Registries list
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: List registries
+      tags:
+      - Registries
+      operationId: getV1Registries
+      x-operation-id-source: derived
+  /v1/registries/{name}:
+    delete:
+      description: Delete a registry by name
+      parameters:
+      - description: Registry Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Registry deleted
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '403':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Cannot modify config-created registry
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Registry not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: Delete registry
+      tags:
+      - Registries
+      operationId: deleteV1RegistriesByName
+      x-operation-id-source: derived
+    get:
+      description: Get a registry by name
+      parameters:
+      - description: Registry Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
+          description: Registry details
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Registry not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: Get registry
+      tags:
+      - Registries
+      operationId: getV1RegistriesByName
+      x-operation-id-source: derived
+    put:
+      description: Create a new registry or update an existing one
+      parameters:
+      - description: Registry Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+              - $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryCreateRequest'
+                description: Registry configuration
+                summary: request
+        description: Registry configuration
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
+          description: Registry updated
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
+          description: Registry created
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '403':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Cannot modify config-created registry
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: Create or update registry
+      tags:
+      - Registries
+      operationId: putV1RegistriesByName
+      x-operation-id-source: derived
+  /v1/registries/{name}/entries:
+    get:
+      description: List all entries for a registry
+      parameters:
+      - description: Registry Name
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntriesResponse'
+          description: Registry entries
+        '400':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Bad request
+        '404':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Registry not found
+        '500':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Internal server error
+      summary: List registry entries
+      tags:
+      - Registries
+      operationId: getV1RegistriesByNameEntries
+      x-operation-id-source: derived
+components:
+  schemas:
+    github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntryInfo:
+      properties:
+        createdAt:
+          type: string
+        description:
+          type: string
+        entryType:
+          type: string
+        name:
+          type: string
+        position:
+          type: integer
+        sourceName:
+          type: string
+        title:
+          type: string
+        updatedAt:
+          type: string
+        version:
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.CreationType:
+      description: API or CONFIG
+      enum:
+      - API
+      - CONFIG
+      type: string
+      x-enum-varnames:
+      - CreationTypeAPI
+      - CreationTypeCONFIG
+    internal_api_v1.registryListResponse:
+      properties:
+        registries:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.RegistryCreateRequest:
+      properties:
+        claims:
+          additionalProperties: {}
+          description: Authorization claims
+          type: object
+        sources:
+          description: ordered list of source names
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntriesResponse:
+      properties:
+        entries:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntryInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo:
+      properties:
+        claims:
+          additionalProperties: {}
+          type: object
+        createdAt:
+          type: string
+        creationType:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.CreationType'
+        name:
+          type: string
+        sources:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        updatedAt:
+          type: string
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: ''
+  url: ''
