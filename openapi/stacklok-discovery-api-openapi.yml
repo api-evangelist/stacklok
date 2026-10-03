@@ -25,23 +25,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_stacklok_toolhive_pkg_client.ClientAppStatus:
-      properties:
-        client_type:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
-        installed:
-          description: Installed indicates whether the client is installed on the system
-          type: boolean
-        registered:
-          description: Registered indicates whether the client is registered in the ToolHive configuration
-          type: boolean
-        supports_plugins:
-          description: SupportsPlugins indicates whether ToolHive can install plugins for this client
-          type: boolean
-        supports_skills:
-          description: SupportsSkills indicates whether ToolHive can install skills for this client
-          type: boolean
-      type: object
     pkg_api_v1.clientStatusResponse:
       properties:
         clients:
@@ -103,6 +86,23 @@ components:
       - KimiCli
       - Factory
       - CopilotCli
+    github_com_stacklok_toolhive_pkg_client.ClientAppStatus:
+      properties:
+        client_type:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
+        installed:
+          description: Installed indicates whether the client is installed on the system
+          type: boolean
+        registered:
+          description: Registered indicates whether the client is registered in the ToolHive configuration
+          type: boolean
+        supports_plugins:
+          description: SupportsPlugins indicates whether ToolHive can install plugins for this client
+          type: boolean
+        supports_skills:
+          description: SupportsSkills indicates whether ToolHive can install skills for this client
+          type: boolean
+      type: object
 externalDocs:
   description: ''
   url: ''

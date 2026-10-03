@@ -266,53 +266,117 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_stacklok_toolhive-registry-server_internal_config.ManagedConfig:
-      description: Managed registry (no sync)
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SourceListResponse:
+    github_com_stacklok_toolhive-registry-server_internal_config.APIConfig:
+      description: API endpoint source
       properties:
-        sources:
+        endpoint:
+          description: "Endpoint is the base API URL (without path)\nThe registry handler will append the appropriate paths for the MCP Registry API v0.1:\n  - /v0.1/servers - List all servers\n  - /v0.1/servers/{name}/versions - List server versions\n  - /v0.1/servers/{name}/versions/{version} - Get specific version\nExample: \"http://my-registry-api.default.svc.cluster.local/registry\""
+          type: string
+        timeout:
+          description: 'Timeout is the per-request timeout for HTTP requests to the API endpoint
+
+            Accepts a Go duration string (e.g., "30s", "1m"); must be > 0 and <= 5m
+
+            Defaults to 10s if not specified
+
+            Useful for public or occasionally-slow upstreams where the default is too aggressive'
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceEntriesResponse:
+      properties:
+        entries:
           items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo'
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceEntryInfo'
           type: array
           uniqueItems: false
       type: object
-    github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig:
-      description: Filtering rules
+    github_com_stacklok_toolhive-registry-server_internal_service.EntryVersionInfo:
       properties:
-        names:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.NameFilterConfig'
-        tags:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.TagFilterConfig'
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo:
-      properties:
-        claims:
-          additionalProperties: {}
-          description: Authorization claims
-          type: object
         createdAt:
           type: string
-        creationType:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.CreationType'
-        filterConfig:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig'
-        name:
+        description:
           type: string
-        sourceConfig:
-          description: Type-specific source configuration
-        sourceType:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.SourceType'
-        syncSchedule:
-          description: Sync interval string
-          type: string
-        syncStatus:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceSyncStatus'
-        type:
-          description: MANAGED, FILE, REMOTE, KUBERNETES
+        title:
           type: string
         updatedAt:
           type: string
+        version:
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.ManagedConfig:
+      description: Managed registry (no sync)
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.GitAuthConfig:
+      description: Auth contains optional authentication for private repositories
+      properties:
+        passwordFile:
+          description: 'PasswordFile is the path to a file containing the Git password/token
+
+            Must be an absolute path; whitespace is trimmed from the content'
+          type: string
+        username:
+          description: Username is the Git username for HTTP Basic authentication
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceEntryInfo:
+      properties:
+        claims:
+          additionalProperties: {}
+          type: object
+        entryType:
+          type: string
+        name:
+          type: string
+        versions:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.EntryVersionInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_config.GitConfig:
+      description: Git repository source
+      properties:
+        auth:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.GitAuthConfig'
+        branch:
+          description: Branch is the Git branch to use (mutually exclusive with Tag and Commit)
+          type: string
+        commit:
+          description: Commit is the Git commit SHA to use (mutually exclusive with Branch and Tag)
+          type: string
+        path:
+          description: Path is the path to the registry file within the repository
+          type: string
+        repository:
+          description: Repository is the Git repository URL (HTTP/HTTPS/SSH)
+          type: string
+        tag:
+          description: Tag is the Git tag to use (mutually exclusive with Branch and Commit)
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceSyncStatus:
+      properties:
+        attemptCount:
+          description: Number of sync attempts
+          type: integer
+        lastAttempt:
+          description: Last sync attempt
+          type: string
+        lastSyncTime:
+          description: Last completed sync attempt
+          type: string
+        message:
+          description: Status or error message
+          type: string
+        phase:
+          description: complete, syncing, failed
+          type: string
+        serverCount:
+          description: Number of servers in registry
+          type: integer
+        skillCount:
+          description: Number of skills in registry
+          type: integer
       type: object
     github_com_stacklok_toolhive-registry-server_internal_config.FileConfig:
       description: Local file or URL source
@@ -346,38 +410,55 @@ components:
             HTTPS is required unless the host is localhost or THV_REGISTRY_INSECURE_URL=true'
           type: string
       type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.CreationType:
-      description: API or CONFIG
-      enum:
-      - API
-      - CONFIG
-      type: string
-      x-enum-varnames:
-      - CreationTypeAPI
-      - CreationTypeCONFIG
-    github_com_stacklok_toolhive-registry-server_internal_config.KubernetesConfig:
-      description: Kubernetes discovery source
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_config.GitConfig:
-      description: Git repository source
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo:
       properties:
-        auth:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.GitAuthConfig'
-        branch:
-          description: Branch is the Git branch to use (mutually exclusive with Tag and Commit)
+        claims:
+          additionalProperties: {}
+          description: Authorization claims
+          type: object
+        createdAt:
           type: string
-        commit:
-          description: Commit is the Git commit SHA to use (mutually exclusive with Branch and Tag)
+        creationType:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.CreationType'
+        filterConfig:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig'
+        name:
           type: string
-        path:
-          description: Path is the path to the registry file within the repository
+        sourceConfig:
+          description: Type-specific source configuration
+        sourceType:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.SourceType'
+        syncSchedule:
+          description: Sync interval string
           type: string
-        repository:
-          description: Repository is the Git repository URL (HTTP/HTTPS/SSH)
+        syncStatus:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceSyncStatus'
+        type:
+          description: MANAGED, FILE, REMOTE, KUBERNETES
           type: string
-        tag:
-          description: Tag is the Git tag to use (mutually exclusive with Branch and Commit)
+        updatedAt:
           type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceCreateRequest:
+      properties:
+        api:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.APIConfig'
+        claims:
+          additionalProperties: {}
+          description: Authorization claims
+          type: object
+        file:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FileConfig'
+        filter:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig'
+        git:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.GitConfig'
+        kubernetes:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.KubernetesConfig'
+        managed:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.ManagedConfig'
+        syncPolicy:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.SyncPolicyConfig'
       type: object
     github_com_stacklok_toolhive-registry-server_internal_config.SourceType:
       description: git, api, file, managed, kubernetes
@@ -394,6 +475,14 @@ components:
       - SourceTypeFile
       - SourceTypeManaged
       - SourceTypeKubernetes
+    github_com_stacklok_toolhive-registry-server_internal_service.SourceListResponse:
+      properties:
+        sources:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceInfo'
+          type: array
+          uniqueItems: false
+      type: object
     github_com_stacklok_toolhive-registry-server_internal_config.NameFilterConfig:
       properties:
         exclude:
@@ -420,120 +509,31 @@ components:
           type: array
           uniqueItems: false
       type: object
-    github_com_stacklok_toolhive-registry-server_internal_config.GitAuthConfig:
-      description: Auth contains optional authentication for private repositories
-      properties:
-        passwordFile:
-          description: 'PasswordFile is the path to a file containing the Git password/token
-
-            Must be an absolute path; whitespace is trimmed from the content'
-          type: string
-        username:
-          description: Username is the Git username for HTTP Basic authentication
-          type: string
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SourceCreateRequest:
-      properties:
-        api:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.APIConfig'
-        claims:
-          additionalProperties: {}
-          description: Authorization claims
-          type: object
-        file:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FileConfig'
-        filter:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig'
-        git:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.GitConfig'
-        kubernetes:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.KubernetesConfig'
-        managed:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.ManagedConfig'
-        syncPolicy:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.SyncPolicyConfig'
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SourceEntriesResponse:
-      properties:
-        entries:
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SourceEntryInfo'
-          type: array
-          uniqueItems: false
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.EntryVersionInfo:
-      properties:
-        createdAt:
-          type: string
-        description:
-          type: string
-        title:
-          type: string
-        updatedAt:
-          type: string
-        version:
-          type: string
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_config.APIConfig:
-      description: API endpoint source
-      properties:
-        endpoint:
-          description: "Endpoint is the base API URL (without path)\nThe registry handler will append the appropriate paths for the MCP Registry API v0.1:\n  - /v0.1/servers - List all servers\n  - /v0.1/servers/{name}/versions - List server versions\n  - /v0.1/servers/{name}/versions/{version} - Get specific version\nExample: \"http://my-registry-api.default.svc.cluster.local/registry\""
-          type: string
-        timeout:
-          description: 'Timeout is the per-request timeout for HTTP requests to the API endpoint
-
-            Accepts a Go duration string (e.g., "30s", "1m"); must be > 0 and <= 5m
-
-            Defaults to 10s if not specified
-
-            Useful for public or occasionally-slow upstreams where the default is too aggressive'
-          type: string
-      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.CreationType:
+      description: API or CONFIG
+      enum:
+      - API
+      - CONFIG
+      type: string
+      x-enum-varnames:
+      - CreationTypeAPI
+      - CreationTypeCONFIG
     github_com_stacklok_toolhive-registry-server_internal_config.SyncPolicyConfig:
       description: Sync schedule configuration
       properties:
         interval:
           type: string
       type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SourceEntryInfo:
-      properties:
-        claims:
-          additionalProperties: {}
-          type: object
-        entryType:
-          type: string
-        name:
-          type: string
-        versions:
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.EntryVersionInfo'
-          type: array
-          uniqueItems: false
+    github_com_stacklok_toolhive-registry-server_internal_config.KubernetesConfig:
+      description: Kubernetes discovery source
       type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SourceSyncStatus:
+    github_com_stacklok_toolhive-registry-server_internal_config.FilterConfig:
+      description: Filtering rules
       properties:
-        attemptCount:
-          description: Number of sync attempts
-          type: integer
-        lastAttempt:
-          description: Last sync attempt
-          type: string
-        lastSyncTime:
-          description: Last completed sync attempt
-          type: string
-        message:
-          description: Status or error message
-          type: string
-        phase:
-          description: complete, syncing, failed
-          type: string
-        serverCount:
-          description: Number of servers in registry
-          type: integer
-        skillCount:
-          description: Number of skills in registry
-          type: integer
+        names:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.NameFilterConfig'
+        tags:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_config.TagFilterConfig'
       type: object
   securitySchemes:
     BearerAuth:

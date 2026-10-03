@@ -278,10 +278,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    internal_api_v1.entryClaimsResponse:
+    model.Transport:
+      description: Transport is required and specifies the transport protocol configuration
       properties:
-        claims:
-          additionalProperties: {}
+        headers:
+          items:
+            $ref: '#/components/schemas/model.KeyValueInput'
+          type: array
+          uniqueItems: false
+        type:
+          example: stdio
+          type: string
+        url:
+          example: https://api.example.com/mcp
+          type: string
+        variables:
+          additionalProperties:
+            $ref: '#/components/schemas/model.Input'
           type: object
       type: object
     github_com_stacklok_toolhive-registry-server_internal_service.Skill:
@@ -334,100 +347,6 @@ components:
         version:
           type: string
       type: object
-    v0.ServerJSON:
-      properties:
-        $schema:
-          example: https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json
-          format: uri
-          minLength: 1
-          type: string
-        _meta:
-          $ref: '#/components/schemas/v0.ServerMeta'
-        description:
-          example: MCP server providing weather data and forecasts via OpenWeatherMap API
-          maxLength: 100
-          minLength: 1
-          type: string
-        icons:
-          items:
-            $ref: '#/components/schemas/model.Icon'
-          type: array
-          uniqueItems: false
-        name:
-          example: io.github.user/weather
-          maxLength: 200
-          minLength: 3
-          pattern: ^[a-zA-Z0-9.-]+/[a-zA-Z0-9._-]+$
-          type: string
-        packages:
-          items:
-            $ref: '#/components/schemas/model.Package'
-          type: array
-          uniqueItems: false
-        remotes:
-          items:
-            $ref: '#/components/schemas/model.Transport'
-          type: array
-          uniqueItems: false
-        repository:
-          $ref: '#/components/schemas/model.Repository'
-        title:
-          example: Weather API
-          maxLength: 100
-          minLength: 1
-          type: string
-        version:
-          example: 1.0.2
-          maxLength: 255
-          minLength: 1
-          type: string
-        websiteUrl:
-          example: https://modelcontextprotocol.io/examples
-          format: uri
-          type: string
-      type: object
-    model.Argument:
-      properties:
-        choices:
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        default:
-          type: string
-        description:
-          type: string
-        format:
-          $ref: '#/components/schemas/model.Format'
-        isRepeated:
-          type: boolean
-        isRequired:
-          type: boolean
-        isSecret:
-          type: boolean
-        name:
-          example: --port
-          type: string
-        placeholder:
-          type: string
-        type:
-          $ref: '#/components/schemas/model.ArgumentType'
-        value:
-          type: string
-        valueHint:
-          example: file_path
-          type: string
-        variables:
-          additionalProperties:
-            $ref: '#/components/schemas/model.Input'
-          type: object
-      type: object
-    internal_api_v1.updateEntryClaimsRequest:
-      properties:
-        claims:
-          additionalProperties: {}
-          type: object
-      type: object
     github_com_stacklok_toolhive-registry-server_internal_service.SkillIcon:
       properties:
         label:
@@ -437,6 +356,22 @@ components:
         src:
           type: string
         type:
+          type: string
+      type: object
+    model.ArgumentType:
+      enum:
+      - positional
+      - named
+      example: positional
+      type: string
+      x-enum-varnames:
+      - ArgumentTypePositional
+      - ArgumentTypeNamed
+    github_com_stacklok_toolhive-registry-server_internal_service.SkillRepository:
+      properties:
+        type:
+          type: string
+        url:
           type: string
       type: object
     model.Package:
@@ -492,78 +427,18 @@ components:
           minLength: 1
           type: string
       type: object
-    model.Icon:
-      properties:
-        mimeType:
-          example: image/png
-          type: string
-        sizes:
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        src:
-          example: https://example.com/icon.png
-          format: uri
-          maxLength: 255
-          type: string
-        theme:
-          type: string
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SkillRepository:
-      properties:
-        type:
-          type: string
-        url:
-          type: string
-      type: object
-    model.Input:
-      properties:
-        choices:
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        default:
-          type: string
-        description:
-          type: string
-        format:
-          $ref: '#/components/schemas/model.Format'
-        isRequired:
-          type: boolean
-        isSecret:
-          type: boolean
-        placeholder:
-          type: string
-        value:
-          type: string
-      type: object
-    model.Transport:
-      description: Transport is required and specifies the transport protocol configuration
-      properties:
-        headers:
-          items:
-            $ref: '#/components/schemas/model.KeyValueInput'
-          type: array
-          uniqueItems: false
-        type:
-          example: stdio
-          type: string
-        url:
-          example: https://api.example.com/mcp
-          type: string
-        variables:
-          additionalProperties:
-            $ref: '#/components/schemas/model.Input'
-          type: object
-      type: object
-    v0.ServerMeta:
-      properties:
-        io.modelcontextprotocol.registry/publisher-provided:
-          additionalProperties: {}
-          type: object
-      type: object
+    model.Format:
+      enum:
+      - string
+      - number
+      - boolean
+      - filepath
+      type: string
+      x-enum-varnames:
+      - FormatString
+      - FormatNumber
+      - FormatBoolean
+      - FormatFilePath
     internal_api_v1.publishEntryRequest:
       properties:
         claims:
@@ -574,31 +449,12 @@ components:
         skill:
           $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.Skill'
       type: object
-    model.Repository:
+    internal_api_v1.updateEntryClaimsRequest:
       properties:
-        id:
-          example: b94b5f7e-c7c6-d760-2c78-a5e9b8a5b8c9
-          type: string
-        source:
-          example: github
-          type: string
-        subfolder:
-          example: src/everything
-          type: string
-        url:
-          example: https://github.com/modelcontextprotocol/servers
-          format: uri
-          type: string
+        claims:
+          additionalProperties: {}
+          type: object
       type: object
-    model.ArgumentType:
-      enum:
-      - positional
-      - named
-      example: positional
-      type: string
-      x-enum-varnames:
-      - ArgumentTypePositional
-      - ArgumentTypeNamed
     model.KeyValueInput:
       properties:
         choices:
@@ -628,6 +484,58 @@ components:
             $ref: '#/components/schemas/model.Input'
           type: object
       type: object
+    model.Repository:
+      properties:
+        id:
+          example: b94b5f7e-c7c6-d760-2c78-a5e9b8a5b8c9
+          type: string
+        source:
+          example: github
+          type: string
+        subfolder:
+          example: src/everything
+          type: string
+        url:
+          example: https://github.com/modelcontextprotocol/servers
+          format: uri
+          type: string
+      type: object
+    model.Argument:
+      properties:
+        choices:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        default:
+          type: string
+        description:
+          type: string
+        format:
+          $ref: '#/components/schemas/model.Format'
+        isRepeated:
+          type: boolean
+        isRequired:
+          type: boolean
+        isSecret:
+          type: boolean
+        name:
+          example: --port
+          type: string
+        placeholder:
+          type: string
+        type:
+          $ref: '#/components/schemas/model.ArgumentType'
+        value:
+          type: string
+        valueHint:
+          example: file_path
+          type: string
+        variables:
+          additionalProperties:
+            $ref: '#/components/schemas/model.Input'
+          type: object
+      type: object
     github_com_stacklok_toolhive-registry-server_internal_service.SkillPackage:
       properties:
         commit:
@@ -647,18 +555,110 @@ components:
         url:
           type: string
       type: object
-    model.Format:
-      enum:
-      - string
-      - number
-      - boolean
-      - filepath
-      type: string
-      x-enum-varnames:
-      - FormatString
-      - FormatNumber
-      - FormatBoolean
-      - FormatFilePath
+    v0.ServerJSON:
+      properties:
+        $schema:
+          example: https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json
+          format: uri
+          minLength: 1
+          type: string
+        _meta:
+          $ref: '#/components/schemas/v0.ServerMeta'
+        description:
+          example: MCP server providing weather data and forecasts via OpenWeatherMap API
+          maxLength: 100
+          minLength: 1
+          type: string
+        icons:
+          items:
+            $ref: '#/components/schemas/model.Icon'
+          type: array
+          uniqueItems: false
+        name:
+          example: io.github.user/weather
+          maxLength: 200
+          minLength: 3
+          pattern: ^[a-zA-Z0-9.-]+/[a-zA-Z0-9._-]+$
+          type: string
+        packages:
+          items:
+            $ref: '#/components/schemas/model.Package'
+          type: array
+          uniqueItems: false
+        remotes:
+          items:
+            $ref: '#/components/schemas/model.Transport'
+          type: array
+          uniqueItems: false
+        repository:
+          $ref: '#/components/schemas/model.Repository'
+        title:
+          example: Weather API
+          maxLength: 100
+          minLength: 1
+          type: string
+        version:
+          example: 1.0.2
+          maxLength: 255
+          minLength: 1
+          type: string
+        websiteUrl:
+          example: https://modelcontextprotocol.io/examples
+          format: uri
+          type: string
+      type: object
+    model.Icon:
+      properties:
+        mimeType:
+          example: image/png
+          type: string
+        sizes:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        src:
+          example: https://example.com/icon.png
+          format: uri
+          maxLength: 255
+          type: string
+        theme:
+          type: string
+      type: object
+    internal_api_v1.entryClaimsResponse:
+      properties:
+        claims:
+          additionalProperties: {}
+          type: object
+      type: object
+    v0.ServerMeta:
+      properties:
+        io.modelcontextprotocol.registry/publisher-provided:
+          additionalProperties: {}
+          type: object
+      type: object
+    model.Input:
+      properties:
+        choices:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        default:
+          type: string
+        description:
+          type: string
+        format:
+          $ref: '#/components/schemas/model.Format'
+        isRequired:
+          type: boolean
+        isSecret:
+          type: boolean
+        placeholder:
+          type: string
+        value:
+          type: string
+      type: object
   securitySchemes:
     BearerAuth:
       description: 'OAuth 2.0 Bearer token authentication. Format: "Bearer {token}"'

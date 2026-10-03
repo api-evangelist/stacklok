@@ -2,10 +2,13 @@
   "provider": "stacklok",
   "sources": [
     "_original/stacklok-toolhive-api-openapi.yml",
+    "stacklok-entries-api-openapi.yml",
+    "stacklok-me-api-openapi.yml",
+    "stacklok-registries-api-openapi.yml",
     "stacklok-registry-api-openapi.yml",
     "stacklok-skills-api-openapi.yml",
-    "stacklok-system-api-openapi.yml",
-    "stacklok-v1-api-openapi.yml"
+    "stacklok-sources-api-openapi.yml",
+    "stacklok-system-api-openapi.yml"
   ],
   "outputs": [
     "stacklok-clients-api-openapi.yml",
@@ -25,15 +28,16 @@
     "stacklok-registries-api-openapi.yml",
     "stacklok-sources-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [
+    "stacklok-entries-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /v1/entries post, /v1/entries/{type}/{name}/claims get, /v1/entries/{type}/{name}/claims put); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "stacklok-me-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v1/me get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "stacklok-registries-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /v1/registries get, /v1/registries/{name} delete, /v1/registries/{name} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
     "stacklok-registry-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /registry/{registryName}/v0.1/servers/{serverName}/versions get, /registry/{registryName}/v0.1/servers/{serverName}/versions/{version} get); its other 10 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
     "stacklok-skills-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name} get, /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name}/versions get, /registry/{registryName}/v0.1/x/dev.toolhive/skills/{namespace}/{name}/versions/{version} get); its other 10 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
-    "stacklok-system-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /openapi.json get); its other 2 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
-    "stacklok-v1-api-openapi.yml: previously refined output kept for 15 operation(s) no archived document covers (e.g. /v1/entries post, /v1/entries/{type}/{name}/claims get, /v1/entries/{type}/{name}/claims put); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+    "stacklok-sources-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /v1/sources get, /v1/sources/{name} delete, /v1/sources/{name} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "stacklok-system-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /openapi.json get); its other 2 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
   ],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
@@ -50,30 +54,10 @@
     "stacklok-toolhive-api-openapi.yml: declared missing tag: system",
     "stacklok-toolhive-api-openapi.yml: declared missing tag: version",
     "stacklok-toolhive-api-openapi.yml: declared missing tag: workloads",
-    "stacklok-v1-api-openapi.yml: tagged paths POST /v1/entries -> Entries",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/entries/{type}/{name}/claims -> Entries",
-    "stacklok-v1-api-openapi.yml: tagged paths PUT /v1/entries/{type}/{name}/claims -> Entries",
-    "stacklok-v1-api-openapi.yml: tagged paths DELETE /v1/entries/{type}/{name}/versions/{version} -> Entries",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/me -> Me",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/registries -> Registries",
-    "stacklok-v1-api-openapi.yml: tagged paths DELETE /v1/registries/{name} -> Registries",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/registries/{name} -> Registries",
-    "stacklok-v1-api-openapi.yml: tagged paths PUT /v1/registries/{name} -> Registries",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/registries/{name}/entries -> Registries",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/sources -> Sources",
-    "stacklok-v1-api-openapi.yml: tagged paths DELETE /v1/sources/{name} -> Sources",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/sources/{name} -> Sources",
-    "stacklok-v1-api-openapi.yml: tagged paths PUT /v1/sources/{name} -> Sources",
-    "stacklok-v1-api-openapi.yml: tagged paths GET /v1/sources/{name}/entries -> Sources",
-    "stacklok-v1-api-openapi.yml: declared missing tag: Entries",
-    "stacklok-v1-api-openapi.yml: declared missing tag: Me",
-    "stacklok-v1-api-openapi.yml: declared missing tag: Registries",
-    "stacklok-v1-api-openapi.yml: declared missing tag: Sources",
     "tag 'registry' spans 2 source specs (stacklok-toolhive-api-openapi.yml, stacklok-registry-api-openapi.yml): per-path servers applied",
     "tag 'skills' spans 2 source specs (stacklok-toolhive-api-openapi.yml, stacklok-skills-api-openapi.yml): per-path servers applied",
     "tag 'system' spans 2 source specs (stacklok-toolhive-api-openapi.yml, stacklok-system-api-openapi.yml): per-path servers applied",
-    "superseded outputs removed: stacklok-v1-api-openapi.yml",
-    "apis.yml register: written (+4 apis, 16 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "stacklok-clients-api-openapi.yml: previously refined output, superseded by openapi/_original/",

@@ -663,49 +663,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_stacklok_toolhive_pkg_skills.SkillMetadata:
-      description: Metadata contains the skill's metadata.
-      properties:
-        author:
-          description: Author is the skill author or maintainer.
-          type: string
-        description:
-          description: Description is a human-readable description of the skill.
-          type: string
-        name:
-          description: Name is the unique name of the skill.
-          type: string
-        tags:
-          description: Tags is a list of tags for categorization.
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        version:
-          description: Version is the semantic version of the skill.
-          type: string
-      type: object
-    github_com_stacklok_toolhive_pkg_skills.SkillFileEntry:
-      properties:
-        path:
-          description: Path is the file path within the artifact.
-          type: string
-        size:
-          description: Size is the uncompressed file size in bytes.
-          type: integer
-      type: object
-    pkg_api_v1.installSkillResponse:
-      description: Response after successfully installing a skill
-      properties:
-        skill:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstalledSkill'
-      type: object
-    github_com_stacklok_toolhive_pkg_skills.BuildResult:
-      properties:
-        reference:
-          description: Reference is the OCI reference of the built skill artifact.
-          type: string
-      type: object
     github_com_stacklok_toolhive_pkg_skills.SkillInfo:
       properties:
         installed_skill:
@@ -713,23 +670,103 @@ components:
         metadata:
           $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.SkillMetadata'
       type: object
+    pkg_api_v1.pushSkillRequest:
+      description: Request to push a built skill artifact
+      properties:
+        reference:
+          description: OCI reference to push
+          type: string
+      type: object
+    pkg_api_v1.buildListResponse:
+      description: Response containing a list of locally-built OCI skill artifacts
+      properties:
+        builds:
+          description: List of locally-built OCI skill artifacts
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.LocalBuild'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.Scope:
+      description: Scope for the installation
+      enum:
+      - user
+      - project
+      type: string
+      x-enum-varnames:
+      - ScopeUser
+      - ScopeProject
+    pkg_api_v1.installSkillRequest:
+      description: Request to install a skill
+      properties:
+        clients:
+          description: 'Clients lists target client identifiers (e.g., "claude-code"),
+
+            or ["all"] to target every skill-supporting client.
+
+            Omitting this field installs to all available clients.'
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        force:
+          description: Force allows overwriting unmanaged skill directories
+          type: boolean
+        group:
+          description: Group is the group name to add the skill to after installation
+          type: string
+        name:
+          description: Name or OCI reference of the skill to install
+          type: string
+        project_root:
+          description: ProjectRoot is the project root path for project-scoped installs
+          type: string
+        scope:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.Scope'
+        version:
+          description: Version to install (empty means latest)
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.InstallStatus:
+      description: Status is the current installation status.
+      enum:
+      - installed
+      - pending
+      - failed
+      type: string
+      x-enum-varnames:
+      - InstallStatusInstalled
+      - InstallStatusPending
+      - InstallStatusFailed
+    github_com_stacklok_toolhive_pkg_skills.BuildResult:
+      properties:
+        reference:
+          description: Reference is the OCI reference of the built skill artifact.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.LocalBuild:
+      properties:
+        description:
+          description: Description is the skill description extracted from the artifact metadata, if available.
+          type: string
+        digest:
+          description: Digest is the OCI digest of the artifact (sha256:...).
+          type: string
+        name:
+          description: Name is the skill name extracted from the artifact metadata, if available.
+          type: string
+        tag:
+          description: Tag is the OCI tag or name used to reference the artifact.
+          type: string
+        version:
+          description: Version is the skill version extracted from the artifact metadata, if available.
+          type: string
+      type: object
     pkg_api_v1.validateSkillRequest:
       description: Request to validate a skill definition
       properties:
         path:
           description: Path to the skill definition directory
-          type: string
-      type: object
-    github_com_stacklok_toolhive_pkg_skills.Dependency:
-      properties:
-        digest:
-          description: Digest is the OCI digest for upgrade detection.
-          type: string
-        name:
-          description: Name is the dependency name.
-          type: string
-        reference:
-          description: Reference is the OCI reference for the dependency.
           type: string
       type: object
     github_com_stacklok_toolhive_pkg_skills.InstalledSkill:
@@ -771,6 +808,40 @@ components:
           description: Tag is the OCI tag (e.g. v1.0.0).
           type: string
       type: object
+    github_com_stacklok_toolhive_pkg_skills.SkillMetadata:
+      description: Metadata contains the skill's metadata.
+      properties:
+        author:
+          description: Author is the skill author or maintainer.
+          type: string
+        description:
+          description: Description is a human-readable description of the skill.
+          type: string
+        name:
+          description: Name is the unique name of the skill.
+          type: string
+        tags:
+          description: Tags is a list of tags for categorization.
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        version:
+          description: Version is the semantic version of the skill.
+          type: string
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.Dependency:
+      properties:
+        digest:
+          description: Digest is the OCI digest for upgrade detection.
+          type: string
+        name:
+          description: Name is the dependency name.
+          type: string
+        reference:
+          description: Reference is the OCI reference for the dependency.
+          type: string
+      type: object
     github_com_stacklok_toolhive_pkg_skills.ValidationResult:
       properties:
         errors:
@@ -789,22 +860,39 @@ components:
           type: array
           uniqueItems: false
       type: object
-    github_com_stacklok_toolhive_pkg_skills.LocalBuild:
+    pkg_api_v1.installSkillResponse:
+      description: Response after successfully installing a skill
       properties:
-        description:
-          description: Description is the skill description extracted from the artifact metadata, if available.
+        skill:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstalledSkill'
+      type: object
+    github_com_stacklok_toolhive_pkg_skills.SkillFileEntry:
+      properties:
+        path:
+          description: Path is the file path within the artifact.
           type: string
-        digest:
-          description: Digest is the OCI digest of the artifact (sha256:...).
-          type: string
-        name:
-          description: Name is the skill name extracted from the artifact metadata, if available.
+        size:
+          description: Size is the uncompressed file size in bytes.
+          type: integer
+      type: object
+    pkg_api_v1.skillListResponse:
+      description: Response containing a list of installed skills
+      properties:
+        skills:
+          description: List of installed skills
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstalledSkill'
+          type: array
+          uniqueItems: false
+      type: object
+    pkg_api_v1.buildSkillRequest:
+      description: Request to build a skill from a local directory
+      properties:
+        path:
+          description: Path to the skill definition directory
           type: string
         tag:
-          description: Tag is the OCI tag or name used to reference the artifact.
-          type: string
-        version:
-          description: Version is the skill version extracted from the artifact metadata, if available.
+          description: OCI tag for the built artifact
           type: string
       type: object
     github_com_stacklok_toolhive_pkg_skills.SkillContent:
@@ -831,103 +919,44 @@ components:
           description: Version is the skill version from the OCI config labels.
           type: string
       type: object
-    pkg_api_v1.pushSkillRequest:
-      description: Request to push a built skill artifact
+    registry.SkillRepository:
+      description: Repository is the source repository of the skill.
       properties:
-        reference:
-          description: OCI reference to push
+        type:
+          description: Type is the type of the repository.
+          type: string
+        url:
+          description: URL is the URL of the repository.
           type: string
       type: object
-    github_com_stacklok_toolhive_pkg_skills.Scope:
-      description: Scope for the installation
-      enum:
-      - user
-      - project
-      type: string
-      x-enum-varnames:
-      - ScopeUser
-      - ScopeProject
-    pkg_api_v1.buildListResponse:
-      description: Response containing a list of locally-built OCI skill artifacts
+    registry.SkillPackage:
       properties:
-        builds:
-          description: List of locally-built OCI skill artifacts
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.LocalBuild'
-          type: array
-          uniqueItems: false
-      type: object
-    github_com_stacklok_toolhive_pkg_skills.InstallStatus:
-      description: Status is the current installation status.
-      enum:
-      - installed
-      - pending
-      - failed
-      type: string
-      x-enum-varnames:
-      - InstallStatusInstalled
-      - InstallStatusPending
-      - InstallStatusFailed
-    pkg_api_v1.installSkillRequest:
-      description: Request to install a skill
-      properties:
-        clients:
-          description: 'Clients lists target client identifiers (e.g., "claude-code"),
+        commit:
+          description: Commit is the commit of the package.
+          type: string
+        digest:
+          description: Digest is the digest of the package.
+          type: string
+        identifier:
+          description: Identifier is the OCI identifier of the package.
+          type: string
+        mediaType:
+          description: MediaType is the media type of the package.
+          type: string
+        ref:
+          description: Ref is the reference of the package.
+          type: string
+        registryType:
+          description: 'RegistryType is the type of registry the package is from.
 
-            or ["all"] to target every skill-supporting client.
-
-            Omitting this field installs to all available clients.'
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        force:
-          description: Force allows overwriting unmanaged skill directories
-          type: boolean
-        group:
-          description: Group is the group name to add the skill to after installation
+            Can be "oci" or "git".'
           type: string
-        name:
-          description: Name or OCI reference of the skill to install
+        subfolder:
+          description: Subfolder is the subfolder of the package.
           type: string
-        project_root:
-          description: ProjectRoot is the project root path for project-scoped installs
+        url:
+          description: URL is the URL of the package.
           type: string
-        scope:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.Scope'
-        version:
-          description: Version to install (empty means latest)
-          type: string
-      type: object
-    pkg_api_v1.buildSkillRequest:
-      description: Request to build a skill from a local directory
-      properties:
-        path:
-          description: Path to the skill definition directory
-          type: string
-        tag:
-          description: OCI tag for the built artifact
-          type: string
-      type: object
-    pkg_api_v1.skillListResponse:
-      description: Response containing a list of installed skills
-      properties:
-        skills:
-          description: List of installed skills
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_skills.InstalledSkill'
-          type: array
-          uniqueItems: false
-      type: object
-    internal_api_x_skills.SkillListResponse:
-      properties:
-        metadata:
-          $ref: '#/components/schemas/internal_api_x_skills.SkillListMetadata'
-        skills:
-          items:
-            $ref: '#/components/schemas/registry.Skill'
-          type: array
-          uniqueItems: false
       type: object
     registry.Skill:
       properties:
@@ -1015,50 +1044,21 @@ components:
           description: Type is the type of the icon.
           type: string
       type: object
-    registry.SkillRepository:
-      description: Repository is the source repository of the skill.
+    internal_api_x_skills.SkillListResponse:
       properties:
-        type:
-          description: Type is the type of the repository.
-          type: string
-        url:
-          description: URL is the URL of the repository.
-          type: string
+        metadata:
+          $ref: '#/components/schemas/internal_api_x_skills.SkillListMetadata'
+        skills:
+          items:
+            $ref: '#/components/schemas/registry.Skill'
+          type: array
+          uniqueItems: false
       type: object
     internal_api_x_skills.SkillListMetadata:
       properties:
         count:
           type: integer
         nextCursor:
-          type: string
-      type: object
-    registry.SkillPackage:
-      properties:
-        commit:
-          description: Commit is the commit of the package.
-          type: string
-        digest:
-          description: Digest is the digest of the package.
-          type: string
-        identifier:
-          description: Identifier is the OCI identifier of the package.
-          type: string
-        mediaType:
-          description: MediaType is the media type of the package.
-          type: string
-        ref:
-          description: Ref is the reference of the package.
-          type: string
-        registryType:
-          description: 'RegistryType is the type of registry the package is from.
-
-            Can be "oci" or "git".'
-          type: string
-        subfolder:
-          description: Subfolder is the subfolder of the package.
-          type: string
-        url:
-          description: URL is the URL of the package.
           type: string
       type: object
   securitySchemes:
