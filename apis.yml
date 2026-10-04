@@ -202,6 +202,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/stacklok-capability-edges.yml
+  name: Stacklok Business Capability Map
 - type: AgentSkill
   url: skills/stacklok-discover-and-run-mcp-server.md
 - type: X-MCPServerCandidate
