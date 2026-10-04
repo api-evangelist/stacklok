@@ -144,6 +144,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    pkg_api_v1.createGroupResponse:
+      properties:
+        name:
+          description: Name of the created group
+          type: string
+      type: object
     pkg_api_v1.groupListResponse:
       properties:
         groups:
@@ -157,12 +163,6 @@ components:
       properties:
         name:
           description: Name of the group to create
-          type: string
-      type: object
-    pkg_api_v1.createGroupResponse:
-      properties:
-        name:
-          description: Name of the created group
           type: string
       type: object
     github_com_stacklok_toolhive_pkg_groups.Group:

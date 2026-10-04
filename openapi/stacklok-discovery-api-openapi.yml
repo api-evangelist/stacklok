@@ -25,14 +25,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    pkg_api_v1.clientStatusResponse:
-      properties:
-        clients:
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientAppStatus'
-          type: array
-          uniqueItems: false
-      type: object
     github_com_stacklok_toolhive_pkg_client.ClientApp:
       description: ClientType is the type of MCP client
       enum:
@@ -102,6 +94,14 @@ components:
         supports_skills:
           description: SupportsSkills indicates whether ToolHive can install skills for this client
           type: boolean
+      type: object
+    pkg_api_v1.clientStatusResponse:
+      properties:
+        clients:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientAppStatus'
+          type: array
+          uniqueItems: false
       type: object
 externalDocs:
   description: ''

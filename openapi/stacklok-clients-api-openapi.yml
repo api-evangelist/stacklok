@@ -178,6 +178,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    pkg_api_v1.createClientResponse:
+      properties:
+        groups:
+          description: Groups is the list of groups configured on the client.
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        name:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
+      type: object
     pkg_api_v1.createClientRequest:
       properties:
         groups:
@@ -203,6 +214,16 @@ components:
             $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
           type: array
           uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive_pkg_client.RegisteredClient:
+      properties:
+        groups:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        name:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
       type: object
     github_com_stacklok_toolhive_pkg_client.ClientApp:
       description: ClientType is the type of MCP client
@@ -257,27 +278,6 @@ components:
       - KimiCli
       - Factory
       - CopilotCli
-    pkg_api_v1.createClientResponse:
-      properties:
-        groups:
-          description: Groups is the list of groups configured on the client.
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        name:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
-      type: object
-    github_com_stacklok_toolhive_pkg_client.RegisteredClient:
-      properties:
-        groups:
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        name:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive_pkg_client.ClientApp'
-      type: object
 externalDocs:
   description: ''
   url: ''

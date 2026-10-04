@@ -250,15 +250,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_stacklok_toolhive-registry-server_internal_service.CreationType:
-      description: API or CONFIG
-      enum:
-      - API
-      - CONFIG
-      type: string
-      x-enum-varnames:
-      - CreationTypeAPI
-      - CreationTypeCONFIG
     github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntryInfo:
       properties:
         createdAt:
@@ -280,14 +271,15 @@ components:
         version:
           type: string
       type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntriesResponse:
-      properties:
-        entries:
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntryInfo'
-          type: array
-          uniqueItems: false
-      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.CreationType:
+      description: API or CONFIG
+      enum:
+      - API
+      - CONFIG
+      type: string
+      x-enum-varnames:
+      - CreationTypeAPI
+      - CreationTypeCONFIG
     github_com_stacklok_toolhive-registry-server_internal_service.RegistryCreateRequest:
       properties:
         claims:
@@ -298,6 +290,14 @@ components:
           description: ordered list of source names
           items:
             type: string
+          type: array
+          uniqueItems: false
+      type: object
+    internal_api_v1.registryListResponse:
+      properties:
+        registries:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
           type: array
           uniqueItems: false
       type: object
@@ -320,11 +320,11 @@ components:
         updatedAt:
           type: string
       type: object
-    internal_api_v1.registryListResponse:
+    github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntriesResponse:
       properties:
-        registries:
+        entries:
           items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntryInfo'
           type: array
           uniqueItems: false
       type: object

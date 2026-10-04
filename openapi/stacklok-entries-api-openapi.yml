@@ -278,102 +278,43 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    model.Transport:
-      description: Transport is required and specifies the transport protocol configuration
+    internal_api_v1.entryClaimsResponse:
       properties:
-        headers:
-          items:
-            $ref: '#/components/schemas/model.KeyValueInput'
-          type: array
-          uniqueItems: false
-        type:
-          example: stdio
+        claims:
+          additionalProperties: {}
+          type: object
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SkillPackage:
+      properties:
+        commit:
+          type: string
+        digest:
+          type: string
+        identifier:
+          type: string
+        mediaType:
+          type: string
+        ref:
+          type: string
+        registryType:
+          type: string
+        subfolder:
           type: string
         url:
-          example: https://api.example.com/mcp
-          type: string
-        variables:
-          additionalProperties:
-            $ref: '#/components/schemas/model.Input'
-          type: object
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.Skill:
-      properties:
-        _meta:
-          additionalProperties: {}
-          type: object
-        allowedTools:
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        compatibility:
-          type: string
-        createdAt:
-          type: string
-        description:
-          type: string
-        icons:
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SkillIcon'
-          type: array
-          uniqueItems: false
-        id:
-          type: string
-        isLatest:
-          type: boolean
-        license:
-          type: string
-        metadata:
-          additionalProperties: {}
-          type: object
-        name:
-          type: string
-        namespace:
-          type: string
-        packages:
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SkillPackage'
-          type: array
-          uniqueItems: false
-        repository:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SkillRepository'
-        status:
-          type: string
-        title:
-          type: string
-        updatedAt:
-          type: string
-        version:
           type: string
       type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SkillIcon:
-      properties:
-        label:
-          type: string
-        size:
-          type: string
-        src:
-          type: string
-        type:
-          type: string
-      type: object
-    model.ArgumentType:
+    model.Format:
       enum:
-      - positional
-      - named
-      example: positional
+      - string
+      - number
+      - boolean
+      - filepath
       type: string
       x-enum-varnames:
-      - ArgumentTypePositional
-      - ArgumentTypeNamed
-    github_com_stacklok_toolhive-registry-server_internal_service.SkillRepository:
-      properties:
-        type:
-          type: string
-        url:
-          type: string
-      type: object
+      - FormatString
+      - FormatNumber
+      - FormatBoolean
+      - FormatFilePath
     model.Package:
       properties:
         environmentVariables:
@@ -425,134 +366,6 @@ components:
           example: 1.0.2
           maxLength: 255
           minLength: 1
-          type: string
-      type: object
-    model.Format:
-      enum:
-      - string
-      - number
-      - boolean
-      - filepath
-      type: string
-      x-enum-varnames:
-      - FormatString
-      - FormatNumber
-      - FormatBoolean
-      - FormatFilePath
-    internal_api_v1.publishEntryRequest:
-      properties:
-        claims:
-          additionalProperties: {}
-          type: object
-        server:
-          $ref: '#/components/schemas/v0.ServerJSON'
-        skill:
-          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.Skill'
-      type: object
-    internal_api_v1.updateEntryClaimsRequest:
-      properties:
-        claims:
-          additionalProperties: {}
-          type: object
-      type: object
-    model.KeyValueInput:
-      properties:
-        choices:
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        default:
-          type: string
-        description:
-          type: string
-        format:
-          $ref: '#/components/schemas/model.Format'
-        isRequired:
-          type: boolean
-        isSecret:
-          type: boolean
-        name:
-          example: SOME_VARIABLE
-          type: string
-        placeholder:
-          type: string
-        value:
-          type: string
-        variables:
-          additionalProperties:
-            $ref: '#/components/schemas/model.Input'
-          type: object
-      type: object
-    model.Repository:
-      properties:
-        id:
-          example: b94b5f7e-c7c6-d760-2c78-a5e9b8a5b8c9
-          type: string
-        source:
-          example: github
-          type: string
-        subfolder:
-          example: src/everything
-          type: string
-        url:
-          example: https://github.com/modelcontextprotocol/servers
-          format: uri
-          type: string
-      type: object
-    model.Argument:
-      properties:
-        choices:
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-        default:
-          type: string
-        description:
-          type: string
-        format:
-          $ref: '#/components/schemas/model.Format'
-        isRepeated:
-          type: boolean
-        isRequired:
-          type: boolean
-        isSecret:
-          type: boolean
-        name:
-          example: --port
-          type: string
-        placeholder:
-          type: string
-        type:
-          $ref: '#/components/schemas/model.ArgumentType'
-        value:
-          type: string
-        valueHint:
-          example: file_path
-          type: string
-        variables:
-          additionalProperties:
-            $ref: '#/components/schemas/model.Input'
-          type: object
-      type: object
-    github_com_stacklok_toolhive-registry-server_internal_service.SkillPackage:
-      properties:
-        commit:
-          type: string
-        digest:
-          type: string
-        identifier:
-          type: string
-        mediaType:
-          type: string
-        ref:
-          type: string
-        registryType:
-          type: string
-        subfolder:
-          type: string
-        url:
           type: string
       type: object
     v0.ServerJSON:
@@ -607,6 +420,35 @@ components:
           format: uri
           type: string
       type: object
+    model.KeyValueInput:
+      properties:
+        choices:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        default:
+          type: string
+        description:
+          type: string
+        format:
+          $ref: '#/components/schemas/model.Format'
+        isRequired:
+          type: boolean
+        isSecret:
+          type: boolean
+        name:
+          example: SOME_VARIABLE
+          type: string
+        placeholder:
+          type: string
+        value:
+          type: string
+        variables:
+          additionalProperties:
+            $ref: '#/components/schemas/model.Input'
+          type: object
+      type: object
     model.Icon:
       properties:
         mimeType:
@@ -625,16 +467,107 @@ components:
         theme:
           type: string
       type: object
-    internal_api_v1.entryClaimsResponse:
+    model.ArgumentType:
+      enum:
+      - positional
+      - named
+      example: positional
+      type: string
+      x-enum-varnames:
+      - ArgumentTypePositional
+      - ArgumentTypeNamed
+    model.Argument:
+      properties:
+        choices:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        default:
+          type: string
+        description:
+          type: string
+        format:
+          $ref: '#/components/schemas/model.Format'
+        isRepeated:
+          type: boolean
+        isRequired:
+          type: boolean
+        isSecret:
+          type: boolean
+        name:
+          example: --port
+          type: string
+        placeholder:
+          type: string
+        type:
+          $ref: '#/components/schemas/model.ArgumentType'
+        value:
+          type: string
+        valueHint:
+          example: file_path
+          type: string
+        variables:
+          additionalProperties:
+            $ref: '#/components/schemas/model.Input'
+          type: object
+      type: object
+    model.Repository:
+      properties:
+        id:
+          example: b94b5f7e-c7c6-d760-2c78-a5e9b8a5b8c9
+          type: string
+        source:
+          example: github
+          type: string
+        subfolder:
+          example: src/everything
+          type: string
+        url:
+          example: https://github.com/modelcontextprotocol/servers
+          format: uri
+          type: string
+      type: object
+    internal_api_v1.updateEntryClaimsRequest:
       properties:
         claims:
           additionalProperties: {}
           type: object
       type: object
-    v0.ServerMeta:
+    internal_api_v1.publishEntryRequest:
       properties:
-        io.modelcontextprotocol.registry/publisher-provided:
+        claims:
           additionalProperties: {}
+          type: object
+        server:
+          $ref: '#/components/schemas/v0.ServerJSON'
+        skill:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.Skill'
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SkillRepository:
+      properties:
+        type:
+          type: string
+        url:
+          type: string
+      type: object
+    model.Transport:
+      description: Transport is required and specifies the transport protocol configuration
+      properties:
+        headers:
+          items:
+            $ref: '#/components/schemas/model.KeyValueInput'
+          type: array
+          uniqueItems: false
+        type:
+          example: stdio
+          type: string
+        url:
+          example: https://api.example.com/mcp
+          type: string
+        variables:
+          additionalProperties:
+            $ref: '#/components/schemas/model.Input'
           type: object
       type: object
     model.Input:
@@ -657,6 +590,73 @@ components:
         placeholder:
           type: string
         value:
+          type: string
+      type: object
+    v0.ServerMeta:
+      properties:
+        io.modelcontextprotocol.registry/publisher-provided:
+          additionalProperties: {}
+          type: object
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.SkillIcon:
+      properties:
+        label:
+          type: string
+        size:
+          type: string
+        src:
+          type: string
+        type:
+          type: string
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.Skill:
+      properties:
+        _meta:
+          additionalProperties: {}
+          type: object
+        allowedTools:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+        compatibility:
+          type: string
+        createdAt:
+          type: string
+        description:
+          type: string
+        icons:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SkillIcon'
+          type: array
+          uniqueItems: false
+        id:
+          type: string
+        isLatest:
+          type: boolean
+        license:
+          type: string
+        metadata:
+          additionalProperties: {}
+          type: object
+        name:
+          type: string
+        namespace:
+          type: string
+        packages:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SkillPackage'
+          type: array
+          uniqueItems: false
+        repository:
+          $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.SkillRepository'
+        status:
+          type: string
+        title:
+          type: string
+        updatedAt:
+          type: string
+        version:
           type: string
       type: object
   securitySchemes:

@@ -109,6 +109,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    registry.SkillIcon:
+      properties:
+        label:
+          description: Label is the label of the icon.
+          type: string
+        size:
+          description: Size is the size of the icon.
+          type: string
+        src:
+          description: Src is the source of the icon.
+          type: string
+        type:
+          description: Type is the type of the icon.
+          type: string
+      type: object
     registry.SkillRepository:
       description: Repository is the source repository of the skill.
       properties:
@@ -119,33 +134,14 @@ components:
           description: URL is the URL of the repository.
           type: string
       type: object
-    registry.SkillPackage:
+    pkg_api_v1.registryErrorResponse:
+      description: Structured error response returned by registry endpoints
       properties:
-        commit:
-          description: Commit is the commit of the package.
+        code:
+          description: Code is a machine-readable error code (e.g. "not_found", "registry_auth_required")
           type: string
-        digest:
-          description: Digest is the digest of the package.
-          type: string
-        identifier:
-          description: Identifier is the OCI identifier of the package.
-          type: string
-        mediaType:
-          description: MediaType is the media type of the package.
-          type: string
-        ref:
-          description: Ref is the reference of the package.
-          type: string
-        registryType:
-          description: 'RegistryType is the type of registry the package is from.
-
-            Can be "oci" or "git".'
-          type: string
-        subfolder:
-          description: Subfolder is the subfolder of the package.
-          type: string
-        url:
-          description: URL is the URL of the package.
+        message:
+          description: Message is a human-readable description of the error
           type: string
       type: object
     registry.Skill:
@@ -231,31 +227,6 @@ components:
           type: array
           uniqueItems: false
       type: object
-    pkg_api_v1.registryErrorResponse:
-      description: Structured error response returned by registry endpoints
-      properties:
-        code:
-          description: Code is a machine-readable error code (e.g. "not_found", "registry_auth_required")
-          type: string
-        message:
-          description: Message is a human-readable description of the error
-          type: string
-      type: object
-    registry.SkillIcon:
-      properties:
-        label:
-          description: Label is the label of the icon.
-          type: string
-        size:
-          description: Size is the size of the icon.
-          type: string
-        src:
-          description: Src is the source of the icon.
-          type: string
-        type:
-          description: Type is the type of the icon.
-          type: string
-      type: object
     pkg_api_v1.paginationV01Metadata:
       description: Metadata contains pagination information
       properties:
@@ -268,6 +239,35 @@ components:
         total:
           description: Total is the total number of items matching the query
           type: integer
+      type: object
+    registry.SkillPackage:
+      properties:
+        commit:
+          description: Commit is the commit of the package.
+          type: string
+        digest:
+          description: Digest is the digest of the package.
+          type: string
+        identifier:
+          description: Identifier is the OCI identifier of the package.
+          type: string
+        mediaType:
+          description: MediaType is the media type of the package.
+          type: string
+        ref:
+          description: Ref is the reference of the package.
+          type: string
+        registryType:
+          description: 'RegistryType is the type of registry the package is from.
+
+            Can be "oci" or "git".'
+          type: string
+        subfolder:
+          description: Subfolder is the subfolder of the package.
+          type: string
+        url:
+          description: URL is the URL of the package.
+          type: string
       type: object
 externalDocs:
   description: ''
