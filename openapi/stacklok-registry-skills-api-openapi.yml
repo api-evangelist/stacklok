@@ -109,6 +109,68 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    pkg_api_v1.registryErrorResponse:
+      description: Structured error response returned by registry endpoints
+      properties:
+        code:
+          description: Code is a machine-readable error code (e.g. "not_found", "registry_auth_required")
+          type: string
+        message:
+          description: Message is a human-readable description of the error
+          type: string
+      type: object
+    pkg_api_v1.paginationV01Metadata:
+      description: Metadata contains pagination information
+      properties:
+        limit:
+          description: Limit is the maximum number of items per page
+          type: integer
+        page:
+          description: Page is the current page number (1-based)
+          type: integer
+        total:
+          description: Total is the total number of items matching the query
+          type: integer
+      type: object
+    registry.SkillRepository:
+      description: Repository is the source repository of the skill.
+      properties:
+        type:
+          description: Type is the type of the repository.
+          type: string
+        url:
+          description: URL is the URL of the repository.
+          type: string
+      type: object
+    registry.SkillPackage:
+      properties:
+        commit:
+          description: Commit is the commit of the package.
+          type: string
+        digest:
+          description: Digest is the digest of the package.
+          type: string
+        identifier:
+          description: Identifier is the OCI identifier of the package.
+          type: string
+        mediaType:
+          description: MediaType is the media type of the package.
+          type: string
+        ref:
+          description: Ref is the reference of the package.
+          type: string
+        registryType:
+          description: 'RegistryType is the type of registry the package is from.
+
+            Can be "oci" or "git".'
+          type: string
+        subfolder:
+          description: Subfolder is the subfolder of the package.
+          type: string
+        url:
+          description: URL is the URL of the package.
+          type: string
+      type: object
     registry.SkillIcon:
       properties:
         label:
@@ -124,25 +186,17 @@ components:
           description: Type is the type of the icon.
           type: string
       type: object
-    registry.SkillRepository:
-      description: Repository is the source repository of the skill.
+    pkg_api_v1.skillsV01Response:
+      description: Paginated list of skills from the registry
       properties:
-        type:
-          description: Type is the type of the repository.
-          type: string
-        url:
-          description: URL is the URL of the repository.
-          type: string
-      type: object
-    pkg_api_v1.registryErrorResponse:
-      description: Structured error response returned by registry endpoints
-      properties:
-        code:
-          description: Code is a machine-readable error code (e.g. "not_found", "registry_auth_required")
-          type: string
-        message:
-          description: Message is a human-readable description of the error
-          type: string
+        metadata:
+          $ref: '#/components/schemas/pkg_api_v1.paginationV01Metadata'
+        skills:
+          description: Skills is the list of skills on the current page
+          items:
+            $ref: '#/components/schemas/registry.Skill'
+          type: array
+          uniqueItems: false
       type: object
     registry.Skill:
       properties:
@@ -213,60 +267,6 @@ components:
             Any non-empty string is valid, but ideally it should be either a
 
             semantic version or a commit hash.'
-          type: string
-      type: object
-    pkg_api_v1.skillsV01Response:
-      description: Paginated list of skills from the registry
-      properties:
-        metadata:
-          $ref: '#/components/schemas/pkg_api_v1.paginationV01Metadata'
-        skills:
-          description: Skills is the list of skills on the current page
-          items:
-            $ref: '#/components/schemas/registry.Skill'
-          type: array
-          uniqueItems: false
-      type: object
-    pkg_api_v1.paginationV01Metadata:
-      description: Metadata contains pagination information
-      properties:
-        limit:
-          description: Limit is the maximum number of items per page
-          type: integer
-        page:
-          description: Page is the current page number (1-based)
-          type: integer
-        total:
-          description: Total is the total number of items matching the query
-          type: integer
-      type: object
-    registry.SkillPackage:
-      properties:
-        commit:
-          description: Commit is the commit of the package.
-          type: string
-        digest:
-          description: Digest is the digest of the package.
-          type: string
-        identifier:
-          description: Identifier is the OCI identifier of the package.
-          type: string
-        mediaType:
-          description: MediaType is the media type of the package.
-          type: string
-        ref:
-          description: Ref is the reference of the package.
-          type: string
-        registryType:
-          description: 'RegistryType is the type of registry the package is from.
-
-            Can be "oci" or "git".'
-          type: string
-        subfolder:
-          description: Subfolder is the subfolder of the package.
-          type: string
-        url:
-          description: URL is the URL of the package.
           type: string
       type: object
 externalDocs:

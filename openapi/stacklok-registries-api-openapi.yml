@@ -280,27 +280,6 @@ components:
       x-enum-varnames:
       - CreationTypeAPI
       - CreationTypeCONFIG
-    github_com_stacklok_toolhive-registry-server_internal_service.RegistryCreateRequest:
-      properties:
-        claims:
-          additionalProperties: {}
-          description: Authorization claims
-          type: object
-        sources:
-          description: ordered list of source names
-          items:
-            type: string
-          type: array
-          uniqueItems: false
-      type: object
-    internal_api_v1.registryListResponse:
-      properties:
-        registries:
-          items:
-            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
-          type: array
-          uniqueItems: false
-      type: object
     github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo:
       properties:
         claims:
@@ -325,6 +304,27 @@ components:
         entries:
           items:
             $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryEntryInfo'
+          type: array
+          uniqueItems: false
+      type: object
+    github_com_stacklok_toolhive-registry-server_internal_service.RegistryCreateRequest:
+      properties:
+        claims:
+          additionalProperties: {}
+          description: Authorization claims
+          type: object
+        sources:
+          description: ordered list of source names
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    internal_api_v1.registryListResponse:
+      properties:
+        registries:
+          items:
+            $ref: '#/components/schemas/github_com_stacklok_toolhive-registry-server_internal_service.RegistryInfo'
           type: array
           uniqueItems: false
       type: object
